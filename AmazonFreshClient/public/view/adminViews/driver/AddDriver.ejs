@@ -1,3 +1,42 @@
-<p>
-    Add Driver Form
-</p>
+<h1>Add a Driver</h1>
+<form>
+    <div class="form-group">
+        <label>Driver ID</label>
+        <input class="form-control" type="text" required ng-model="form.driverid" name="driverid" id="driverid" pattern="[0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9]" title="Please enter in this format e.g. 232-32-4343" placeholder="Driver ID">
+    </div>
+    <div class="form-group">
+        <label>First Name</label>
+        <input class="form-control" type="text" required ng-model="form.firstname" name ="firstname" id="firstname" placeholder="First Name">
+    </div>
+    <div class="form-group">
+        <label >Last Name</label>
+        <input class="form-control" name="lastname" type="text" ng-model="form.lastname" required id="lastname" placeholder="Last Name">
+    </div>
+    <div class="form-group">
+        <label>Address</label>
+        <input class="form-control" type="text" required ng-model="form.address" name="address" id="address" placeholder="Address">
+    </div>
+    <div class="form-group">
+        <label>City</label>
+        <input class="form-control" name="city" type="text" ng-model="form.city" required id="city" placeholder="City">
+    </div>
+    <div class="form-group">
+        <label>State</label>
+        <input class="form-control" type="text" required ng-model="form.state" name="state" id="state" placeholder="State">
+    </div>
+    <div class="form-group">
+        <label>Zip Code</label>
+        <input class="form-control" required pattern="[0-9][0-9][0-9][0-9][0-9]" ng-model="form.zipcode" title="Please enter in this format e.g. " name="zipcode" id="zipcode" placeholder="Zip Code">
+    </div>
+    <div class="form-group">
+        <label>Email</label>
+        <input class="form-control" type="email" required ng-model="form.email" name="email" id="email" placeholder="Email">
+    </div>
+    <div class="form-group">
+        <label>Phone Number</label>
+        <input class="form-control" type="number" required ng-model="form.phonenumber" name="phonenumber" id="phonenumber" placeholder="Phone Number">
+    </div>
+    <div class="form-group">
+        <button type="submit" ng-click="addDriver();" class="btn btn-success">Add Driver</button>
+    </div>
+</form>

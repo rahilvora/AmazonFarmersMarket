@@ -1,3 +1,19 @@
-<p>
-    All Bills
-</p>
+<div>
+    <h1>List of Bills</h1>
+    <table class="table table-bordered table-striped">
+        <tr>
+            <th>Bill ID</th>
+            <th>Customer ID</th>
+            <th>Bill Data</th>
+            <th>Delivery Date</th>
+            <th>Total</th>
+        </tr>
+        <tr ng-repeat="bill in bills">
+            <td> {{bill.billid}} </td>
+            <td> {{bill.customerid}} </td>
+            <td> {{bill.billdate | date:'medium'}} </td>
+            <td> {{bill.deliverydate | date:'medium'}} </td>
+            <td> {{bill.total}} </td>
+        </tr>
+    </table>
+</div>

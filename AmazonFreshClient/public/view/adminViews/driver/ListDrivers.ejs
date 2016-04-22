@@ -1,3 +1,28 @@
-<p>
-    All Drivers
-</p>
+<div>
+    <h1>List of Drivers</h1>
+
+    <table class="table table-bordered table-striped">
+        <tr>
+            <th>Driver ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>email</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Zip Code</th>
+            <th>Phone</th>
+        </tr>
+        <tr ng-repeat="driver in drivers">
+            <td> {{driver.driverid}} </td>
+            <td> {{driver.firstname}} </td>
+            <td> {{driver.lastname}} </td>
+            <td> {{driver.email}} </td>
+            <td> {{driver.address}} </td>
+            <td> {{driver.city}} </td>
+            <td> {{driver.state}} </td>
+            <td> {{driver.zipcode}} </td>
+            <td> {{driver.phonenumber}} </td>
+        </tr>
+    </table>
+</div>

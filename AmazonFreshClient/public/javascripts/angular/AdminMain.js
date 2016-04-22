@@ -55,18 +55,18 @@ adminApp.controller("ProductController",["$scope","$http","$location",function($
 }]);
 
 adminApp.controller("DriverController",["$scope","$http","$location",function($scope,$http,$location){
-    $scope.driver = [];
+    $scope.drivers = [];
 
     //Get Requests
     $http.get('api/getDrivers').then(function(result){
         console.log(result.data);
-        $scope.driver = result.data;;
+        $scope.drivers = result.data;;
         //$location.path('/driver');
     });
 
     //Post Request
     $scope.addDriver = function(){
-        $http.put('api/addDriver').then(function(result){
+        $http.post('api/addDriver',$scope.form).then(function(result){
             $location.path('/driver');
         });
     }

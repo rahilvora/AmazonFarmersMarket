@@ -4,6 +4,7 @@
 var express = require('express');
 var router = express.Router();
 var connection = require('../MySQLConfig.js');
+var drivers = [];
 //farmer
 /* GET home page. */
 connection.connect(function(err) {
@@ -127,9 +128,27 @@ router.get('/getDrivers',function(req,res,next){
 });
 
 router.post('/addDriver',function(req,res){
-    //Update Query
-    var query = ""
-    res.send(200);
+    //Add Query
+    driver.push(req.body.driverid);
+
+    for(var drivers in drivers){
+        if(drivers[driver] == req.body.driverid){
+            res.send(400);
+        }
+    }
+    var query = "INSERT INTO `driverdetails` " +
+                "(`driverid`, `firstname`, `lastname`, `address`, `city`," +
+                " `state`, `zipcode`, `email`, `phonenumber`) VALUES " +
+                "('"+req.body.driverid+"', '"+req.body.firstname+"', '"+req.body.lastname+"', '"+req.body.address+"', " +
+                "'"+req.body.city+"', '"+req.body.state+"', '"+req.body.zipcode+"', '"+req.body.email+"', '"+req.body.phonenumber+"');";
+    connection.query(query,function(err,result){
+        if(err){
+            throw err;
+        }
+        else{
+            res.send(200);
+        }
+    });
 });
 
 router.get('/getBills',function(req,res){
