@@ -1,0 +1,24 @@
+
+<div>
+    <h1>Product Requests</h1>
+    <table class="table table-bordered table-striped">
+        <tr>
+            <th> Product ID </th>
+            <th> Product Name </th>
+            <th> Description </th>
+            <th> Product Price </th>
+            <th> Farmer ID </th>
+            <th> Accept </th>
+            <th> Decline </th>
+        </tr>
+        <tr ng-repeat="product in products">
+            <td> {{product.productid}} </td>
+            <td> {{product.productname}} </td>
+            <td> {{product.description}} </td>
+            <td> {{product.productprice}} </td>
+            <td> {{product.farmerid}} </td>
+            <td><button class="btn btn-success"> Accept</button></td>
+            <td><button class="btn btn-danger"> Reject</button></td>
+        </tr>
+    </table>
+</div>

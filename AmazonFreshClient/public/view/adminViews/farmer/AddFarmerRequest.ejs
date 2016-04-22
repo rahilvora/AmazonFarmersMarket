@@ -1,0 +1,29 @@
+<div>
+    <h1>Farmer Requests</h1>
+    <table class="table table-bordered table-striped">
+        <tr>
+            <th>Farmer ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>email</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Zip Code</th>
+            <th>Phone</th>
+        </tr>
+        <tr ng-repeat="farmer in farmersAvailable">
+            <td> {{farmer.farmerid}} </td>
+            <td> {{farmer.firstname}} </td>
+            <td> {{farmer.lastname}} </td>
+            <td> {{farmer.email}} </td>
+            <td> {{farmer.address}} </td>
+            <td> {{farmer.city}} </td>
+            <td> {{farmer.state}} </td>
+            <td> {{farmer.zipcode}} </td>
+            <td> {{farmer.phonenumber}} </td>
+            <td><button class="btn btn-success"> Accept</button></td>
+            <td><button class="btn btn-danger"> Reject</button></td>
+        </tr>
+    </table>
+</div>

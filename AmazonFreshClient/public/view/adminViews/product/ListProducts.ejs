@@ -1,0 +1,22 @@
+<p>
+    All Products
+</p>
+<div>
+    <h1>List of Products</h1>
+    <table class="table table-bordered table-striped">
+        <tr>
+            <th>Product ID</th>
+            <th>Product Name</th>
+            <th>Description</th>
+            <th>Product Price</th>
+            <th>Farmer ID</th>
+        </tr>
+        <tr ng-repeat="product in productsAvailable">
+            <td> {{product.productid}} </td>
+            <td> {{product.productname}} </td>
+            <td> {{product.description}} </td>
+            <td> {{product.productprice}} </td>
+            <td> {{product.farmerid}} </td>
+        </tr>
+    </table>
+</div>
