@@ -12,6 +12,8 @@
             <th>State</th>
             <th>Zip Code</th>
             <th>Phone</th>
+            <th>Edit</th>
+            <th>Delete</th>
         </tr>
         <tr ng-repeat="driver in drivers">
             <td> {{driver.driverid}} </td>
@@ -23,6 +25,8 @@
             <td> {{driver.state}} </td>
             <td> {{driver.zipcode}} </td>
             <td> {{driver.phonenumber}} </td>
+            <td><button ng-click="editDriver(driver.driverid)" class="btn btn-success"> Edit</button></td>
+            <td><button ng-click="deleteDriver(driver.driverid)" class="btn btn-danger"> Delete</button></td>
         </tr>
     </table>
 </div>

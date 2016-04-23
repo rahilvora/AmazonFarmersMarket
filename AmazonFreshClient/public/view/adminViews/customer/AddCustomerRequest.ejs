@@ -12,8 +12,8 @@
       <th>State</th>
       <th>Zip Code</th>
       <th>Phone</th>
-      <th> Accept </th>
-      <th> Decline </th>
+      <th>Accept</th>
+      <th>Decline</th>
     </tr>
     <tr ng-repeat="customer in customers">
       <td> {{customer.customerid}} </td>
@@ -25,8 +25,8 @@
       <td> {{customer.state}} </td>
       <td> {{customer.zipcode}} </td>
       <td> {{customer.phonenumber}} </td>
-      <td><button class="btn btn-success"> Accept</button></td>
-      <td><button class="btn btn-danger"> Reject</button></td>
+      <td><button ng-click="addCustomer(customer.customerid)" class="btn btn-success"> Accept</button></td>
+      <td><button ng-click="deleteCustomer(customer.customerid)" class="btn btn-danger"> Reject</button></td>
     </tr>
   </table>
 </div>

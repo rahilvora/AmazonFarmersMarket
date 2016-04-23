@@ -8,7 +8,9 @@ var adminApp = angular.module("AdminApp",["ngRoute"]);
 adminApp.controller("FarmerController", ["$scope", "$http", "$location", function($scope, $http, $location){
     $scope.farmersAvailable = [];
     $scope.farmers = [];
+
     //Get Requests
+
     $http.get('api/getFarmers').then(function(result){
         console.log(result.data);
         $scope.farmersAvailable = result.data;
@@ -21,12 +23,21 @@ adminApp.controller("FarmerController", ["$scope", "$http", "$location", functio
         //$location.path('/farmers/new');
     });
 
-    //Post Requests
-    $scope.addFarmer = function(){
-        $http.put('api/addFarmer').then(function(data){
+    //Put Requests
+
+    $scope.addFarmer = function(p_farmerid){
+        $http.put('api/addFarmer',{farmerid:p_farmerid}).then(function(data){
             $location.path('/farmers');
         })
-    }
+    };
+
+    //Delete Request
+
+    $scope.deleteFarmer = function(p_farmerid){
+        $http.delete('api/deleteFarmer',{params: {data:p_farmerid}}).then(function(data){
+            $location.path('/farmers');
+        })
+    };
 
 }]);
 
@@ -35,6 +46,7 @@ adminApp.controller("ProductController",["$scope","$http","$location",function($
     $scope.products = [];
 
     //Get Requests
+
     $http.get('api/getProducts').then(function(result){
         console.log(result.data);
         $scope.productsAvailable = result.data;
@@ -43,12 +55,22 @@ adminApp.controller("ProductController",["$scope","$http","$location",function($
 
     $http.get('api/getAddProductRequests').then(function(result){
         console.log(result.data);
-        $scope.products = result.data;;
+        $scope.products = result.data;
         //$location.path('/products/new');
     });
-    //Post Request
-    $scope.addProduct = function(){
-        $http.put('api/addProduct').then(function(result){
+
+    //Put Request
+
+    $scope.addProduct = function(p_productid){
+        $http.put('api/addProduct',{productid:p_productid}).then(function(result){
+            $location.path('/products');
+        });
+    }
+
+    //Delete Request
+
+    $scope.deleteProduct = function(p_productid){
+        $http.delete('api/deleteProduct',{params: {data:p_productid}}).then(function(result){
             $location.path('/products');
         });
     }
@@ -58,18 +80,37 @@ adminApp.controller("DriverController",["$scope","$http","$location",function($s
     $scope.drivers = [];
 
     //Get Requests
+
     $http.get('api/getDrivers').then(function(result){
         console.log(result.data);
-        $scope.drivers = result.data;;
+        $scope.drivers = result.data;
         //$location.path('/driver');
     });
 
     //Post Request
+
     $scope.addDriver = function(){
         $http.post('api/addDriver',$scope.form).then(function(result){
             $location.path('/driver');
         });
+    };
+
+    //Put Request
+
+    $scope.editDriver = function(){
+        $http.put('api/editDriver',$scope.form).then(function(result){
+            $location.path('/driver');
+        });
+    };
+
+    //Delete Request
+
+    $scope.deleteDriver = function(p_driverid){
+        $http.delete('api/deleteDriver',{params: {data:p_driverid}}).then(function(result){
+            $location.path('/driver');
+        });
     }
+
 }]);
 
 adminApp.controller("CustomerController", ["$scope", "$http", "$location", function($scope,$http,$location){
@@ -77,6 +118,7 @@ adminApp.controller("CustomerController", ["$scope", "$http", "$location", funct
     $scope.customers = [];
 
     //Get Requests
+
     $http.get('api/getCustomers').then(function(result){
         console.log(result.data);
         $scope.customersAvailable = result.data;
@@ -88,9 +130,20 @@ adminApp.controller("CustomerController", ["$scope", "$http", "$location", funct
         $scope.customers = result.data;
         //$location.path('/customers/new');
     });
-    //Post Requests
-    $scope.addCustomer = function(){
-        $http.put('api/addCustomer').then(function(result){
+
+    //Put Requests
+
+    $scope.addCustomer = function(p_customerid){
+        console.log(p_customerid);
+        $http.put('api/addCustomer',{customerid:p_customerid}).then(function(result){
+            $location.path('/customers');
+        });
+    };
+
+    //Delete Requests
+
+    $scope.deleteCustomer = function(p_customerid){
+        $http.delete('api/deleteCustomer',{params: {data:p_customerid}}).then(function(result){
             $location.path('/customers');
         });
     }
@@ -99,7 +152,8 @@ adminApp.controller("CustomerController", ["$scope", "$http", "$location", funct
 adminApp.controller("BillController", ["$scope", "$http", "$location", function($scope,$http,$location){
     $scope.bills = [];
 
-    //Get Request
+    //Get Requests
+
     $http.get('api/getBills').then(function(result){
         console.log(result.data);
         $scope.bills = result.data;
@@ -109,7 +163,8 @@ adminApp.controller("BillController", ["$scope", "$http", "$location", function(
 
 adminApp.controller("TripController", ["$scope", "$http", "$location", function($scope,$http,$location){
     $scope.trips = [];
-    //Get Request
+
+    //Get Requests
     $http.get('api/getTrips').then(function(result){
         console.log(result.data);
         $scope.trips = result.data;
@@ -126,7 +181,7 @@ adminApp.config(['$routeProvider',
                 templateUrl: '../view/adminViews/farmer/ListFarmers.ejs',
                 controller : 'FarmerController'
             }).
-            when('/farmer/new',{
+            when('/farmers/new',{
                 templateUrl: '../view/adminViews/farmer/AddFarmerRequest.ejs',
                 controller: 'FarmerController'
             }).

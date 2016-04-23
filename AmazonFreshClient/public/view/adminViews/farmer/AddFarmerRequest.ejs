@@ -11,8 +11,10 @@
             <th>State</th>
             <th>Zip Code</th>
             <th>Phone</th>
+            <th>Accept</th>
+            <th>Decline</th>
         </tr>
-        <tr ng-repeat="farmer in farmersAvailable">
+        <tr ng-repeat="farmer in farmers">
             <td> {{farmer.farmerid}} </td>
             <td> {{farmer.firstname}} </td>
             <td> {{farmer.lastname}} </td>
@@ -22,8 +24,8 @@
             <td> {{farmer.state}} </td>
             <td> {{farmer.zipcode}} </td>
             <td> {{farmer.phonenumber}} </td>
-            <td><button class="btn btn-success"> Accept</button></td>
-            <td><button class="btn btn-danger"> Reject</button></td>
+            <td><button ng-click="addFarmer(farmer.farmerid)" class="btn btn-success"> Accept</button></td>
+            <td><button ng-click="deleteFarmer(farmer.farmerid)" class="btn btn-danger"> Reject</button></td>
         </tr>
     </table>
 </div>

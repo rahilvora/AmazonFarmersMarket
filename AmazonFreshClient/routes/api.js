@@ -5,8 +5,9 @@ var express = require('express');
 var router = express.Router();
 var connection = require('../MySQLConfig.js');
 var drivers = [];
-//farmer
-/* GET home page. */
+
+//Connecting to MySQL
+
 connection.connect(function(err) {
     if (err) {
         console.error('error connecting: ' + err.stack);
@@ -14,10 +15,8 @@ connection.connect(function(err) {
     }
     console.log('connected as id ' + connection.threadId);
 });
-/* GET users listing. */
-//router.get('/', function(req, res, next) {
-//    res.send('respond with a resource');
-//});
+
+//Farmer's Requests
 
 router.get('/getFarmers',function(req,res,next){
     var query = "SELECT * FROM `farmerdetails` WHERE flag <> 0";
@@ -29,7 +28,6 @@ router.get('/getFarmers',function(req,res,next){
             res.send(result);
         }
     })
-    //res.send({"name":"rahil","sexy":"male"});
 });
 
 router.get('/getAddFarmerRequests',function(req,res,next){
@@ -42,14 +40,37 @@ router.get('/getAddFarmerRequests',function(req,res,next){
             res.send(result);
         }
     })
-    //res.send({"name":"rahil","sexy":"male"});
 });
 
 router.put('/addFarmer',function(req,res){
     //Update Query
-    var query = ""
+    var query = "UPDATE farmerdetails SET flag = 1 where farmerid = '" + req.body.farmerid +"'";
+    connection.query(query,function(err,result){
+        if(err){
+            throw err;
+        }
+        else{
+            res.send(200);
+        }
+    });
 
 });
+
+router.delete('/deleteFarmer',function(req,res){
+    //Update Query
+    var query = "DELETE FROM farmerdetails where farmerid = '" +req.query.data+ "'";
+    connection.query(query,function(err,result){
+        if(err){
+            throw err;
+        }
+        else{
+            res.send(200);
+        }
+    });
+
+});
+
+//Product Requests
 
 router.get('/getProducts',function(req,res,next){
     var query = "SELECT * FROM `productdetails` WHERE flag <> 0";
@@ -61,7 +82,6 @@ router.get('/getProducts',function(req,res,next){
             res.send(result);
         }
     });
-    //res.send({"name":"rahil","sexy":"male"});
 });
 
 router.get('/getAddProductRequests',function(req,res,next){
@@ -74,14 +94,35 @@ router.get('/getAddProductRequests',function(req,res,next){
             res.send(result);
         }
     });
-    //res.send({"name":"rahil","sexy":"male"});
 });
 
 router.put('/addProduct',function(req,res){
     //Update Query
-    var query = "";
-    res.send(200);
+    var query = "UPDATE productdetails SET flag = 1 where productid = '" + req.body.productid +"'";
+    connection.query(query,function(err,result){
+        if(err){
+            throw err;
+        }
+        else{
+            res.send(200);
+        }
+    });
 });
+
+router.delete('/deleteProduct',function(req,res){
+    //Update Query
+    var query = "DELETE FROM productdetails where productid = '" +req.query.data+ "'";
+    connection.query(query,function(err,result){
+        if(err){
+            throw err;
+        }
+        else{
+            res.send(200);
+        }
+    });
+});
+
+//Customer Requests
 
 router.get('/getCustomers',function(req,res,next){
     var query = "SELECT * FROM `customerdetails` WHERE flag <> 0";
@@ -93,7 +134,6 @@ router.get('/getCustomers',function(req,res,next){
             res.send(result);
         }
     });
-    //res.send({"name":"rahil","sexy":"male"});
 });
 
 router.get('/getAddCustomerRequests',function(req,res,next){
@@ -106,13 +146,34 @@ router.get('/getAddCustomerRequests',function(req,res,next){
             res.send(result);
         }
     });
-    //res.send({"name":"rahil","sexy":"male"});
 });
 
 router.put('/addCustomer',function(req,res){
     //Update Query
-    var query = ""
+    var query = "UPDATE customerdetails SET flag = 1 where customerid = '" + req.body.customerid +"'";
+    connection.query(query,function(err,result){
+        if(err){
+            throw err;
+        }
+        else{
+            res.send(200);
+        }
+    });
 });
+
+router.delete('/deleteCustomer',function(req,res){
+    //Update Query
+    var query = "DELETE FROM customerdetails where customerid = '" +req.query.data+ "'";
+    connection.query(query,function(err,result){
+        if(err){
+            throw err;
+        }
+        else{
+            res.send(200);
+        }
+    });
+});
+//Drivers Request
 
 router.get('/getDrivers',function(req,res,next){
     var query = "SELECT * FROM `driverdetails`";
@@ -124,18 +185,17 @@ router.get('/getDrivers',function(req,res,next){
             res.send(result);
         }
     });
-    //res.send({"name":"rahil","sexy":"male"});
 });
 
 router.post('/addDriver',function(req,res){
     //Add Query
     driver.push(req.body.driverid);
 
-    for(var drivers in drivers){
-        if(drivers[driver] == req.body.driverid){
-            res.send(400);
-        }
-    }
+    //for(var drivers in drivers){
+    //    if(drivers[driver] == req.body.driverid){
+    //        res.send(400);
+    //    }
+    //}
     var query = "INSERT INTO `driverdetails` " +
                 "(`driverid`, `firstname`, `lastname`, `address`, `city`," +
                 " `state`, `zipcode`, `email`, `phonenumber`) VALUES " +
@@ -151,6 +211,31 @@ router.post('/addDriver',function(req,res){
     });
 });
 
+router.put('/editDriver',function(req,res,next){
+    var query = "SELECT * FROM `driverdetails`";
+    connection.query(query,function(err,result){
+        if(err){
+            throw err;
+        }
+        else{
+            res.send(result);
+        }
+    });
+});
+
+router.delete('/deleteDriver',function(req,res,next){
+    var query = "DELETE FROM driverdetails where driverid = '" +req.query.data+ "'";
+    connection.query(query,function(err,result){
+        if(err){
+            throw err;
+        }
+        else{
+            res.send(200);
+        }
+    });
+});
+//Bill Requests
+
 router.get('/getBills',function(req,res){
     var query = "SELECT * FROM `billdetails`";
     connection.query(query,function(err,result){
@@ -161,8 +246,9 @@ router.get('/getBills',function(req,res){
             res.send(result);
         }
     });
-    //res.send({"name":"rahil","sexy":"male"});
 });
+
+//Trip Requests
 
 router.get('/getTrips',function(req,res){
     var query = "SELECT * FROM tripdetails";
@@ -174,8 +260,6 @@ router.get('/getTrips',function(req,res){
             res.send(result);
         }
     });
-    //res.send({"name":"rahil","sexy":"male"});
-    //res.send({"name":"rahil","sexy":"male"});
 });
 
 module.exports = router;
