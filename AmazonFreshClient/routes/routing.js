@@ -16,5 +16,8 @@ console.log("IN ROUTING");
 var admin = require('../routes/admin.js');
 router.use('/admin', admin);
 
+var farmer = require('../routes/farmers.js');
+router.use('/farmer', farmer);
+
 
 module.exports = router;

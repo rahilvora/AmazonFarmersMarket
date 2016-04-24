@@ -13,6 +13,7 @@ adminApp.controller("FarmerController", ["$scope", "$http", "$location", functio
 
     $http.get('api/getFarmers').then(function(result){
         console.log(result.data);
+        console.log("in api/getfarmers");
         $scope.farmersAvailable = result.data;
         //$location.path('/farmers');
     });
