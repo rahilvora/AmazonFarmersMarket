@@ -1,0 +1,93 @@
+<div class="col-sm-4 col-sm-offset-4">
+
+    <form  novalidate>
+
+        <h3 style="text-align:left";>Edit you profile.</h3>
+
+        <div class="form-group" ng-class="{ 'has-error' : editProfileForm.firstname.$invalid && !editProfileForm.firstname.$pristine }">
+            <label for="firstname">First Name:</label>
+            <input type="text" class="form-control input-sm" ng-model="customerDetails.firstname" name="firstname" required>
+            <p ng-show="editProfileForm.firstname.$invalid && !editProfileForm.firstname.$pristine" class="help-block">First name is required.</p>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error' : editProfileForm.lastname.$invalid && !editProfileForm.lastname.$pristine }">
+            <label for="lastname">Last Name:</label>
+            <input type="text" class="form-control input-sm" ng-model="customerDetails.lastname" name="lastname"   required>
+            <p ng-show="editProfileForm.lastname.$invalid && !editProfileForm.lastname.$pristine" class="help-block">Last name is required.</p>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error' : editProfileForm.email.$invalid && !editProfileForm.email.$pristine }">
+            <label for="email">Email:</label>
+            <input type="email" class="form-control input-sm" ng-model="customerDetails.email" name="email"   required>
+            <p ng-show="editProfileForm.email.$invalid && !editProfileForm.email.$pristine" class="help-block">Enter a valid email.</p>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error' : editProfileForm.password.$invalid && !editProfileForm.password.$pristine }">
+            <label for="password">Password:</label>
+            <input type="password" class="form-control input-sm" ng-model="customerDetails.password" name="password" ng-minlength="4" required>
+            <p ng-show="editProfileForm.password.$invalid && !editProfileForm.password.$pristine && editProfileForm.password.$error.minlength" class="help-block">Password required, minimum 4 characters.</p>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error' : editProfileForm.customerid.$invalid && !editProfileForm.customerid.$pristine }">
+            <label for="customerid">User ID (Enter your SSN) :</label>
+            <input type="text" maxlength="11" class="form-control input-sm" ng-pattern="/^[0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9]$/" ng-model="customerDetails.customerid" name="customerid"  readonly>
+            <p ng-show="editProfileForm.customerid.$error.pattern" class="help-block">Enter you ID in SSN format EG: 111-11-7899.</p>
+            <p ng-show="editProfileForm.customerid.$invalid && !editProfileForm.customerid.$pristine" class="help-block">Username is required.</p>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error' : editProfileForm.address.$invalid && !editProfileForm.address.$pristine }">
+            <label for="address">Address :</label>
+            <input type="text" class="form-control input-sm" ng-model="customerDetails.address" name="address" required>
+            <p ng-show="editProfileForm.address.$invalid && !editProfileForm.address.$pristine" class="help-block">Enter your address</p>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error' : editProfileForm.city.$invalid && !editProfileForm.city.$pristine }">
+            <label for="city">City :</label>
+            <input type="text" class="form-control input-sm" ng-model="customerDetails.city" name="city"  required>
+            <p ng-show="editProfileForm.city.$invalid && !editProfileForm.city.$pristine" class="help-block">Enter your city</p>
+
+        </div><div class="form-group" ng-class="{ 'has-error' : editProfileForm.state.$invalid && !editProfileForm.state.$pristine }">
+            <label for="state">State :</label>
+            <input type="text" class="form-control input-sm" ng-model="customerDetails.state" name="state"  required>
+            <p ng-show="editProfileForm.state.$invalid && !editProfileForm.state.$pristine" class="help-block">Enter your state</p>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error' : editProfileForm.ccnumber.$invalid && !editProfileForm.ccnumber.$pristine }">
+            <label for="ccnumber">Credit Card Number :</label>
+            <input type="text" class="form-control input-sm" ng-model="customerDetails.ccnumber" name="ccnumber"  required  ng-pattern="/^[0-9][0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]$/">
+            <p ng-show="editProfileForm.ccnumber.$error.pattern" class="help-block">Enter you CC Number in format EG: 1111-1551-7899-9999.</p>
+            <p ng-show="editProfileForm.ccnumber.$invalid && !editProfileForm.ccnumber.$pristine" class="help-block">Enter your CC details</p>
+        </div>
+
+
+        <div class="form-group" ng-class="{ 'has-error' : editProfileForm.zipcode.$invalid && !editProfileForm.zipcode.$pristine }">
+            <label for="zipcode">Zip Code :</label>
+            <input type="text" class="form-control input-sm"  ng-model="customerDetails.zipcode" name="zipcode" required>
+            <p ng-show="editProfileForm.zipcode.$error.zipPattern" class="help-block">Enter a valid zip code.</p>
+            <p ng-show="editProfileForm.zipcode.$invalid && !editProfileForm.zipcode.$pristine" class="help-block">Enter your Zip Code</p>
+        </div>
+
+
+
+        <div class="form-group" ng-class="{ 'has-error' : editProfileForm.phonenumber.$invalid && !editProfileForm.phonenumber.$pristine }">
+            <label for="phonenumber">Contact :</label>
+            <input type="text" class="form-control input-sm" ng-model="customerDetails.phonenumber" name="phonenumber"  required>
+            <p ng-show="editProfileForm.phonenumber.$invalid && !editProfileForm.phonenumber.$pristine" class="help-block">Enter your Contact</p>
+        </div>
+
+        <button  style="width: 425px;
+    background-color: #8FC12B;
+    background-repeat: no-repeat;
+    background-image: none;
+    box-shadow: none;
+    font-size: 16px;
+    font-weight: normal;
+    padding: 12px 16px;
+    border: 0;
+    border-radius: 4px;
+    color:black;" ng-click="updateProfile()"  type="submit" ng-disabled="editProfileForm.$invalid">Update Profile</button>
+
+
+    </form>
+
+</div>

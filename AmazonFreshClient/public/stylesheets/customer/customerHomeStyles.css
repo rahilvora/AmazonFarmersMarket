@@ -1,0 +1,27 @@
+#shopBar {
+    margin-right: 430px;
+}
+#shopBar {
+    color: #464646;
+    margin: 10px;
+    margin-right: 147px;
+    position: relative;
+}
+
+#shopButton {
+    background: url(/images/shop-default.png) no-repeat;
+    cursor: pointer;
+    display: inline-block;
+    margin-right: 15px;
+    position: absolute;
+    height: 35px;
+    width: 120px;
+    z-index: 45;
+}
+#shopBar #goButton {
+    cursor: pointer;
+    position: absolute;
+    right: 0px;
+    width: 41px;
+    margin-top: -31px;
+}
