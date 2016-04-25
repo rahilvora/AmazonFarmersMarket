@@ -25,7 +25,7 @@
             <td> {{driver.state}} </td>
             <td> {{driver.zipcode}} </td>
             <td> {{driver.phonenumber}} </td>
-            <td><button  onclick="location.href = '#/driver/edit'" class="btn btn-success"> Edit</button></td>
+            <td><button ng-click="editDriver(driver.driverid)"class="btn btn-success"> Edit</button></td>
             <td><button ng-click="deleteDriver(driver.driverid)" class="btn btn-danger"> Delete</button></td>
         </tr>
     </table>

@@ -2,7 +2,8 @@
  * Created by rahilvora on 20/04/16.
  */
 var adminApp = angular.module("AdminApp",["ngRoute"]);
-
+var trucks = [];
+var drivers = [];
 //Controllers
 
 adminApp.controller("FarmerController", ["$scope", "$http", "$location", function($scope, $http, $location){
@@ -11,14 +12,14 @@ adminApp.controller("FarmerController", ["$scope", "$http", "$location", functio
 
     //Get Requests
 
-    $http.get('api/getFarmers').then(function(result){
+    $http.get('api/getFarmers',{ cache: true}).then(function(result){
         console.log(result.data);
         console.log("in api/getfarmers");
         $scope.farmersAvailable = result.data;
         //$location.path('/farmers');
     });
 
-    $http.get('api/getAddFarmerRequests').then(function(result){
+    $http.get('api/getAddFarmerRequests',{ cache: true}).then(function(result){
         console.log(result.data);
         $scope.farmers = result.data;
         //$location.path('/farmers/new');
@@ -48,13 +49,13 @@ adminApp.controller("ProductController",["$scope","$http","$location",function($
 
     //Get Requests
 
-    $http.get('api/getProducts').then(function(result){
+    $http.get('api/getProducts',{ cache: true}).then(function(result){
         console.log(result.data);
         $scope.productsAvailable = result.data;
         //$location.path('/products');
     });
 
-    $http.get('api/getAddProductRequests').then(function(result){
+    $http.get('api/getAddProductRequests',{ cache: true}).then(function(result){
         console.log(result.data);
         $scope.products = result.data;
         //$location.path('/products/new');
@@ -82,7 +83,7 @@ adminApp.controller("DriverController",["$scope","$http","$location",function($s
 
     //Get Requests
     $scope.refresh = function() {
-        $http.get('api/getDrivers').then(function (result) {
+        $http.get('api/getDrivers',{ cache: true}).then(function (result) {
             console.log(result.data);
             $scope.drivers = result.data;
             //$location.path('/driver');
@@ -97,14 +98,22 @@ adminApp.controller("DriverController",["$scope","$http","$location",function($s
         });
     };
 
-    //Put Request
-
-    $scope.editDriver = function(){
-        $http.put('api/editDriver',$scope.form).then(function(result){
-            $location.path('/driver');
+    $scope.editDriver = function(p_driverid){
+        $http.get('api/editDriver',{params: {data:p_driverid}},{ cache: true}).then(function(result){
+            drivers = result.data;
+            $location.path('/driver/edit');
         });
     };
 
+    //Put Request
+
+    $scope.updateDriver = function(){
+        $scope.form.CurrentDriverId = drivers[0].driverid;
+        $http.put('api/updateDriver',$scope.form).then(function(result){
+            $scope.refresh();
+            $location.path('/driver');
+        });
+    };
     //Delete Request
 
     $scope.deleteDriver = function(p_driverid){
@@ -115,7 +124,7 @@ adminApp.controller("DriverController",["$scope","$http","$location",function($s
     }
 
 }]);
-var array = [];
+
 adminApp.controller("TruckController",["$scope","$http","$location",function($scope,$http,$location){
     $scope.trucks = [];
     $scope.truck = [];
@@ -123,14 +132,14 @@ adminApp.controller("TruckController",["$scope","$http","$location",function($sc
     //Get Requests
 
     $scope.refresh = function(){
-            $http.get('api/getTrucks').then(function(result){
+
+            $http.get('api/getDrivers',{ cache: true}).then(function (result) {
+                $scope.drivers = result.data;
+                //$location.path('/driver');
+            });
+
+            $http.get('api/getTrucks', { cache: true}).then(function(result){
                 $scope.trucks = result.data;
-                for(var truck in $scope.trucks){
-                    var driverid = $scope.trucks[truck].driverid;
-                    if($scope.drivers.indexOf(driverid) === -1){
-                        $scope.drivers.push(driverid);
-                    }
-                }
                 //$location.path('/driver');
             });
         };
@@ -140,8 +149,8 @@ adminApp.controller("TruckController",["$scope","$http","$location",function($sc
 
     $scope.addTruck = function(){
         $scope.form.driverid = $scope.selectedValue;
-        console.log($scope.form);
         $http.post('api/addTruck',$scope.form).then(function(result){
+            $scope.refresh();
             $location.path('/trucks');
         });
     };
@@ -149,14 +158,15 @@ adminApp.controller("TruckController",["$scope","$http","$location",function($sc
     //Put Request
 
     $scope.editTruck = function(p_truckid){
-        $http.get('api/editTruck',{params: {data:p_truckid}}).then(function(result){
-            $scope.truck = result.data;
+        $http.get('api/editTruck',{params: {data:p_truckid}},{ cache: true}).then(function(result){
+            trucks  = $scope.truck = result.data;
             $location.path('/truck/edit');
         });
     };
 
     $scope.updateTruck = function(){
-        $scope.form.driverid = Number($scope.selectedValue);
+        $scope.form.driverid = $scope.selectedValue.split(" ")[0];
+        $scope.form.CurrentTruckId = trucks[0].truckid;
         $http.put('api/updateTruck',$scope.form).then(function(result){
             $location.path('/trucks');
         });
@@ -179,13 +189,13 @@ adminApp.controller("CustomerController", ["$scope", "$http", "$location", funct
 
     //Get Requests
 
-    $http.get('api/getCustomers').then(function(result){
+    $http.get('api/getCustomers',{ cache: true}).then(function(result){
         console.log(result.data);
         $scope.customersAvailable = result.data;
         //$location.path('/customers');
     });
 
-    $http.get('api/getAddCustomerRequests').then(function(result){
+    $http.get('api/getAddCustomerRequests',{ cache: true}).then(function(result){
         console.log(result.data);
         $scope.customers = result.data;
         //$location.path('/customers/new');
@@ -214,7 +224,7 @@ adminApp.controller("BillController", ["$scope", "$http", "$location", function(
 
     //Get Requests
 
-    $http.get('api/getBills').then(function(result){
+    $http.get('api/getBills',{ cache: true}).then(function(result){
         console.log(result.data);
         $scope.bills = result.data;
         //$location.path('/bills');
@@ -225,7 +235,7 @@ adminApp.controller("TripController", ["$scope", "$http", "$location", function(
     $scope.trips = [];
 
     //Get Requests
-    $http.get('api/getTrips').then(function(result){
+    $http.get('api/getTrips',{ cache: true}).then(function(result){
         console.log(result.data);
         $scope.trips = result.data;
         //$location.path('/trips');
