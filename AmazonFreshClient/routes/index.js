@@ -18,6 +18,10 @@ router.get('/admin', function(req, res, next) {
   res.render('admin', { title: 'Express' });
 });
 
+router.get('/farmer', function(req, res, next) {
+  res.render('farmer', { title: 'Farmer' });
+});
+
 
 
 

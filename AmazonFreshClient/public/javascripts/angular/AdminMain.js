@@ -13,6 +13,7 @@ adminApp.controller("FarmerController", ["$scope", "$http", "$location", functio
 
     $http.get('api/getFarmers').then(function(result){
         console.log(result.data);
+        console.log("in api/getfarmers");
         $scope.farmersAvailable = result.data;
         //$location.path('/farmers');
     });
@@ -77,8 +78,10 @@ adminApp.controller("ProductController",["$scope","$http","$location",function($
 }]);
 
 adminApp.controller("DriverController",["$scope","$http","$location",function($scope,$http,$location){
-    $scope.drivers = [];
-
+     $scope.drivers = []
+    ,$scope.currentPage = 1
+    ,$scope.numPerPage = 10
+    ,$scope.maxSize = 5;
     //Get Requests
     $scope.refresh = function() {
         $http.get('api/getDrivers').then(function (result) {
@@ -89,6 +92,12 @@ adminApp.controller("DriverController",["$scope","$http","$location",function($s
     }
     $scope.refresh();
     //Post Request
+    scope.$watch("currentPage + numPerPage", function() {
+        var begin = (($scope.currentPage - 1) * $scope.numPerPage)
+            , end = begin + $scope.numPerPage;
+
+        $scope.filteredTodos = $scope.drivers.slice(begin, end);
+    });
 
     $scope.addDriver = function(){
         debugger;
