@@ -1,0 +1,19 @@
+<div>
+    <h1>List of Trucks</h1>
+    <table class="table table-bordered table-striped">
+        <tr>
+            <th>Truck ID</th>
+            <th>Truck Info</th>
+            <th>Driver ID</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        <tr ng-repeat="truck in trucks">
+            <td> {{truck.truckid}} </td>
+            <td> {{truck.truckinfo}} </td>
+            <td> {{truck.driverid}} </td>
+            <td><button  ng-click="editTruck(truck.truckid)" class="btn btn-success"> Edit</button></td>
+            <td><button ng-click="deleteTruck(truck.truckid)" class="btn btn-danger"> Delete</button></td>
+        </tr>
+    </table>
+</div>

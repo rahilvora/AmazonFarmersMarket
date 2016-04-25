@@ -1,0 +1,20 @@
+<h1>Edit a Truck</h1>
+<form>
+    <div class="form-group">
+        <label>Truck ID</label>
+        <input class="form-control" type="text" required ng-value={{truck.truckid}} ng-model="form.truckid" name="truckid" id="truckid" title="Please enter Truck ID" placeholder="Truck ID">
+    </div>
+    <div class="form-group">
+        <label>Truck Info</label>
+        <input class="form-control" type="text" required ng-value={{truck.truckinfo}} ng-model="form.truckinfo" name ="truckinfo" id="truckinfo" placeholder="Truck Info">
+    </div>
+    <div class="form-group">
+        <label for="Operation">Select Driver ID</label>
+        <select id="operation" class="form-control" ng-model = "selectedValue" >
+            <option ng-repeat="driver in drivers">{{driver}}</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <button type="submit" ng-click="updateTruck();" class="btn btn-success">Update Truck</button>
+    </div>
+</form>
