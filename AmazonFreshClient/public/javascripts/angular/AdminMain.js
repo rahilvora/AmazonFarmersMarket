@@ -80,16 +80,18 @@ adminApp.controller("DriverController",["$scope","$http","$location",function($s
     $scope.drivers = [];
 
     //Get Requests
-
-    $http.get('api/getDrivers').then(function(result){
-        console.log(result.data);
-        $scope.drivers = result.data;
-        //$location.path('/driver');
-    });
-
+    $scope.refresh = function() {
+        $http.get('api/getDrivers').then(function (result) {
+            console.log(result.data);
+            $scope.drivers = result.data;
+            //$location.path('/driver');
+        });
+    }
+    $scope.refresh();
     //Post Request
 
     $scope.addDriver = function(){
+        debugger;
         $http.post('api/addDriver',$scope.form).then(function(result){
             $location.path('/driver');
         });
@@ -107,7 +109,65 @@ adminApp.controller("DriverController",["$scope","$http","$location",function($s
 
     $scope.deleteDriver = function(p_driverid){
         $http.delete('api/deleteDriver',{params: {data:p_driverid}}).then(function(result){
+            $scope.refresh();
             $location.path('/driver');
+        });
+    }
+
+}]);
+var array = [];
+adminApp.controller("TruckController",["$scope","$http","$location",function($scope,$http,$location){
+    $scope.trucks = [];
+    $scope.truck = [];
+    $scope.drivers = [];
+    //Get Requests
+
+    $scope.refresh = function(){
+            $http.get('api/getTrucks').then(function(result){
+                $scope.trucks = result.data;
+                for(var truck in $scope.trucks){
+                    var driverid = $scope.trucks[truck].driverid;
+                    if($scope.drivers.indexOf(driverid) === -1){
+                        $scope.drivers.push(driverid);
+                    }
+                }
+                //$location.path('/driver');
+            });
+        };
+    $scope.refresh();
+
+    //Post Request
+
+    $scope.addTruck = function(){
+        $scope.form.driverid = $scope.selectedValue;
+        console.log($scope.form);
+        $http.post('api/addTruck',$scope.form).then(function(result){
+            $location.path('/trucks');
+        });
+    };
+
+    //Put Request
+
+    $scope.editTruck = function(p_truckid){
+        $http.get('api/editTruck',{params: {data:p_truckid}}).then(function(result){
+            $scope.truck = result.data;
+            $location.path('/truck/edit');
+        });
+    };
+
+    $scope.updateTruck = function(){
+        $scope.form.driverid = Number($scope.selectedValue);
+        $http.put('api/updateTruck',$scope.form).then(function(result){
+            $location.path('/trucks');
+        });
+    };
+
+    //Delete Request
+
+    $scope.deleteTruck = function(p_truckid){
+        $http.delete('api/deleteTruck',{params: {data:p_truckid}}).then(function(result){
+            $scope.refresh();
+            $location.path('/trucks');
         });
     }
 
@@ -216,6 +276,22 @@ adminApp.config(['$routeProvider',
             when('/driver/new',{
                 templateUrl: '../view/adminViews/driver/AddDriver.ejs',
                 controller: 'DriverController'
+            }).
+            when('/driver/edit',{
+                templateUrl: '../view/adminViews/driver/EditDriver.ejs',
+                controller: 'DriverController'
+            }).
+            when('/trucks',{
+                templateUrl: '../view/adminViews/truck/ListTrucks.ejs',
+                controller: 'TruckController'
+            }).
+            when('/truck/new',{
+                templateUrl: '../view/adminViews/truck/AddTruck.ejs',
+                controller: 'TruckController'
+            }).
+            when('/truck/edit',{
+                templateUrl: '../view/adminViews/truck/EditTruck.ejs',
+                controller: 'TruckController'
             }).
             otherwise({
                 redirectTo: "/"
