@@ -262,4 +262,16 @@ router.get('/getTrips',function(req,res){
     });
 });
 
+router.get('/getFarmerProducts',function(req,res,next){
+    console.log("fetching farmers products");
+    var query = "select * from productdetails p, farmerdetails f   where p.farmerid=f.farmerid and f.farmerid='111-11-1111';";
+    connection.query(query,function(err,result){
+        if(err){
+            throw err;
+        }
+        else{
+            res.send(result);
+        }
+    })
+});
 module.exports = router;
