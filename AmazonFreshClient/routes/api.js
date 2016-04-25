@@ -188,8 +188,9 @@ router.get('/getDrivers',function(req,res,next){
 });
 
 router.post('/addDriver',function(req,res){
+
     //Add Query
-    driver.push(req.body.driverid);
+   // driver.push(req.body.driverid);
 
     //for(var drivers in drivers){
     //    if(drivers[driver] == req.body.driverid){

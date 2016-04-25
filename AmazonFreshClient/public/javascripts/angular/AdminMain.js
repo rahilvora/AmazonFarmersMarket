@@ -91,6 +91,8 @@ adminApp.controller("DriverController",["$scope","$http","$location",function($s
     //Post Request
 
     $scope.addDriver = function(){
+        console.log("inside addDriver"+$scope.form.firstname);
+        debugger;
         $http.post('api/addDriver',$scope.form).then(function(result){
             $location.path('/driver');
         });
