@@ -11,6 +11,7 @@ var api = require('./routes/api');
 var customersRouter = require('./routes/customers');
 var login = require('./routes/login');
 var routing = require('./routes/routing');
+var mongo = require('./MongoConfig');
 
 var app = express();
 

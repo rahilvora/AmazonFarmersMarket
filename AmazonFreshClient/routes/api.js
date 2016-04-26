@@ -4,7 +4,18 @@
 var express = require('express');
 var router = express.Router();
 var connection = require('../MySQLConfig.js');
+var mongo = require('../MongoConfig.js');
 var drivers = [];
+
+var mongoURL = "mongodb://localhost:27017/amazonfresh";
+var productsCollection;
+
+mongo.connect(mongoURL, function() {
+    console.log('Connected to mongo at: ' + mongoURL);
+    productsCollection = mongo.collection('productdetails');
+});
+
+
 
 //Connecting to MySQL
 
@@ -264,7 +275,7 @@ router.get('/getTrips',function(req,res){
 
 router.get('/getFarmerProducts',function(req,res,next){
     console.log("fetching farmers products");
-    var query = "select * from productdetails p, farmerdetails f   where p.farmerid=f.farmerid and f.farmerid='111-11-1111';";
+    /*var query = "select * from productdetails p, farmerdetails f   where p.farmerid=f.farmerid and f.farmerid='111-11-1111';";
     connection.query(query,function(err,result){
         if(err){
             throw err;
@@ -273,5 +284,14 @@ router.get('/getFarmerProducts',function(req,res,next){
             res.send(result);
         }
     })
+    */
+
+    productsCollection.find({},function (err,data) {
+        if(data){
+            console.log(data);
+            res.send(data);
+        }
+    });
+
 });
 module.exports = router;
