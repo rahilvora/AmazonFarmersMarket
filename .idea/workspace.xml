@@ -2,7 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ed477f4c-c9b2-46a7-bfe6-d4b3df892309" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/AmazonFreshClient/public/images/af-logo-white.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/AmazonFreshClient/public/images/taskbar-bg.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/AmazonFreshClient/views/dummy.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/AmazonFreshClient/views/fresh_source.html" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/MySQLConfig.js" afterPath="$PROJECT_DIR$/AmazonFreshClient/MySQLConfig.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/public/javascripts/angular/AdminMain.js" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/javascripts/angular/AdminMain.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/bill/ListBills.ejs" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/bill/ListBills.ejs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/customer/AddCustomerRequest.ejs" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/customer/AddCustomerRequest.ejs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/customer/ListCustomers.ejs" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/customer/ListCustomers.ejs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/driver/ListDrivers.ejs" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/driver/ListDrivers.ejs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/farmer/AddFarmerRequest.ejs" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/farmer/AddFarmerRequest.ejs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/farmer/ListFarmers.ejs" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/farmer/ListFarmers.ejs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/product/AddProductRequest.ejs" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/product/AddProductRequest.ejs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/product/ListProducts.ejs" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/product/ListProducts.ejs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/truck/ListTrucks.ejs" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/truck/ListTrucks.ejs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/views/admin.ejs" afterPath="$PROJECT_DIR$/AmazonFreshClient/views/admin.ejs" />
     </list>
     <ignored path="AmazonFresh.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -27,17 +43,27 @@
         <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/javascripts/angular/AdminMain.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="112" column="29" selection-start-line="112" selection-start-column="29" selection-end-line="112" selection-end-column="29" />
+              <caret line="56" column="47" selection-start-line="56" selection-start-column="47" selection-end-line="56" selection-end-column="47" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/AmazonFreshClient/.gitignore">
+      <file leaf-file-name="ListFarmers.ejs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/farmer/ListFarmers.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="8" selection-start-line="0" selection-start-column="8" selection-end-line="0" selection-end-column="8" />
+            <state vertical-scroll-proportion="-1.25">
+              <caret line="3" column="4" selection-start-line="3" selection-start-column="4" selection-end-line="7" selection-end-column="11" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ListBills.ejs" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/bill/ListBills.ejs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.7411765">
+              <caret line="21" column="56" selection-start-line="21" selection-start-column="56" selection-end-line="21" selection-end-column="56" />
               <folding />
             </state>
           </provider>
@@ -79,24 +105,27 @@
         <option value="$PROJECT_DIR$/AmazonFreshClient/app.js" />
         <option value="$PROJECT_DIR$/AmazonFreshClient/views/adminViews/farmer/ListFarmers.ejs" />
         <option value="$PROJECT_DIR$/AmazonFreshClient/routes/index.js" />
-        <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/customer/ListCustomers.ejs" />
-        <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/farmer/ListFarmers.ejs" />
-        <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/bill/ListBills.ejs" />
         <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/driver/AddDriver.ejs" />
-        <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/customer/AddCustomerRequest.ejs" />
-        <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/farmer/AddFarmerRequest.ejs" />
-        <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/product/AddProductRequest.ejs" />
-        <option value="$PROJECT_DIR$/AmazonFreshClient/views/admin.ejs" />
-        <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/product/ListProducts.ejs" />
-        <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/truck/ListTrucks.ejs" />
-        <option value="$PROJECT_DIR$/AmazonFreshClient/MySQLConfig.js" />
         <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/truck/AddTruck.ejs" />
         <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/truck/EditTruck.ejs" />
-        <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/driver/ListDrivers.ejs" />
         <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/driver/EditDriver.ejs" />
         <option value="$PROJECT_DIR$/AmazonFreshClient/routes/api.js" />
-        <option value="$PROJECT_DIR$/AmazonFreshClient/public/javascripts/angular/AdminMain.js" />
         <option value="$PROJECT_DIR$/AmazonFreshClient/.gitignore" />
+        <option value="$PROJECT_DIR$/AmazonFreshClient/MySQLConfig.js" />
+        <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/test.ejs" />
+        <option value="$PROJECT_DIR$/AmazonFreshClient/views/adminViews/customer/test.ejs" />
+        <option value="$PROJECT_DIR$/AmazonFreshClient/views/admin.ejs" />
+        <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/customer/test.ejs" />
+        <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/truck/ListTrucks.ejs" />
+        <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/driver/ListDrivers.ejs" />
+        <option value="$PROJECT_DIR$/AmazonFreshClient/public/javascripts/angular/AdminMain.js" />
+        <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/farmer/AddFarmerRequest.ejs" />
+        <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/product/AddProductRequest.ejs" />
+        <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/product/ListProducts.ejs" />
+        <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/farmer/ListFarmers.ejs" />
+        <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/customer/AddCustomerRequest.ejs" />
+        <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/customer/ListCustomers.ejs" />
+        <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/bill/ListBills.ejs" />
       </list>
     </option>
   </component>
@@ -181,7 +210,103 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AmazonFresh" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AmazonFresh" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AmazonFreshClient" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AmazonFresh" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AmazonFresh" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AmazonFreshClient" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="view" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AmazonFresh" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AmazonFresh" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AmazonFreshClient" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="view" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="adminViews" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AmazonFresh" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AmazonFresh" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AmazonFreshClient" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="view" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="adminViews" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bill" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -281,14 +406,14 @@
     <frame x="0" y="23" width="1280" height="773" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31532964" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25893566" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329429" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32892805" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32796487" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32892805" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3191801" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32796487" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30161053" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.43777454" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -362,20 +487,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/views/adminViews/farmer/AddFarmerRequest.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/views/adminViews/product/AddProductRequest.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/AmazonFreshClient/views/adminViews/trip/ListTruckTrips.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -509,20 +620,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/farmer/ListFarmers.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="27" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/bill/ListBills.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.625">
-          <caret line="1" column="4" selection-start-line="1" selection-start-column="4" selection-end-line="1" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/AmazonFreshClient/routes/routing.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -559,13 +656,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/customer/ListCustomers.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/AmazonFreshClient/views/partials/header.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-5.9583335">
@@ -578,27 +668,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/customer/AddCustomerRequest.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.74482757">
-          <caret line="28" column="54" selection-start-line="28" selection-start-column="54" selection-end-line="28" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/farmer/AddFarmerRequest.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.125">
-          <caret line="27" column="46" selection-start-line="27" selection-start-column="34" selection-end-line="27" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/product/AddProductRequest.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-12.5">
-          <caret line="20" column="65" selection-start-line="20" selection-start-column="65" selection-end-line="20" selection-end-column="65" />
         </state>
       </provider>
     </entry>
@@ -618,34 +687,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/product/ListProducts.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.25">
-          <caret line="10" column="51" selection-start-line="10" selection-start-column="34" selection-end-line="10" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/views/admin.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.6666667">
-          <caret line="70" column="71" selection-start-line="70" selection-start-column="66" selection-end-line="70" selection-end-column="71" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/AmazonFreshClient/app.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="27" column="19" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/MySQLConfig.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="8" column="14" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
           <folding />
         </state>
       </provider>
@@ -674,42 +719,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/driver/AddDriver.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-24.375">
-          <caret line="39" column="37" selection-start-line="0" selection-start-column="0" selection-end-line="41" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/truck/ListTrucks.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.75">
-          <caret line="14" column="60" selection-start-line="14" selection-start-column="25" selection-end-line="14" selection-end-column="60" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/driver/ListDrivers.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.60048425">
-          <caret line="27" column="44" selection-start-line="27" selection-start-column="34" selection-end-line="27" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/AmazonFreshClient/node_modules/mysql/lib/protocol/Parser.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.5955056">
           <caret line="76" column="0" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/routes/api.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6869301">
-          <caret line="231" column="8" selection-start-line="231" selection-start-column="8" selection-end-line="231" selection-end-column="8" />
           <folding />
         </state>
       </provider>
@@ -722,18 +735,138 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/javascripts/angular/AdminMain.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="112" column="29" selection-start-line="112" selection-start-column="29" selection-end-line="112" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/AmazonFreshClient/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="8" selection-start-line="0" selection-start-column="8" selection-end-line="0" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/routes/api.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="231" column="8" selection-start-line="231" selection-start-column="8" selection-end-line="231" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/MySQLConfig.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="8" column="14" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/views/adminViews/customer/test.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.49920762">
+          <caret line="21" column="51" selection-start-line="0" selection-start-column="0" selection-end-line="22" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/customer/test.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.25">
+          <caret line="2" column="111" selection-start-line="1" selection-start-column="4" selection-end-line="2" selection-end-column="111" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/truck/ListTrucks.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.25">
+          <caret line="10" column="106" selection-start-line="10" selection-start-column="39" selection-end-line="10" selection-end-column="106" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/driver/ListDrivers.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.29539952">
+          <caret line="17" column="108" selection-start-line="17" selection-start-column="108" selection-end-line="17" selection-end-column="108" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/views/admin.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.0169492">
+          <caret line="9" column="108" selection-start-line="9" selection-start-column="108" selection-end-line="9" selection-end-column="108" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/driver/AddDriver.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-10.083333">
+          <caret line="34" column="4" selection-start-line="34" selection-start-column="4" selection-end-line="37" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/javascripts/angular/AdminMain.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="56" column="47" selection-start-line="56" selection-start-column="47" selection-end-line="56" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/farmer/AddFarmerRequest.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8353511">
+          <caret line="23" column="56" selection-start-line="23" selection-start-column="56" selection-end-line="23" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/product/AddProductRequest.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.2083335">
+          <caret line="20" column="58" selection-start-line="20" selection-start-column="58" selection-end-line="20" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/product/ListProducts.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6174334">
+          <caret line="17" column="135" selection-start-line="17" selection-start-column="135" selection-end-line="17" selection-end-column="135" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/customer/AddCustomerRequest.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.235294">
+          <caret line="24" column="56" selection-start-line="24" selection-start-column="56" selection-end-line="24" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/customer/ListCustomers.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7627119">
+          <caret line="21" column="137" selection-start-line="21" selection-start-column="137" selection-end-line="21" selection-end-column="137" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/farmer/ListFarmers.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.25">
+          <caret line="3" column="4" selection-start-line="3" selection-start-column="4" selection-end-line="7" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/bill/ListBills.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7411765">
+          <caret line="21" column="56" selection-start-line="21" selection-start-column="56" selection-end-line="21" selection-end-column="56" />
           <folding />
         </state>
       </provider>

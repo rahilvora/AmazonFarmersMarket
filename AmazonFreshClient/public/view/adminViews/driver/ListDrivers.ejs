@@ -15,7 +15,7 @@
             <th>Edit</th>
             <th>Delete</th>
         </tr>
-        <tr ng-repeat="driver in drivers">
+        <tr ng-repeat="driver in drivers.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
             <td> {{driver.driverid}} </td>
             <td> {{driver.firstname}} </td>
             <td> {{driver.lastname}} </td>
@@ -29,4 +29,5 @@
             <td><button ng-click="deleteDriver(driver.driverid)" class="btn btn-danger"> Delete</button></td>
         </tr>
     </table>
+    <uib-pagination total-items="totalItems" ng-model="currentPage"></uib-pagination>
 </div>

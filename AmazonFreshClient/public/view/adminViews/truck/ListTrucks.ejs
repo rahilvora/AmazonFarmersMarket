@@ -8,7 +8,7 @@
             <th>Edit</th>
             <th>Delete</th>
         </tr>
-        <tr ng-repeat="truck in trucks">
+        <tr ng-repeat="truck in trucks.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
             <td> {{truck.truckid}} </td>
             <td> {{truck.truckinfo}} </td>
             <td> {{truck.driverid}} </td>
@@ -16,4 +16,5 @@
             <td><button ng-click="deleteTruck(truck.truckid)" class="btn btn-danger"> Delete</button></td>
         </tr>
     </table>
+    <uib-pagination total-items="totalItems" ng-model="currentPage"></uib-pagination>
 </div>

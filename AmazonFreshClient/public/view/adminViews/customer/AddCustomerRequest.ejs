@@ -1,6 +1,13 @@
 
 <div>
   <h1>Customer Requests</h1>
+
+  <form>
+    <div class="form-group">
+      <input ng-model="search.$" type="text" class="form-control" placeholder="Search">
+    </div>
+  </form>
+
   <table class="table table-bordered table-striped">
     <tr>
       <th>Cutomer ID</th>
@@ -15,7 +22,7 @@
       <th>Accept</th>
       <th>Decline</th>
     </tr>
-    <tr ng-repeat="customer in customers">
+    <tr ng-repeat="customer in customers | filter:search">
       <td> {{customer.customerid}} </td>
       <td> {{customer.firstname}} </td>
       <td> {{customer.lastname}} </td>
@@ -29,4 +36,5 @@
       <td><button ng-click="deleteCustomer(customer.customerid)" class="btn btn-danger"> Reject</button></td>
     </tr>
   </table>
+  <uib-pagination total-items="totalITEMS" ng-model="currPage"></uib-pagination>
 </div>
