@@ -1,6 +1,12 @@
 <div>
     <h1>List of Drivers</h1>
 
+    <form>
+        <div class="form-group">
+            <input ng-model="search.$" type="text" class="form-control" placeholder="Search">
+        </div>
+    </form>
+
     <table class="table table-bordered table-striped">
         <tr>
             <th>Driver ID</th>
@@ -15,7 +21,7 @@
             <th>Edit</th>
             <th>Delete</th>
         </tr>
-        <tr ng-repeat="driver in drivers.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
+        <tr ng-repeat="driver in drivers.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage)) | filter:search">
             <td> {{driver.driverid}} </td>
             <td> {{driver.firstname}} </td>
             <td> {{driver.lastname}} </td>
