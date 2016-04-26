@@ -286,7 +286,7 @@ router.get('/getFarmerProducts',function(req,res,next){
     })
     */
 
-    productsCollection.find({},function (err,data) {
+    productsCollection.find({}).toArray(function (err,data) {
         if(data){
             console.log(data);
             res.send(data);

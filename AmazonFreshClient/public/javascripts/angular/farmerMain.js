@@ -10,6 +10,7 @@ FarmerApp.controller("FarmerProductController", ["$scope", "$http", "$location",
 
     $http.get('api/getFarmerProducts').then(function(result){
 
+        console.log(JSON.stringify(result));
         $scope.farmerProducts = result.data;
         //$location.path('/farmers');
     });
