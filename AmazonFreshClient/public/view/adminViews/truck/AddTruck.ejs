@@ -11,7 +11,7 @@
     <div class="form-group">
         <label for="Operation">Select Driver ID</label>
         <select id="operation" class="form-control" ng-model = "selectedValue" >
-            <option ng-repeat="driver in drivers">{{driver}}</option>
+            <option ng-repeat="driver in drivers">{{driver.driverid}} {{driver.firstname}} {{driver.lastname}}</option>
         </select>
     </div>
     <div class="form-group">

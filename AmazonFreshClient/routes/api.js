@@ -222,8 +222,23 @@ router.post('/addDriver',function(req,res){
     });
 });
 
-router.put('/editDriver',function(req,res,next){
-    var query = "SELECT * FROM `driverdetails`";
+router.get('/editDriver',function(req,res,next){
+    var query = "SELECT * FROM `driverdetails` where driverid = '"+req.query.data+"';";
+    connection.query(query,function(err,result){
+        if(err){
+            throw err;
+        }
+        else{
+            res.send(result);
+        }
+    });
+});
+
+router.put('/updateDriver',function(req,res,next){
+    var query = "UPDATE `driverdetails` SET `driverid` = '"+req.body.driverid+"', `firstname` = '"+req.body.firstname+"'," +
+                " `lastname` = '"+req.body.lastname+"', `address` = '"+req.body.address+"', `city` = '"+req.body.city+"', `state` = '"+req.body.state+"'," +
+                " `zipcode` = '"+req.body.zipcode+"', `email` = '"+req.body.email+"', `phonenumber` = '"+req.body.phonenumber+"'" +
+                " WHERE `driverdetails`.`driverid` = '"+req.body.CurrentDriverId+"';"
     connection.query(query,function(err,result){
         if(err){
             throw err;
@@ -272,7 +287,70 @@ router.get('/getTrips',function(req,res){
         }
     });
 });
+//Truck Requests
 
+router.get('/getTrucks',function(req,res){
+    var query = "SELECT * FROM truckdetails";
+    connection.query(query,function(err,result){
+        if(err){
+            throw err;
+        }
+        else{
+            res.send(result);
+        }
+    });
+});
+
+router.post('/addTruck',function(req,res){
+    var query = "INSERT INTO `truckdetails` (`truckid`, `truckinfo`, `driverid`)" +
+        "VALUES ('"+req.body.truckid+"', '"+req.body.truckinfo+"', '"+req.body.driverid+"');";
+    connection.query(query,function(err,result){
+        if(err){
+            throw err;
+        }
+        else{
+            res.send(200);
+        }
+    });
+});
+
+router.get('/editTruck',function(req,res){
+    var query = "SELECT * from `truckdetails` where truckid = '"+req.query.data+"';" ;
+    connection.query(query,function(err,result){
+        if(err){
+            throw err;
+        }
+        else{
+            res.send(result);
+        }
+    });
+});
+
+router.put('/updateTruck',function(req,res){
+
+    var query = "UPDATE `truckdetails` SET `truckid` = '" + req.body.truckid + "', `truckinfo` = '"+ req.body.truckinfo+"'," +
+                " `driverid` = '" + req.body.driverid + "' WHERE `truckdetails`.`truckid` = " + req.body.CurrentTruckId + ";";
+    connection.query(query,function(err,result){
+        if(err){
+            throw err;
+        }
+        else{
+            res.send(200);
+        }
+    });
+});
+
+router.delete('/deleteTruck',function(req,res){
+    var query = "DELETE FROM truckdetails where truckid = '" +req.query.data+ "'";
+    connection.query(query,function(err,result){
+        if(err){
+            throw err;
+        }
+        else{
+            res.send(200);
+        }
+    });
+});
 router.get('/getFarmerProducts',function(req,res,next){
     console.log("fetching farmers products");
     /*var query = "select * from productdetails p, farmerdetails f   where p.farmerid=f.farmerid and f.farmerid='111-11-1111';";

@@ -1,5 +1,12 @@
 <div>
     <h1>Farmer Requests</h1>
+
+    <form>
+        <div class="form-group">
+            <input ng-model="search.$" type="text" class="form-control" placeholder="Search">
+        </div>
+    </form>
+
     <table class="table table-bordered table-striped">
         <tr>
             <th>Farmer ID</th>
@@ -14,7 +21,7 @@
             <th>Accept</th>
             <th>Decline</th>
         </tr>
-        <tr ng-repeat="farmer in farmers">
+        <tr ng-repeat="farmer in farmers | filter:search">
             <td> {{farmer.farmerid}} </td>
             <td> {{farmer.firstname}} </td>
             <td> {{farmer.lastname}} </td>

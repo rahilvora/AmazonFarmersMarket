@@ -1,6 +1,13 @@
 
 <div>
     <h1>Product Requests</h1>
+
+    <form>
+        <div class="form-group">
+            <input ng-model="search.$" type="text" class="form-control" placeholder="Search">
+        </div>
+    </form>
+
     <table class="table table-bordered table-striped">
         <tr>
             <th> Product ID </th>
@@ -11,7 +18,7 @@
             <th> Accept </th>
             <th> Decline </th>
         </tr>
-        <tr ng-repeat="product in products">
+        <tr ng-repeat="product in products | filter:search">
             <td> {{product.productid}} </td>
             <td> {{product.productname}} </td>
             <td> {{product.description}} </td>
