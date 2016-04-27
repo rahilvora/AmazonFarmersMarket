@@ -46,7 +46,8 @@
             <input type="text" class="form-control input-sm" ng-model="customerDetails.city" name="city"  required>
             <p ng-show="editProfileForm.city.$invalid && !editProfileForm.city.$pristine" class="help-block">Enter your city</p>
 
-        </div><div class="form-group" ng-class="{ 'has-error' : editProfileForm.state.$invalid && !editProfileForm.state.$pristine }">
+        </div>
+        <div class="form-group" ng-class="{ 'has-error' : editProfileForm.state.$invalid && !editProfileForm.state.$pristine }">
             <label for="state">State :</label>
             <input type="text" class="form-control input-sm" ng-model="customerDetails.state" name="state"  required>
             <p ng-show="editProfileForm.state.$invalid && !editProfileForm.state.$pristine" class="help-block">Enter your state</p>

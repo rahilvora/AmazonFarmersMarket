@@ -274,4 +274,84 @@ router.get('/getFarmerProducts',function(req,res,next){
         }
     })
 });
+
+router.post('/createProduct',function(req,res,next){
+
+   console.log(req.body.price);
+
+   var query = "INSERT INTO `amazonfresh`.`productdetails` (`farmerid`, `productname`, `productprice`, `description`) VALUES ('111-11-1111', '"+req.body.productname+"', '"+req.body.price+"', '"+req.body.description+"')";
+    connection.query(query,function(err,result){
+        if(err){
+            throw err;
+        }
+        else{
+            console.log("result of insert  "+result);
+            res.send("Success");
+        }
+    })
+
+
+});
+
+router.get('/getFarmerProfile',function(req,res,next){
+    console.log("fetching farmers profile info");
+    var query = "select * from farmerdetails where farmerid='111-11-1111';";
+    connection.query(query,function(err,result){
+        if(err){
+            throw err;
+        }
+        else{
+            res.send(result);
+        }
+    })
+});
+
+router.get('/getEditProduct',function(req,res,next){
+    console.log(req.query.data);
+    
+    var query = "select * from productdetails where farmerid='111-11-1111' and productid="+req.query.data+";";
+    connection.query(query,function(err,result){
+        if(err){
+            throw err;
+        }
+        else{
+            console.log(result);
+            console.log(result[0].productname);
+            console.log(JSON.stringify(result));
+            res.send(result);
+        }
+    })
+});
+
+router.post('/updateProduct',function(req,res,next){
+    console.log("edit product");
+    console.log(req.body.productname + req.body.productprice + req.body.productdescription + req.body.productid);
+    var query = "UPDATE `productdetails` SET `farmerid`='111-11-1111', `productname`='"+req.body.productname+"', `productprice`='"+req.body.productprice+"', `description`='"+req.body.productdescription+"' WHERE `productid`='"+req.body.productid+"';";
+    connection.query(query,function(err,result){
+        if(err){
+            throw err;
+        }
+        else{
+            res.send("Success");
+        }
+    })
+});
+
+router.put('/editFarmerProfile',function(req,res,next){
+    console.log("edit farmer profile");
+
+    console.log(req.body.editFirstname);
+
+    /* var query = "UPDATE farmerdetails SET firstname='"+req.body.firstname+"', lastname='"+req.body.lastname+"', email='"+req.body.email+"',address='"+req.body.address+"',city='"+req.body.city+"', state='"+req.body.state+"', zipcode='"+req.body.zipcode+"',password='"+req.body.password+"', phonenumber='"+req.body.phonenumber+"' where farmerid='"+req.body.farmerid+"'";;
+    connection.query(query,function(err,result){
+        if(err){
+            throw err;
+        }
+        else{
+            res.send(result);
+        }
+    })*/
+});
+
+
 module.exports = router;

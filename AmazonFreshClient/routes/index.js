@@ -11,7 +11,7 @@ var router = express.Router();
 //  console.log('connected as id ' + connection.threadId);
 //});
 router.get('/', function(req, res, next) {
-  res.render('homepage');
+  res.render('index', { title: 'Express' });
 });
 
 router.get('/admin', function(req, res, next) {

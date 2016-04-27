@@ -1,15 +1,8 @@
 body {
-  padding: 0px;
+  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
-
-.carousel-inner > .item > img,
-.carousel-inner > .item > a > img {
-  width: 100%;
-  margin: auto;
-}
-
-#headerNav {
-  color: white;
+a {
+  color: #00B7FF;
 }

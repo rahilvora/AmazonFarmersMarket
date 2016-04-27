@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-App = "FarmerApp">
+<html >
 <head>
     <title>
         Farmer
@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link rel='stylesheet' href='/stylesheets/farmer/farmer.css' />
 </head>
-<body>
+<body ng-App = "FarmerApp">
     <nav class="navbar navbar-inverse" style = "background-color:#404249 ">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -29,7 +29,7 @@
                             <li><a href="#/products/new">Add New Product </a></li>
                         </ul>
                     </li>
-                    <li class=""><a href="#" style = "color:white">Profile</a></li>
+                    <li class=""><a href="#/viewProfile" style = "color:white">Profile</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#" style = "color:white"><span class="glyphicon glyphicon-log-out"></span> Logout   </a></li>
@@ -42,9 +42,7 @@
    <div>
             Welcome Back Farmer Name<br>
    </div>
-    <div>
-       Your top selling products <br>
-    </div>
+
     <div ng-view class="container-fluid">
         <p>Some data here</p>
     </div>
