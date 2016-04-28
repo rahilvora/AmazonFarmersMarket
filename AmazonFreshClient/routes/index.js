@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/', function(req, res, next) {
-  res.render('homepage');
+  res.render('index', { title: 'Express' });
 });
 
 router.get('/admin', function(req, res, next) {
