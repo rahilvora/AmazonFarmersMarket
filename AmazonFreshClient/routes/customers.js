@@ -30,7 +30,7 @@ router.post('/checkUser',function(req,res,next){
 
     connection.query(getUser,function(err,results){
         if(err){
-            throw err;
+            throw err; 
         }
         else{
             if(results.length > 0){
