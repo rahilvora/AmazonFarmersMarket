@@ -208,10 +208,10 @@ router.post('/addDriver',function(req,res){
     //    }
     //}
     var query = "INSERT INTO `driverdetails` " +
-                "(`driverid`, `firstname`, `lastname`, `address`, `city`," +
-                " `state`, `zipcode`, `email`, `phonenumber`) VALUES " +
-                "('"+req.body.driverid+"', '"+req.body.firstname+"', '"+req.body.lastname+"', '"+req.body.address+"', " +
-                "'"+req.body.city+"', '"+req.body.state+"', '"+req.body.zipcode+"', '"+req.body.email+"', '"+req.body.phonenumber+"');";
+        "(`driverid`, `firstname`, `lastname`, `address`, `city`," +
+        " `state`, `zipcode`, `email`, `phonenumber`) VALUES " +
+        "('"+req.body.driverid+"', '"+req.body.firstname+"', '"+req.body.lastname+"', '"+req.body.address+"', " +
+        "'"+req.body.city+"', '"+req.body.state+"', '"+req.body.zipcode+"', '"+req.body.email+"', '"+req.body.phonenumber+"');";
     connection.query(query,function(err,result){
         if(err){
             throw err;
@@ -236,9 +236,9 @@ router.get('/editDriver',function(req,res,next){
 
 router.put('/updateDriver',function(req,res,next){
     var query = "UPDATE `driverdetails` SET `driverid` = '"+req.body.driverid+"', `firstname` = '"+req.body.firstname+"'," +
-                " `lastname` = '"+req.body.lastname+"', `address` = '"+req.body.address+"', `city` = '"+req.body.city+"', `state` = '"+req.body.state+"'," +
-                " `zipcode` = '"+req.body.zipcode+"', `email` = '"+req.body.email+"', `phonenumber` = '"+req.body.phonenumber+"'" +
-                " WHERE `driverdetails`.`driverid` = '"+req.body.CurrentDriverId+"';"
+        " `lastname` = '"+req.body.lastname+"', `address` = '"+req.body.address+"', `city` = '"+req.body.city+"', `state` = '"+req.body.state+"'," +
+        " `zipcode` = '"+req.body.zipcode+"', `email` = '"+req.body.email+"', `phonenumber` = '"+req.body.phonenumber+"'" +
+        " WHERE `driverdetails`.`driverid` = '"+req.body.CurrentDriverId+"';"
     connection.query(query,function(err,result){
         if(err){
             throw err;
@@ -329,7 +329,7 @@ router.get('/editTruck',function(req,res){
 router.put('/updateTruck',function(req,res){
 
     var query = "UPDATE `truckdetails` SET `truckid` = '" + req.body.truckid + "', `truckinfo` = '"+ req.body.truckinfo+"'," +
-                " `driverid` = '" + req.body.driverid + "' WHERE `truckdetails`.`truckid` = " + req.body.CurrentTruckId + ";";
+        " `driverid` = '" + req.body.driverid + "' WHERE `truckdetails`.`truckid` = " + req.body.CurrentTruckId + ";";
     connection.query(query,function(err,result){
         if(err){
             throw err;
@@ -354,15 +354,15 @@ router.delete('/deleteTruck',function(req,res){
 router.get('/getFarmerProducts',function(req,res,next){
     console.log("fetching farmers products");
     /*var query = "select * from productdetails p, farmerdetails f   where p.farmerid=f.farmerid and f.farmerid='111-11-1111';";
-    connection.query(query,function(err,result){
-        if(err){
-            throw err;
-        }
-        else{
-            res.send(result);
-        }
-    })
-    */
+     connection.query(query,function(err,result){
+     if(err){
+     throw err;
+     }
+     else{
+     res.send(result);
+     }
+     })
+     */
 
     productsCollection.find({}).toArray(function (err,data) {
         if(data){
@@ -375,9 +375,9 @@ router.get('/getFarmerProducts',function(req,res,next){
 
 router.post('/createProduct',function(req,res,next){
 
-   console.log(req.body.price);
+    console.log(req.body.price);
 
-   var query = "INSERT INTO `amazonfresh`.`productdetails` (`farmerid`, `productname`, `productprice`, `description`) VALUES ('111-11-1111', '"+req.body.productname+"', '"+req.body.price+"', '"+req.body.description+"')";
+    var query = "INSERT INTO `amazonfresh`.`productdetails` (`farmerid`, `productname`, `productprice`, `description`) VALUES ('111-11-1111', '"+req.body.productname+"', '"+req.body.price+"', '"+req.body.description+"')";
     connection.query(query,function(err,result){
         if(err){
             throw err;
@@ -406,7 +406,7 @@ router.get('/getFarmerProfile',function(req,res,next){
 
 router.get('/getEditProduct',function(req,res,next){
     console.log(req.query.data);
-    
+
     var query = "select * from productdetails where farmerid='111-11-1111' and productid="+req.query.data+";";
     connection.query(query,function(err,result){
         if(err){
@@ -438,18 +438,83 @@ router.post('/updateProduct',function(req,res,next){
 router.put('/editFarmerProfile',function(req,res,next){
     console.log("edit farmer profile");
 
-    console.log(req.body.editFirstname);
+    //console.log(req.body.editFirstname);
 
     /* var query = "UPDATE farmerdetails SET firstname='"+req.body.firstname+"', lastname='"+req.body.lastname+"', email='"+req.body.email+"',address='"+req.body.address+"',city='"+req.body.city+"', state='"+req.body.state+"', zipcode='"+req.body.zipcode+"',password='"+req.body.password+"', phonenumber='"+req.body.phonenumber+"' where farmerid='"+req.body.farmerid+"'";;
-    connection.query(query,function(err,result){
+     connection.query(query,function(err,result){
+     if(err){
+     throw err;
+     }
+     else{
+     res.send(result);
+     }
+     })*/
+});
+
+router.post('/checkCustomerLogin', function (req, res, next) {
+    console.log("In checkCustomerLogin function")
+    var password, email;
+    password = req.body.password;
+    //password = crypto.createHash("sha1").update(password).digest("HEX");
+    email = req.body.email;
+
+    var json_responses;
+
+    var getUser="select * from customerdetails where email='"+email+"' and password='"+password+"';"
+    console.log("Query for Login is:"+getUser);
+
+
+    connection.query(getUser, function (err, results) {
         if(err){
             throw err;
         }
-        else{
-            res.send(result);
+        else if (results.length > 0){
+            var rows = results;
+            var jsonString = JSON.stringify(results);
+            var jsonParse = JSON.parse(jsonString);
+            console.log("Results: "+(rows[0].firstname));
+            //  req.session.username = rows[0].firstname;
+            //console.log("Session initialized for '"+req.session.username+"' user");
+            json_responses = {"statusCode" : "validLogin"};
+            res.send(json_responses);
+        } else {
+            console.log("In else part of customer login");
+            json_responses = {"statusCode" : "invalidLogin"};
+            res.send(json_responses);
         }
-    })*/
+    });
 });
 
+router.post('/checkFarmerLogin', function (req, res, next) {
+    var password, email;
+    password = req.body.password;
+    //password = crypto.createHash("sha1").update(password).digest("HEX");
+    email = req.body.email;
+
+    var json_responses;
+
+    var getUser="select * from farmerdetails where email='"+email+"' and password='"+password+"';"
+    console.log("Query for Login is:"+getUser);
+
+
+    connection.query(getUser, function (err, results) {
+        if(err){
+            throw err;
+        }
+        else if (results.length > 0){
+            var rows = results;
+            var jsonString = JSON.stringify(results);
+            var jsonParse = JSON.parse(jsonString);
+            console.log("Results: "+(rows[0].firstname));
+            //  req.session.username = rows[0].firstname;
+            //console.log("Session initialized for '"+req.session.username+"' user");
+            json_responses = {"statusCode" : "validLogin"};
+            res.send(json_responses);
+        } else {
+            json_responses = {"statusCode" : "invalidLogin"};
+            res.send(json_responses);
+        }
+    });
+});
 
 module.exports = router;

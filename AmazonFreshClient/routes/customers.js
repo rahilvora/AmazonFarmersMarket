@@ -2,9 +2,6 @@ var express = require('express');
 var router = express.Router();
 var connection = require('../MySQLConfig.js');
 
-
-
-
 router.get('/', function (req, res, next) {
     res.render('loginAndSignUp/signUpForm.ejs');
 });
@@ -132,7 +129,5 @@ router.get('/getCart', function (req, res, next) {
     ///res.render('customerViews/customerHome.ejs');
     
 });
-
-
 
 module.exports = router;

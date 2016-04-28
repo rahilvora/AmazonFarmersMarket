@@ -8,35 +8,70 @@
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
     <script src="/javascripts/angular/loginAndSignUp/loginController.js"></script>
 </head>
-<body ng-app="loginApp">
+<body ng-app="loginApp" ng-controller="LoginController" >
 <div style="background-image: url(/images/header/taskbar-bg.png); width: 100%; height: 45px" class="container-fluid">
     <a href="/"> <img src="/images/header/af-logo-white.png" style="margin-top: 5px"> </a>
 </div>
 <div class="col-sm-4 col-sm-offset-4">
-    <div ng-app="loginApp" ng-controller="LoginController">
-        <div class="alert alert-danger" ng-hide="existingUserName">
-            <strong>Incorrect username or password</strong>
+    <h3 style="text-align:left" ;>Sign In</h3>
+    <ul class="nav nav-pills">
+        <li class="active">
+            <a href="#Customer" data-toggle="tab">Customer</a>
+        </li>
+
+        <li>
+            <a href="#Farmer" data-toggle="tab">Farmer</a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="Customer">
+            <div class="form-group">
+                <label for="email">Customer Email:</label> <input type="email" class="form-control" ng-model="email"
+                                                                  placeholder="Enter email" size="30" style="width: 425px;" required>
+            </div>
+            <div class="form-group">
+                <label for="pwd">Password:</label> <input type="password" class="form-control" ng-model="password"
+                                                          placeholder="Enter password" size="30" style="width: 425px;"
+                                                          required>
+            </div>
+            <div>
+                <button ng-click="customerLogin();"
+                        style="width: 425px; background-color: #8FC12B; background-repeat: no-repeat; background-image: none; box-shadow: none; font-size: 16px; font-weight: normal; padding: 12px 16px; border: 0; border-radius: 4px; color: black;">
+                    Sign In
+                </button>
+            </div>
+            <div><span>New Amazon.com Customer? <a href="signup">Create a new Amazon Customer account</a></span></div>
+
+            <div class="alert alert-danger" ng-hide="existingUserName">
+                <strong>Incorrect username or password</strong>
+            </div>
+            <div class="alert alert-danger" ng-hide="unexpected_error">
+                <strong>Unexpected error, try again</strong>
+            </div>
         </div>
-        <div class="alert alert-danger" ng-hide="unexpected_error">
-            <strong>Unexpected error, try again</strong>
+
+        <div class="tab-pane" id="Farmer" >
+            <div class="form-group">
+                <label for="email">Farmer Email:</label> <input type="email" class="form-control" ng-model="email"
+                                                                placeholder="Enter email" size="30" style="width: 425px;" required>
+            </div>
+            <div class="form-group">
+                <label for="pwd">Password:</label> <input type="password" class="form-control" ng-model="password"
+                                                          placeholder="Enter password" size="30" style="width: 425px;"
+                                                          required>
+            </div>
+            <div>
+                <button ng-click="farmerLogin();" style="width: 425px; background-color: #8FC12B; background-repeat: no-repeat; background-image: none; box-shadow: none; font-size: 16px; font-weight: normal; padding: 12px 16px; border: 0; border-radius: 4px; color: black;">Sign In</button>
+            </div>
+
+            <div><span>New Amazon.com Farmer? <a href="signup">Create a new Amazon Farmer account</a></span></div>
+            <div class="alert alert-danger" ng-hide="existingUserName">
+                <strong>Incorrect username or password</strong>
+            </div>
+            <div class="alert alert-danger" ng-hide="unexpected_error">
+                <strong>Unexpected error, try again</strong>
+            </div>
         </div>
-        <h3 style="text-align:left" ;>Sign In</h3>
-        <div class="form-group">
-            <label for="email">Email:</label> <input type="email" class="form-control" ng-model="email"
-                                                     placeholder="Enter email" size="30" style="width: 425px;" required>
-        </div>
-        <div class="form-group">
-            <label for="pwd">Password:</label> <input type="password" class="form-control" ng-model="password"
-                                                      placeholder="Enter password" size="30" style="width: 425px;"
-                                                      required>
-        </div>
-        <div>
-            <button ng-click="login();"
-                    style="width: 425px; background-color: #8FC12B; background-repeat: no-repeat; background-image: none; box-shadow: none; font-size: 16px; font-weight: normal; padding: 12px 16px; border: 0; border-radius: 4px; color: black;">
-                Sign In
-            </button>
-        </div>
-        <div><span>New Amazon.com customer? <a href="signup">Create a new Amazon Customer account</a></span></div>
     </div>
 </div>
 </body>
