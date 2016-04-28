@@ -65,7 +65,7 @@ router.get('/customerHome', function (req, res, next) {
 
 
 router.get('/getCustomerDetails' , function (req, res, next) {
-    var customerid = "333-33-3333";
+    var customerid = "555-55-5555";
     var getUser = "select * from customerdetails where customerid='" + customerid + "'";
 
     connection.query(getUser, function (err, results) {
@@ -126,5 +126,13 @@ router.put('/updateUserProfile' , function (req, res, next) {
             }
         });
 });
+
+
+router.get('/getCart', function (req, res, next) {
+    ///res.render('customerViews/customerHome.ejs');
+    
+});
+
+
 
 module.exports = router;
