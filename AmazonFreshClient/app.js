@@ -34,8 +34,8 @@ app.use('/api',api);
 
 
 /***Ishan's part for customers and login , signup**/
-//app.use('/signup',customersRouter);
-//app.use('/shop',customersRouter);
+app.use('/signup',customersRouter);
+app.use('/shop',customersRouter);
 app.use('/login',login);
 
 //app.use('/api/getFarmers',routes);
