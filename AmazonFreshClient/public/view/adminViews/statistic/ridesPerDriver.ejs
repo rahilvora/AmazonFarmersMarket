@@ -1,0 +1,50 @@
+<script>
+    function createJSON(data,total){
+        var mainArray =[];
+        for(var a in data){
+            var temp ={}
+            temp.name = data[a].driverid2;
+            temp.y = Number(((data[a].trips/total)*100).toFixed(2));
+            mainArray.push(temp);
+        }
+        debugger;
+        console.log(mainArray);
+        generateGraph(mainArray)
+    }
+    function generateGraph(a) {
+        $('#container').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: 'Rides Per Driver'
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                        style: {
+                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                        }
+                    }
+                }
+            },
+            series: [{
+                name: 'Brands',
+                colorByPoint: true,
+                data: a
+            }]
+        });
+    };
+</script>
+
+<div id="container" style="height:400px"></div>

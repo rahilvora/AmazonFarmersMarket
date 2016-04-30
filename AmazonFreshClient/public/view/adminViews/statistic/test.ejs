@@ -1,0 +1,187 @@
+{{trips}}
+
+<script>
+    function createJSON(data){
+        var mainArray = [];
+        var mainObject = [];
+        debugger;
+        for(var a in data){
+            if(mainArray.indexOf(data[a].pickuploc) == -1){
+                mainArray.push(data[a].pickuploc);
+                mainObject.push({"name":data[a].pickuploc,imports:[]});
+            }
+        }
+        var sanjose = [],
+            sunnyvale = [],
+            paloalto = [],
+            mountainview = [],
+            fremont = [],
+            sanfrancisco = [],
+            santaclara = [];
+
+        for(var b in data){
+            switch (data[b].pickuploc.toLowerCase()){
+                case "san jose":{
+                    sanjose.push({"name":data[b].dropoffloc});
+                    break;
+                }
+                case "san francisco":{
+                    sanfrancisco.push({"name":data[b].dropoffloc});
+                    break;
+                }
+                case "palo alto":{
+                    paloalto.push({"name":data[b].dropoffloc});
+                    break;
+                }
+                case "sunnyvale":{
+                    sunnyvale.push({"name":data[b].dropoffloc});
+                    break;
+                }
+                case "santa clara":{
+                    santaclara.push({"name":data[b].dropoffloc});
+                    console.log('sc');
+                    break;
+                }
+                case "fremont":{
+                    fremont.push({"name":data[b].dropoffloc});
+                    break;
+                }
+                case "mountain view":{
+                    mountainview.push({"name":data[b].dropoffloc});
+                    break;
+                }
+            }
+        }
+        for (var c in mainObject){
+            switch(mainObject[c].name.toLowerCase()){
+                case "san jose":{
+                    mainObject[c].imports = sanjose;
+                    break;
+                }
+                case "san francisco":{
+                    mainObject[c].imports = sanfrancisco;
+                    break;
+                }
+                case "palo alto":{
+                    mainObject[c].imports = paloalto;
+                    break;
+                }
+                case "sunnyvale":{
+                    mainObject[c].imports = sunnyvale;
+                    break;
+                }
+                case "santa clara":{
+                    mainObject[c].imports = santaclara;
+                    console.log('sc');
+                    break;
+                }
+                case "fremont":{
+                    mainObject[c].imports = fremont;
+                    break;
+                }
+                case "mountain view":{
+                    mainObject[c].imports = mountainview;
+                    break;
+                }
+            }
+        }
+        generateChordChart(mainObject);
+    }
+    function generateChordChart(a){
+        var outerRadius = 960 / 2,
+                innerRadius = outerRadius - 130;
+
+        var fill = d3.scale.category20c();
+
+        var chord = d3.layout.chord()
+                .padding(.04)
+                .sortSubgroups(d3.descending)
+                .sortChords(d3.descending);
+
+        var arc = d3.svg.arc()
+                .innerRadius(innerRadius)
+                .outerRadius(innerRadius + 20);
+
+        var svg = d3.select("#graph").append("svg")
+                .attr("width", outerRadius * 2)
+                .attr("height", outerRadius * 2)
+                .append("g")
+                .attr("transform", "translate(" + outerRadius + "," + outerRadius + ")");
+        var imports = a;
+        debugger;
+        // if (error) throw error;
+
+        var indexByName = d3.map(),
+                nameByIndex = d3.map(),
+                matrix = [],
+                n = 0;
+
+        // TODO: remove this function. Returns the Flare package name for the given class name.
+        function name(name) {
+            return name;
+        }
+
+        // Compute a unique index for each package name.
+        imports.forEach(function(d) {
+            if (!indexByName.has(name(d.name))) {
+                nameByIndex.set(n, d.name);
+                indexByName.set(d.name, n++);
+            }
+
+            // d.imports.forEach(function(d) {
+            //  if (!indexByName.has(name(d.name))) {
+            //   nameByIndex.set(n, d.name);
+            //   indexByName.set(d.name, n++);
+            // }
+            // });
+        });
+
+        // Construct a square matrix counting package imports.
+        imports.forEach(function(d) {
+            var source = indexByName.get(name(d.name));
+            if (!matrix[source]) {
+                matrix[source] = [];
+                for (var i = -1; ++i < n;) matrix[source][i] = 0;
+            }
+            d.imports.forEach(function(d) { matrix[source][indexByName.get(name(d.name))]+=1; });
+        });
+
+        chord.matrix(matrix);
+
+        var g = svg.selectAll(".group")
+                .data(chord.groups)
+                .enter().append("g")
+                .attr("class", "group");
+
+        g.append("path")
+                .style("fill", function(d) { return fill(d.index); })
+                .style("stroke", function(d) { return fill(d.index); })
+                .attr("d", arc);
+
+        g.append("text")
+                .each(function(d) { d.angle = (d.startAngle + d.endAngle) / 2; })
+                .attr("dy", ".35em")
+                .attr("transform", function(d) {
+                    return "rotate(" + (d.angle * 180 / Math.PI - 90) + ")"
+                            + "translate(" + (innerRadius + 26) + ")"
+                            + (d.angle > Math.PI ? "rotate(180)" : "");
+                })
+                .style("text-anchor", function(d) { return d.angle > Math.PI ? "end" : null; })
+                .text(function(d) { return nameByIndex.get(d.index); });
+
+        svg.selectAll(".chord")
+                .data(chord.chords)
+                .enter().append("path")
+                .attr("class", "chord")
+                .style("stroke", function(d) { return d3.rgb(fill(d.source.index)).darker(); })
+                .style("fill", function(d) { return fill(d.source.index); })
+                .attr("d", d3.svg.chord().radius(innerRadius));
+
+
+        d3.select(self.frameElement).style("height", outerRadius * 2 + "px");
+
+    }
+</script>
+<div id="graph">
+
+</div>
