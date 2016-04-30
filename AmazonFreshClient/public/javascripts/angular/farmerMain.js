@@ -1,4 +1,4 @@
-var FarmerApp = angular.module("FarmerApp", ["ngRoute","ui.bootstrap"]);
+var FarmerApp = angular.module("FarmerApp",["ngRoute"]);
 
 var editproductid = 0;
 var prodid = 0;
