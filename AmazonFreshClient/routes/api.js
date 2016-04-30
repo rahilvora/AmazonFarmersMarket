@@ -27,27 +27,49 @@ connection.connect(function(err) {
     console.log('connected as id ' + connection.threadId);
 });
 
+var mongoose = require('mongoose'),
+    Schema = mongoose.Schema,
+    autoIncrement = require('mongoose-auto-increment');
+
+var mongoseconnection = mongoose.createConnection(mongoURL);
+autoIncrement.initialize(mongoseconnection);
+var productSchema = new Schema({
+    farmerid: String,
+    category: String,
+    productname: String,
+    productprice: Number,
+    description: String,
+    active: String,
+    approved: String,
+    productimage: String,
+    productreviews: [String],
+    productrating: Number
+});
+
+productSchema.plugin(autoIncrement.plugin, {model: 'productdetail', field: 'productid'});
+//var Product = connection.model('Product', productSchema);
+
 //Farmer's Requests
 
 router.get('/getFarmers',function(req,res,next){
     var query = "SELECT * FROM `farmerdetails` WHERE flag <> 0";
-    connection.query(query,function(err,result){
-        if(err){
+    connection.query(query, function (err, result) {
+        if (err) {
             throw err;
         }
-        else{
+        else {
             res.send(result);
         }
     })
 });
 
-router.get('/getAddFarmerRequests',function(req,res,next){
+router.get('/getAddFarmerRequests', function (req, res, next) {
     var query = "SELECT * FROM `farmerdetails` WHERE flag = 0";
-    connection.query(query,function(err,result){
-        if(err){
+    connection.query(query, function (err, result) {
+        if (err) {
             throw err;
         }
-        else{
+        else {
             res.send(result);
         }
     })
@@ -107,14 +129,14 @@ router.get('/getAddProductRequests',function(req,res,next){
     });
 });
 
-router.put('/addProduct',function(req,res){
+router.put('/addProduct', function (req, res) {
     //Update Query
-    var query = "UPDATE productdetails SET flag = 1 where productid = '" + req.body.productid +"'";
-    connection.query(query,function(err,result){
-        if(err){
+    var query = "UPDATE productdetails SET flag = 1 where productid = '" + req.body.productid + "'";
+    connection.query(query, function (err, result) {
+        if (err) {
             throw err;
         }
-        else{
+        else {
             res.send(200);
         }
     });
@@ -208,10 +230,10 @@ router.post('/addDriver',function(req,res){
     //    }
     //}
     var query = "INSERT INTO `driverdetails` " +
-                "(`driverid`, `firstname`, `lastname`, `address`, `city`," +
-                " `state`, `zipcode`, `email`, `phonenumber`) VALUES " +
-                "('"+req.body.driverid+"', '"+req.body.firstname+"', '"+req.body.lastname+"', '"+req.body.address+"', " +
-                "'"+req.body.city+"', '"+req.body.state+"', '"+req.body.zipcode+"', '"+req.body.email+"', '"+req.body.phonenumber+"');";
+        "(`driverid`, `firstname`, `lastname`, `address`, `city`," +
+        " `state`, `zipcode`, `email`, `phonenumber`) VALUES " +
+        "('"+req.body.driverid+"', '"+req.body.firstname+"', '"+req.body.lastname+"', '"+req.body.address+"', " +
+        "'"+req.body.city+"', '"+req.body.state+"', '"+req.body.zipcode+"', '"+req.body.email+"', '"+req.body.phonenumber+"');";
     connection.query(query,function(err,result){
         if(err){
             throw err;
@@ -236,9 +258,9 @@ router.get('/editDriver',function(req,res,next){
 
 router.put('/updateDriver',function(req,res,next){
     var query = "UPDATE `driverdetails` SET `driverid` = '"+req.body.driverid+"', `firstname` = '"+req.body.firstname+"'," +
-                " `lastname` = '"+req.body.lastname+"', `address` = '"+req.body.address+"', `city` = '"+req.body.city+"', `state` = '"+req.body.state+"'," +
-                " `zipcode` = '"+req.body.zipcode+"', `email` = '"+req.body.email+"', `phonenumber` = '"+req.body.phonenumber+"'" +
-                " WHERE `driverdetails`.`driverid` = '"+req.body.CurrentDriverId+"';"
+        " `lastname` = '"+req.body.lastname+"', `address` = '"+req.body.address+"', `city` = '"+req.body.city+"', `state` = '"+req.body.state+"'," +
+        " `zipcode` = '"+req.body.zipcode+"', `email` = '"+req.body.email+"', `phonenumber` = '"+req.body.phonenumber+"'" +
+        " WHERE `driverdetails`.`driverid` = '"+req.body.CurrentDriverId+"';"
     connection.query(query,function(err,result){
         if(err){
             throw err;
@@ -329,7 +351,7 @@ router.get('/editTruck',function(req,res){
 router.put('/updateTruck',function(req,res){
 
     var query = "UPDATE `truckdetails` SET `truckid` = '" + req.body.truckid + "', `truckinfo` = '"+ req.body.truckinfo+"'," +
-                " `driverid` = '" + req.body.driverid + "' WHERE `truckdetails`.`truckid` = " + req.body.CurrentTruckId + ";";
+        " `driverid` = '" + req.body.driverid + "' WHERE `truckdetails`.`truckid` = " + req.body.CurrentTruckId + ";";
     connection.query(query,function(err,result){
         if(err){
             throw err;
@@ -353,7 +375,55 @@ router.delete('/deleteTruck',function(req,res){
 });
 router.get('/getFarmerProducts',function(req,res,next){
     console.log("fetching farmers products");
-    /*var query = "select * from productdetails p, farmerdetails f   where p.farmerid=f.farmerid and f.farmerid='111-11-1111';";
+    productsCollection.find({farmerid: "111-11-1111", active: "Y"}).toArray(function (err, data) {
+        if (data) {
+            //console.log(data);
+            res.send(data);
+        }
+    });
+
+});
+
+router.post('/createProduct',function(req,res,next){
+
+    console.log("in create prod");
+    var document = {
+        farmerid: "111-11-1111",
+        //productid: "",
+        productname: req.body.productname,
+        productprice: req.body.price,
+        description: req.body.description,
+        category: req.body.category,
+        active: 'Y',
+        approved: 'N',
+        productimage: "",
+        productreviews: [],
+        productrating: ""
+    };
+    var productdetail = mongoseconnection.model('productdetail', productSchema);
+    productdetail.nextCount(function (err, count) {
+
+
+        var product = new productdetail(document);
+        product.save(function (doc) {
+
+
+            product.nextCount(function (err, count) {
+                console.log(count);
+                if (count > 0)
+                    res.send("Success");
+                else
+                    res.send("Failure");
+
+            });
+        });
+    });
+
+});
+
+router.get('/getFarmerProfile',function(req,res,next){
+    console.log("fetching farmers profile info");
+    var query = "select * from farmerdetails where farmerid='111-11-1111';";
     connection.query(query,function(err,result){
         if(err){
             throw err;
@@ -362,14 +432,211 @@ router.get('/getFarmerProducts',function(req,res,next){
             res.send(result);
         }
     })
-    */
+});
 
-    productsCollection.find({}).toArray(function (err,data) {
-        if(data){
-            console.log(data);
+router.get('/getEditProduct', function (req, res, next) {
+    console.log("getEditProduct" + req.query.data);
+    
+    productsCollection.findOne({productid: Number(req.query.data)},
+        function (err, user) {
+            if (user) {
+                res.send(user);
+            }
+            else {
+                res.send("Failure");
+            }
+        });
+});
+
+
+router.put('/deactivateProduct', function (req, res, next) {
+    console.log("in deactivateProduct");
+    console.log(req);
+    console.log(req.body.params.productid);
+
+    productsCollection.update({productid: req.body.params.productid}, {$set: {active: 'N'}},
+        function (err, upd) {
+            if (upd) {
+                console.log("product deactivated");
+                res.send("success");
+            }
+        });
+});
+
+router.post('/updateProduct',function(req,res,next){
+    console.log("edit product");
+    //  console.log(req.body.productname + req.body.productprice + req.body.productdescription + req.body.productid);
+    productsCollection.update({productid: req.body.productid}, {
+            $set: {
+                productname: req.body.productname,
+                productprice: req.body.productprice,
+                description: req.body.productdescription
+            }
+        },
+        function (err, upd) {
+            if (upd) {
+                //console.log("product updated"+upd);
+                res.send("success");
+            }
+        });
+});
+
+router.put('/editFarmerProfile',function(req,res,next){
+    console.log("edit farmer profile");
+
+    // console.log(req.body.editCity);
+
+    var query = "UPDATE farmerdetails SET firstname='" + req.body.editFirstname + "', lastname='" + req.body.editLastname + "', email='" + req.body.editEmail + "',address='" + req.body.editAddress + "',city='" + req.body.editCity + "', state='" + req.body.editState + "', zipcode='" + req.body.editZipcode + "',password='" + req.body.editPassword + "', phonenumber='" + req.body.editPhonenumber + "' where farmerid='" + req.body.editFarmerID + "'";
+    connection.query(query, function (err, result) {
+        if (err) {
+            throw err;
+        }
+        else {
+            //  console.log("update:"+JSON.stringify(result));
+            res.send("Success");
+        }
+    })
+});
+
+router.post('/checkCustomerLogin', function (req, res, next) {
+    console.log("In checkCustomerLogin function");
+    var password, email;
+    password = req.body.password;
+    //password = crypto.createHash("sha1").update(password).digest("HEX");
+    email = req.body.email;
+
+    var json_responses;
+
+    var getUser="select * from customerdetails where email='"+email+"' and password='"+password+"';"
+    console.log("Query for Login is:"+getUser);
+
+
+    connection.query(getUser, function (err, results) {
+        if(err){
+            throw err;
+        }
+        else if (results.length > 0){
+            var rows = results;
+            var jsonString = JSON.stringify(results);
+            var jsonParse = JSON.parse(jsonString);
+            //console.log("Results: " + (rows[0].firstname));
+            //  req.session.username = rows[0].firstname;
+            //console.log("Session initialized for '"+req.session.username+"' user");
+            json_responses = {"statusCode": "validLogin"};
+            res.send(json_responses);
+        } else {
+            //console.log("In else part of customer login");
+            json_responses = {"statusCode": "invalidLogin"};
+            res.send(json_responses);
+        }
+    });
+});
+
+router.post('/checkFarmerLogin', function (req, res, next) {
+    var password, email;
+    password = req.body.password;
+    //password = crypto.createHash("sha1").update(password).digest("HEX");
+    email = req.body.email;
+
+    var json_responses;
+
+    var getUser="select * from farmerdetails where email='"+email+"' and password='"+password+"';"
+    console.log("Query for Login is:"+getUser);
+
+
+    connection.query(getUser, function (err, results) {
+        if(err){
+            throw err;
+        }
+        else if (results.length > 0){
+            var rows = results;
+            var jsonString = JSON.stringify(results);
+            var jsonParse = JSON.parse(jsonString);
+            //console.log("Results: " + (rows[0].firstname));
+            //  req.session.username = rows[0].firstname;
+            //console.log("Session initialized for '"+req.session.username+"' user");
+            json_responses = {"statusCode" : "validLogin"};
+            res.send(json_responses);
+        } else {
+            json_responses = {"statusCode" : "invalidLogin"};
+            res.send(json_responses);
+        }
+    });
+});
+
+
+router.get('/getProductInfo', function (req, res, next) {
+    console.log("In getProductInfo -> api.js");
+    var productId = req.query.productid;
+    //console.log(productId);
+
+    productsCollection.findOne({productid: productId}, function (err, data) {
+        if (data) {
+            //console.log(data);
             res.send(data);
         }
     });
-
 });
+
+router.post('/addProductReview', function (req, res, next) {
+    console.log("In addProductReview -> api.js");
+
+    var productId = req.body.params.productid;
+    var rstars = req.body.params.rstars;
+    var rbody = req.body.params.rbody;
+    var rauthor = req.body.params.rauthor;
+    var reviewDocument = {stars: rstars, body: rbody, contact: rauthor};
+    //console.log(productId);
+    //console.log(reviewDocument);
+
+
+    //tweetsCollection.update({username:req.session.username},{$push:{tweets:{$each:[tDocument],$position:0}}},function(err,tdoc)
+    productsCollection.update({productid: productId}, {
+        $push: {
+            productreviews: {
+                $each: [reviewDocument],
+                $position: 0
+            }
+        }
+    }, function (err, data) {
+        if (data) {
+
+
+            productsCollection.findOne({productid: productId},
+                function (err, result) {
+                    if (result) {
+                        var sum = 0, totalRating;
+                        var reviews = result.productreviews;
+                        for (i = 0; i < reviews.length; i++) {
+
+                            sum = sum + Number(reviews[i].stars); // OR Number(reviews[i].starts)
+
+                        }
+                        totalrating = sum / reviews.length;
+                        totalrating = (totalrating * 20) + "%";
+                        console.log("totalrating: " + totalrating);
+                        /*
+                         productsCollection.update({productid: productId}, {$set: {productrating: totalrating}},
+                         function (err, upd) {
+                         if (upd) {
+                         res.send("success");
+                         }
+                         });
+                         }
+                         else {
+                         res.send("Failure");
+                         }
+
+                         });
+                         */
+
+                        var json_responses = {"statusCode": 200};
+                        //res.send(json_responses);
+                        res.send(data);
+                    }
+                });
+        }
+    });
+});
+
 module.exports = router;

@@ -1,13 +1,16 @@
 <div style="margin: 0 auto;  width: 50%">
     <form role="form" name="form">
         <div class="form-group">
+            <label>Product ID</label>
+            <input type="text" class="form-control" id="productid" ng-model="form.productid" readonly>
+        </div>
+        <div class="form-group">
             <label>Product Name</label>
             <input type="text" class="form-control" id="productname" ng-model="form.productname" required>
-            </input>
         </div>
         <div class="form-group">
             <label>Price</label>
-            <input type="text" class="form-control" id="price" ng-model="form.productprice" required>{{editproductid}}</input>
+            <input type="text" class="form-control" id="price" ng-model="form.productprice" required>
         </div>
         <div class="form-group">
             <label>Product Description</label>
@@ -19,8 +22,8 @@
         </div>
 
 
-        <button type="submit" class="btn btn-success" ng-click="">Update</button>
-        <button type="submit" class="btn btn-danger" ng-click="">Cancel</button>
+        <button type="submit" class="btn btn-success" ng-click="updateProduct()">Update</button>
+        <button type="submit" class="btn btn-danger" ng-click="cancelUpdateProduct()">Cancel</button>
     </form>
 
 

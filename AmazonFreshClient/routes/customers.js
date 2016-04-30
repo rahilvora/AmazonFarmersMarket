@@ -2,9 +2,6 @@ var express = require('express');
 var router = express.Router();
 var connection = require('../MySQLConfig.js');
 
-
-
-
 router.get('/', function (req, res, next) {
     res.render('loginAndSignUp/signUpForm.ejs');
 });
@@ -30,7 +27,7 @@ router.post('/checkUser',function(req,res,next){
 
     connection.query(getUser,function(err,results){
         if(err){
-            throw err;
+            throw err; 
         }
         else{
             if(results.length > 0){
@@ -65,7 +62,7 @@ router.get('/customerHome', function (req, res, next) {
 
 
 router.get('/getCustomerDetails' , function (req, res, next) {
-    var customerid = "333-33-3333";
+    var customerid = "555-55-5555";
     var getUser = "select * from customerdetails where customerid='" + customerid + "'";
 
     connection.query(getUser, function (err, results) {
@@ -125,6 +122,12 @@ router.put('/updateUserProfile' , function (req, res, next) {
                 res.send(json_responses);
             }
         });
+});
+
+
+router.get('/getCart', function (req, res, next) {
+    ///res.render('customerViews/customerHome.ejs');
+    
 });
 
 module.exports = router;

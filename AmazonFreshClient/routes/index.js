@@ -6,14 +6,17 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/admin', function(req, res, next) {
-  res.render('admin', { title: 'Express' });
+  res.render('adminViews/admin');
 });
 
 router.get('/farmer', function(req, res, next) {
-  res.render('farmer', { title: 'Farmer' });
+  res.render('farmerViews/farmer');
 });
 
+router.get('/login',function (req,res,next) {
+  res.render('loginAndSignUp/login');
+});
 
-
+router.get('/')
 
 module.exports = router;

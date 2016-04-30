@@ -1,32 +1,20 @@
 <div>
     <h1>List of Products</h1>
 
-    <table class="table table-bordered table-striped">
-        <th>Product ID</th>
-            <th>Product Name</th>
-            <th>Price</th>
-            <th>Description</th>
-            <th>Action</th>
-        </th>
-        <tr ng-repeat="product in farmerProducts">
-            <td> {{product.productid}} </td>
-            <td> {{product.productname}} </td>
-            <td> {{product.productprice}} </td>
-            <td> {{product.description}} </td>
-            <td><button type="button" class="btn btn-primary">Edit</button>
-            <button type="button" class="btn btn-danger">Delete</button></td>
-        </tr>
-    </table>
-    <div class="row">
-        <div class="col-sm-6 col-md-3" ng-repeat="product in farmerProducts">
-            <div class="thumbnail custom">
+    <div class="row container-fluid" >
+        <div  ng-repeat="product in farmerProducts">
+            <div class="thumbnail custom" style="width:25%; float:left;" >
                 <img src="../../../images/ProductImages/Apples/Fuji_Apple.jpg" alt="Fuji Apple" style="max-width: 100px; max-height: 100px; display: block; margin-left: auto; margin-right: auto; border-style: none">
                 <div class="caption">
+                    <div class="star-ratings-sprite"><span id="rating" ng-style="{'width': product.productrating}" class="star-ratings-sprite-rating"></span></div>
                     <h3>{{product.productprice}}</h3>
                     <p>{{product.productname}}</p>
                     <p>{{product.description}} </p>
+                    <p ng-hide="true">{{product.productid}}</p>
+
                     <p>
-                        <a href="#" class="btn btn-default" role="button">Add to Cart</a>
+                         <button type="button" class="btn btn-primary" ng-click="getEditProduct(product.productid)">Edit</button>
+                         <button type="button" class="btn btn-danger" ng-click="deactivateProduct(product.productid)">Delete</button>
                     </p>
                 </div>
             </div>

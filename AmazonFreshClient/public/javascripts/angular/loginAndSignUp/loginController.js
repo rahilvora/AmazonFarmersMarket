@@ -9,11 +9,34 @@ loginApp.controller('LoginController', function ($scope, $http) {
     $scope.existingUserName = true;
     $scope.unexpected_error = true;
 
-    /** Login Function **/
-    $scope.login = function () {
+    /** Customer Login Function **/
+    $scope.customerLogin = function () {
+        alert("In Customer Login function");
         $http({
             method: "POST",
-            url : '/login/checkLogin',
+            url : 'api/checkCustomerLogin',
+            data: {
+                "email" : $scope.email,
+                "password" : $scope.password
+            }
+        }).success(function(data) {
+            if(data.statusCode=="validLogin"){
+                window.location.assign("/shop/customerHome");
+            }
+            else if (data.statusCode == "invalidLogin"){
+                $scope.existingUserName = false;
+            }
+        }).error(function(error) {
+            $scope.unexpected_error = false;
+        });
+    };
+    /** Customer Login Function Ends**/
+
+    /** Farmer Login Function **/
+    $scope.farmerLogin = function () {
+        $http({
+            method: "POST",
+            url : 'api/checkFarmerLogin',
             data: {
                 "email" : $scope.email,
                 "password" : $scope.password
@@ -29,5 +52,6 @@ loginApp.controller('LoginController', function ($scope, $http) {
             $scope.unexpected_error = false;
         });
     }
-    /** Login Function Ends**/
+
+    /** Farmer Login Function Ends**/
 });
