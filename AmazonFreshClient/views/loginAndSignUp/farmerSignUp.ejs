@@ -2,28 +2,33 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Farmer Sign Up | AmazonFresh</title>
+    <link rel="shortcut icon" href="https://images-na.ssl-images-amazon.com/images/G/01/omaha/images/ui/favicon.ico"
+          type="image/vnd.microsoft.icon"/>
+    <link rel="icon" href="https://images-na.ssl-images-amazon.com/images/G/01/omaha/images/ui/favicon.ico"
+          type="image/vnd.microsoft.icon"/>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
-    <script src="/javascripts/angular/loginAndSignUp/signup.js"></script>
+    <script src="/javascripts/angular/loginAndSignUp/farmerSignUpController.js"></script>
 </head>
 <body ng-app="signUp">
 <div style="background-image: url(/images/header/taskbar-bg.png); width: 100%; height: 45px" class="container-fluid">
     <a href="/"> <img src="/images/header/af-logo-white.png" style="margin-top: 5px"></a>
 </div>
 
-<div class="col-sm-4 col-sm-offset-4" ng-controller="SignUpController">
+<div class="col-sm-4 col-sm-offset-4" ng-controller="FarmerSignUpController">
 
     <form name="signUpForm" novalidate ng-hide="showSignupForm">
         <div class="alert alert-danger" ng-hide="existingUserName">
-            <strong>This Twitter handle exist, please chose another one.</strong>
+            <strong>This username exists. Please chose another one.</strong>
         </div>
         <div class="alert alert-danger" ng-hide="unexpected_error">
             <strong>Unexpected error, try again</strong>
         </div>
 
-        <h3 style="text-align:left" ;>Sign up into Amazon Fresh.</h3>
+        <h3 style="text-align:left" ;>Create New Farmer Account</h3>
         <!-- <form action="/checkUser" method="post"> -->
 
         <div class="form-group"
@@ -45,7 +50,7 @@
         </div>
 
         <div class="form-group" ng-class="{ 'has-error' : signUpForm.email.$invalid && !signUpForm.email.$pristine }">
-            <label for="email">Email:</label>
+            <label for="email">Email ID:</label>
             <input type="email" class="form-control input-sm" ng-model="email" name="email" placeholder="Enter Email"
                    required>
             <p ng-show="signUpForm.email.$invalid && !signUpForm.email.$pristine" class="help-block">Enter a valid
@@ -62,20 +67,20 @@
         </div>
 
         <div class="form-group"
-             ng-class="{ 'has-error' : signUpForm.customerid.$invalid && !signUpForm.customerid.$pristine }">
-            <label for="customerid">User ID (Enter your SSN) :</label>
+             ng-class="{ 'has-error' : signUpForm.farmerid.$invalid && !signUpForm.farmerid.$pristine }">
+            <label for="farmerid">Enter your SSN:</label>
             <input type="text" maxlength="11" class="form-control input-sm"
-                   ng-pattern="/^[0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9]$/" ng-model="customerid"
-                   name="customerid" placeholder="111-11-1111" required>
-            <p ng-show="signUpForm.customerid.$error.pattern" class="help-block">Enter you ID in SSN format EG:
+                   ng-pattern="/^[0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9]$/" ng-model="farmerid"
+                   name="farmerid" placeholder="111-11-1111" required>
+            <p ng-show="signUpForm.farmerid.$error.pattern" class="help-block">Enter you ID in SSN format EG:
                 111-11-7899.</p>
-            <p ng-show="signUpForm.customerid.$invalid && !signUpForm.customerid.$pristine" class="help-block">Username
+            <p ng-show="signUpForm.farmerid.$invalid && !signUpForm.farmerid.$pristine" class="help-block">Username
                 is required.</p>
         </div>
 
         <div class="form-group"
              ng-class="{ 'has-error' : signUpForm.address.$invalid && !signUpForm.address.$pristine }">
-            <label for="location">Address :</label>
+            <label for="location">Street Address:</label>
             <input type="text" class="form-control input-sm" ng-model="address" name="address" placeholder="Address"
                    required>
             <p ng-show="signUpForm.address.$invalid && !signUpForm.address.$pristine" class="help-block">Enter your
@@ -89,46 +94,32 @@
 
         </div>
         <div class="form-group" ng-class="{ 'has-error' : signUpForm.state.$invalid && !signUpForm.state.$pristine }">
-            <label for="location">State :</label>
+            <label for="location">State:</label>
             <input type="text" class="form-control input-sm" ng-model="state" name="state" placeholder="State" required>
             <p ng-show="signUpForm.state.$invalid && !signUpForm.state.$pristine" class="help-block">Enter your
                 state</p>
         </div>
 
         <div class="form-group"
-             ng-class="{ 'has-error' : signUpForm.ccnumber.$invalid && !signUpForm.ccnumber.$pristine }">
-            <label for="location">Credit Card Number :</label>
-            <input type="text" class="form-control input-sm" ng-model="ccnumber" name="ccnumber"
-                   placeholder="1111-5555-9999-8888" required
-                   ng-pattern="/^[0-9][0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]$/">
-            <p ng-show="signUpForm.ccnumber.$error.pattern" class="help-block">Enter you ID in SSN format EG:
-                1111-1551-7899-9999.</p>
-            <p ng-show="signUpForm.ccnumber.$invalid && !signUpForm.ccnumber.$pristine" class="help-block">Enter your
-                state</p>
-        </div>
-
-
-        <div class="form-group"
              ng-class="{ 'has-error' : signUpForm.zipcode.$invalid && !signUpForm.zipcode.$pristine }">
-            <label for="birthday">Zip Code :</label>
+            <label for="birthday">Zip Code:</label>
             <input type="text" class="form-control input-sm" ng-pattern="zipPattern" ng-model="zipcode" name="zipcode"
                    placeholder="Zipcode" required>
-            <p ng-show="signUpForm.customerid.$error.zipPattern" class="help-block">Enter a valid zip code.</p>
+            <p ng-show="signUpForm.farmerid.$error.zipPattern" class="help-block">Enter a valid zip code.</p>
             <p ng-show="signUpForm.zipcode.$invalid && !signUpForm.zipcode.$pristine" class="help-block">Enter your Zip
                 Code</p>
         </div>
 
-
         <div class="form-group"
              ng-class="{ 'has-error' : signUpForm.phonenumber.$invalid && !signUpForm.phonenumber.$pristine }">
-            <label for="birthday">Contact :</label>
+            <label for="birthday">Contact:</label>
             <input type="text" class="form-control input-sm" ng-model="phonenumber" name="phonenumber"
                    placeholder="Contact" required>
             <p ng-show="signUpForm.phonenumber.$invalid && !signUpForm.phonenumber.$pristine" class="help-block">Enter
                 your Contact</p>
         </div>
 
-        <button style="width: 425px;
+        <button style="width: 450px;
     background-color: #8FC12B;
     background-repeat: no-repeat;
     background-image: none;
@@ -138,13 +129,9 @@
     padding: 12px 16px;
     border: 0;
     border-radius: 4px;
-    color:black;" ng-click="twitterSignUp();" type="submit" ng-disabled="signUpForm.$invalid">Sign Up
+    color:black;" ng-click="farmerSignUp();" type="submit" ng-disabled="signUpForm.$invalid">Sign Up
         </button>
-
-
     </form>
-
 </div>
-
 </body>
 </html>
