@@ -1,23 +1,26 @@
 <div>
+    <form>
+        <div class="form-group">
+            <input ng-model="search.$" type="text" class="form-control" placeholder="Search">
+        </div>
+    </form>
     <h1>List of Products</h1>
-
-    <div class="row container-fluid" >
-        <div  ng-repeat="product in farmerProducts">
-            <div class="thumbnail custom" style="width:25%; float:left;" >
-                <img src="../../../images/ProductImages/Apples/Fuji_Apple.jpg" alt="Fuji Apple" style="max-width: 100px; max-height: 100px; display: block; margin-left: auto; margin-right: auto; border-style: none">
+    <div class="row">
+        <div class="col-sm-6 col-md-3" ng-repeat="product in farmerProducts.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage)) | filter:search">
+            <div class="thumbnail custom">
+                <a ng-click="getProductInfo(product.productid)">
+                    <img src="../../../images/ProductImages/Apples/Fuji_Apple.jpg" alt="Fuji Apple" style="max-width: 100px; max-height: 100px; display: block; margin-left: auto; margin-right: auto; border-style: none">
+                </a>
                 <div class="caption">
-                    <div class="star-ratings-sprite"><span id="rating" ng-style="{'width': product.productrating}" class="star-ratings-sprite-rating"></span></div>
                     <h3>{{product.productprice}}</h3>
                     <p>{{product.productname}}</p>
                     <p>{{product.description}} </p>
-                    <p ng-hide="true">{{product.productid}}</p>
-
                     <p>
-                         <button type="button" class="btn btn-primary" ng-click="getEditProduct(product.productid)">Edit</button>
-                         <button type="button" class="btn btn-danger" ng-click="deactivateProduct(product.productid)">Delete</button>
+                        <a href="#" class="btn btn-default" role="button">Add to Cart</a>
                     </p>
                 </div>
             </div>
         </div>
     </div>
+    <uib-pagination total-items="totalItems" ng-model="currentPage"></uib-pagination>
 </div>

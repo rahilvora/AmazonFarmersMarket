@@ -1,13 +1,5 @@
 <div style="margin: 0 auto;  width: 50%">
-    <form role="form" name="form" id="form">
-        <div class="form-group">
-            <label>Product Category</label>
-            <select class="form-control" id="category" ng-model="form.category">
-                <option value="fruits">Fruits</option>
-                <option value="vegetables">Vegetables</option>
-                <option value="snacks">Snacks & Cookies</option>
-            </select>
-        </div>
+    <form role="form" name="form">
         <div class="form-group">
             <label>Product Name</label>
             <input type="text" class="form-control" id="productname" ng-model="form.productname" required>
@@ -26,10 +18,9 @@
             <input type="file" class="form-control" id="image" ng-model="form.image">
         </div>
 
+
         <button type="submit" class="btn btn-success" ng-click="addProduct()">Submit</button>
     </form>
 
-
-    <br><br>
 
 </div>

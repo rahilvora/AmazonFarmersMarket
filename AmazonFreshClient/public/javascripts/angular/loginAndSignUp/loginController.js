@@ -34,6 +34,7 @@ loginApp.controller('LoginController', function ($scope, $http) {
 
     /** Farmer Login Function **/
     $scope.farmerLogin = function () {
+        alert("In Farmer Login function");
         $http({
             method: "POST",
             url : 'api/checkFarmerLogin',
@@ -43,7 +44,7 @@ loginApp.controller('LoginController', function ($scope, $http) {
             }
         }).success(function(data) {
             if(data.statusCode=="validLogin"){
-                window.location.assign("/shop/customerHome");
+                window.location.assign("/farmer");
             }
             else if (data.statusCode == "invalidLogin"){
                 $scope.existingUserName = false;

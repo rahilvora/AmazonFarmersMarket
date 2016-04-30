@@ -17,6 +17,8 @@ router.get('/login',function (req,res,next) {
   res.render('loginAndSignUp/login');
 });
 
-router.get('/')
+router.get('/signUp',function (req,res,next) {
+  res.render('loginAndSignUp/signUpForm');
+})
 
 module.exports = router;
