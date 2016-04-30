@@ -608,10 +608,11 @@ router.get('/ridesPerDriver',function(req,res){
 });
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, './uploads/');
+        cb(null, './public/uploads/');
     },
     filename: function (req, file, cb) {
         var datetimestamp = Date.now();
+        console.log("FIle Object :"+file);
         cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1]);
     }
 });
@@ -624,12 +625,10 @@ router.post('/upload',function(req,res){
 
 
     upload(req,res,function(err){
+        console.log("here");
         if(err){
             res.json({error_code:1,err_desc:err});
-            //alert(err);
-            return;
         }
-        console.log("after err");
         console.log(storage.getFilename);
         res.json({error_code:0,err_desc:null});
     });
