@@ -27,27 +27,50 @@ connection.connect(function(err) {
     console.log('connected as id ' + connection.threadId);
 });
 
+var mongoose = require('mongoose'),
+    Schema = mongoose.Schema,
+    autoIncrement = require('mongoose-auto-increment');
+
+var mongoseconnection = mongoose.createConnection(mongoURL);
+autoIncrement.initialize(mongoseconnection);
+var productSchema = new Schema({
+    farmerid: String,
+    category: String,
+    productname: String,
+    productprice: Number,
+    description: String,
+    active: String,
+    approved: String,
+    productimage: String,
+    productreviews: [String],
+    productrating: Number
+});
+
+productSchema.plugin(autoIncrement.plugin, {model: 'productdetail', field: 'productid'});
+//var Product = connection.model('Product', productSchema);
+
 //Farmer's Requests
 
 router.get('/getFarmers',function(req,res,next){
     var query = "SELECT * FROM `farmerdetails` WHERE flag <> 0";
-    connection.query(query,function(err,result){
-        if(err){
+    connection.query(query, function (err, result) {
+        if (err) {
             throw err;
         }
-        else{
+        else {
             res.send(result);
         }
     })
+
 });
 
-router.get('/getAddFarmerRequests',function(req,res,next){
+router.get('/getAddFarmerRequests', function (req, res, next) {
     var query = "SELECT * FROM `farmerdetails` WHERE flag = 0";
-    connection.query(query,function(err,result){
-        if(err){
+    connection.query(query, function (err, result) {
+        if (err) {
             throw err;
         }
-        else{
+        else {
             res.send(result);
         }
     })
@@ -353,20 +376,9 @@ router.delete('/deleteTruck',function(req,res){
 });
 router.get('/getFarmerProducts',function(req,res,next){
     console.log("fetching farmers products");
-    /*var query = "select * from productdetails p, farmerdetails f   where p.farmerid=f.farmerid and f.farmerid='111-11-1111';";
-     connection.query(query,function(err,result){
-     if(err){
-     throw err;
-     }
-     else{
-     res.send(result);
-     }
-     })
-     */
-
-    productsCollection.find({}).toArray(function (err,data) {
-        if(data){
-            console.log(data);
+    productsCollection.find({farmerid: "111-11-1111", active: "Y"}).toArray(function (err, data) {
+        if (data) {
+            //console.log(data);
             res.send(data);
         }
     });
@@ -375,19 +387,38 @@ router.get('/getFarmerProducts',function(req,res,next){
 
 router.post('/createProduct',function(req,res,next){
 
-    console.log(req.body.price);
+    console.log("in create prod");
+    var document = {
+        farmerid: "111-11-1111",
+        //productid: "",
+        productname: req.body.productname,
+        productprice: req.body.price,
+        description: req.body.description,
+        category: req.body.category,
+        active: 'Y',
+        approved: 'N',
+        productimage: "",
+        productreviews: [],
+        productrating: ""
+    };
+    var productdetail = mongoseconnection.model('productdetail', productSchema);
+    productdetail.nextCount(function (err, count) {
 
-    var query = "INSERT INTO `amazonfresh`.`productdetails` (`farmerid`, `productname`, `productprice`, `description`) VALUES ('111-11-1111', '"+req.body.productname+"', '"+req.body.price+"', '"+req.body.description+"')";
-    connection.query(query,function(err,result){
-        if(err){
-            throw err;
-        }
-        else{
-            console.log("result of insert  "+result);
-            res.send("Success");
-        }
-    })
 
+        var product = new productdetail(document);
+        product.save(function (doc) {
+
+
+            product.nextCount(function (err, count) {
+                console.log(count);
+                if (count > 0)
+                    res.send("Success");
+                else
+                    res.send("Failure");
+
+            });
+        });
+    });
 
 });
 
@@ -404,51 +435,68 @@ router.get('/getFarmerProfile',function(req,res,next){
     })
 });
 
-router.get('/getEditProduct',function(req,res,next){
-    console.log(req.query.data);
+router.get('/getEditProduct', function (req, res, next) {
+    console.log("getEditProduct" + req.query.data);
+    
+    productsCollection.findOne({productid: Number(req.query.data)},
+        function (err, user) {
+            if (user) {
+                res.send(user);
+            }
+            else {
+                res.send("Failure");
+            }
+        });
+});
 
-    var query = "select * from productdetails where farmerid='111-11-1111' and productid="+req.query.data+";";
-    connection.query(query,function(err,result){
-        if(err){
-            throw err;
-        }
-        else{
-            console.log(result);
-            console.log(result[0].productname);
-            console.log(JSON.stringify(result));
-            res.send(result);
-        }
-    })
+
+router.put('/deactivateProduct', function (req, res, next) {
+    console.log("in deactivateProduct");
+    console.log(req);
+    console.log(req.body.params.productid);
+
+    productsCollection.update({productid: req.body.params.productid}, {$set: {active: 'N'}},
+        function (err, upd) {
+            if (upd) {
+                console.log("product deactivated");
+                res.send("success");
+            }
+        });
 });
 
 router.post('/updateProduct',function(req,res,next){
     console.log("edit product");
-    console.log(req.body.productname + req.body.productprice + req.body.productdescription + req.body.productid);
-    var query = "UPDATE `productdetails` SET `farmerid`='111-11-1111', `productname`='"+req.body.productname+"', `productprice`='"+req.body.productprice+"', `description`='"+req.body.productdescription+"' WHERE `productid`='"+req.body.productid+"';";
-    connection.query(query,function(err,result){
-        if(err){
-            throw err;
-        }
-        else{
-            res.send("Success");
-        }
-    })
+    //  console.log(req.body.productname + req.body.productprice + req.body.productdescription + req.body.productid);
+    productsCollection.update({productid: req.body.productid}, {
+            $set: {
+                productname: req.body.productname,
+                productprice: req.body.productprice,
+                description: req.body.productdescription
+            }
+        },
+        function (err, upd) {
+            if (upd) {
+                //console.log("product updated"+upd);
+                res.send("success");
+            }
+        });
 });
 
 router.put('/editFarmerProfile',function(req,res,next){
     console.log("edit farmer profile");
 
-    //console.log(req.body.editFirstname);
+    // console.log(req.body.editCity);
 
-    /* var query = "UPDATE farmerdetails SET firstname='"+req.body.firstname+"', lastname='"+req.body.lastname+"', email='"+req.body.email+"',address='"+req.body.address+"',city='"+req.body.city+"', state='"+req.body.state+"', zipcode='"+req.body.zipcode+"',password='"+req.body.password+"', phonenumber='"+req.body.phonenumber+"' where farmerid='"+req.body.farmerid+"'";;
-     connection.query(query,function(err,result){
-     if(err){
-     throw err;
-     }
-     else{
-     res.send(result);
-     }
-     })*/
+    var query = "UPDATE farmerdetails SET firstname='" + req.body.editFirstname + "', lastname='" + req.body.editLastname + "', email='" + req.body.editEmail + "',address='" + req.body.editAddress + "',city='" + req.body.editCity + "', state='" + req.body.editState + "', zipcode='" + req.body.editZipcode + "',password='" + req.body.editPassword + "', phonenumber='" + req.body.editPhonenumber + "' where farmerid='" + req.body.editFarmerID + "'";
+    connection.query(query, function (err, result) {
+        if (err) {
+            throw err;
+        }
+        else {
+            //  console.log("update:"+JSON.stringify(result));
+            res.send("Success");
+        }
+    })
 });
 
 router.post('/checkCustomerLogin', function (req, res, next) {

@@ -5,12 +5,10 @@ FarmerApp.controller("FarmerProductController", ["$scope", "$http", "$location",
     $scope.farmerProducts = [];
     $scope.farmers = [];
 
-
     //Get all the farmers products
 
     $http.get('api/getFarmerProducts').then(function(result){
 
-        console.log(JSON.stringify(result));
         $scope.farmerProducts = result.data;
         //$location.path('/farmers');
     });
@@ -19,10 +17,15 @@ FarmerApp.controller("FarmerProductController", ["$scope", "$http", "$location",
 
 
     $scope.addProduct= function(){
-        console.log($scope.form.price);
-
 
         $http.post('api/createProduct', $scope.form).then(function(result){
+            if(result.data== "Success"){
+                alert("Product added");
+                document.getElementById("form").reset();
+            }
+            else{
+                alert("Error inserting product. Verify information");
+            }
 
         });
     }
@@ -35,18 +38,34 @@ FarmerApp.controller("FarmerProductController", ["$scope", "$http", "$location",
 
     }
 
+    $scope.deactivateProduct= function(productid){
+
+           console.log(productid);
+       $http.put('api/deactivateProduct',{params : {productid:productid}}).then(function(result){
+            
+        });
+
+    }
+
 }]);
 
 
 FarmerApp.controller("FarmerEditProductController", ["$scope", "$http", "$location", function($scope, $http, $location){
 
+    alert("edit ctrl"+editproductid);
     $http.get('api/getEditProduct', {params:{data:editproductid}}).then(function(result){
-        if(result) {
-            alert(result.data[0].productid);
-            $scope.form.productid=result.data[0].productid;
-            $scope.form.productname=result.data[0].productname;
-            $scope.form.productprice=result.data[0].productprice;
-            $scope.form.productdescription=result.data[0].description;
+        alert(JSON.stringify(result));
+        if(result.data!="Failure") {
+
+            $scope.form.productid= result.data.productid;
+            $scope.form.productname=result.data.productname;
+            $scope.form.productprice=result.data.productprice;
+            $scope.form.productdescription=result.data.description;
+        }
+        else{
+            alert("Error loading product page");
+
+           // $location.path('/allProducts');
         }
 
     });
@@ -55,6 +74,8 @@ FarmerApp.controller("FarmerEditProductController", ["$scope", "$http", "$locati
         alert(" in update product");
 
         $http.post('api/updateProduct', $scope.form).then(function(result){
+            if(result.data == "Success")
+                alert("product updated");
             $location.path('/allProducts');
 
         });
@@ -76,7 +97,7 @@ FarmerApp.controller("FarmerProfileController", ["$scope", "$http", "$location",
     $scope.myRegex = /[a-zA-Z]{4}[0-9]{6,6}[a-zA-Z0-9]{3}/;
     $("#editProfile").hide();
     $("#viewProfile").show();
-
+    debugger;
     $http.get('api/getFarmerProfile').then(function(result){
 
         //fetch farmer info
@@ -121,6 +142,10 @@ FarmerApp.controller("FarmerProfileController", ["$scope", "$http", "$location",
         alert("here");
 
         $http.put('api/editFarmerProfile', $scope.editProfileForm).then(function (result) {
+            alert("Successfully updated");
+           // $("#editProfile").hide();
+            //$("#viewProfile").show();
+            location.reload();
 
         });
     };
