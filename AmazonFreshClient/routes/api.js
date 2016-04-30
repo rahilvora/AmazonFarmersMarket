@@ -10,16 +10,16 @@ var drivers = [];
 var mongoURL = "mongodb://localhost:27017/amazonfresh";
 var productsCollection;
 
-mongo.connect(mongoURL, function() {
+mongo.connect(mongoURL, function () {
     console.log('Connected to mongo at: ' + mongoURL);
     productsCollection = mongo.collection('productdetails');
+    counters = mongo.collection('counters');
 });
 
 
-
 //Connecting to MySQL
-
-connection.connect(function(err) {
+console.log("connection:" + connection);
+connection.connect(function (err) {
     if (err) {
         console.error('error connecting: ' + err.stack);
         return;
@@ -27,54 +27,78 @@ connection.connect(function(err) {
     console.log('connected as id ' + connection.threadId);
 });
 
+var mongoose = require('mongoose'),
+    Schema = mongoose.Schema,
+    autoIncrement = require('mongoose-auto-increment');
+
+var mongoseconnection = mongoose.createConnection(mongoURL);
+autoIncrement.initialize(mongoseconnection);
+var productSchema = new Schema({
+    farmerid: String,
+    category: String,
+    productname: String,
+    productprice: Number,
+    description: String,
+    active: String,
+    approved: String,
+    productimage: String,
+    productreviews: [String],
+    productrating: Number
+});
+
+productSchema.plugin(autoIncrement.plugin, {model: 'productdetail', field: 'productid'});
+//var Product = connection.model('Product', productSchema);
+
 //Farmer's Requests
 
-router.get('/getFarmers',function(req,res,next){
+router.get('/getFarmers', function (req, res, next) {
+    debugger
     var query = "SELECT * FROM `farmerdetails` WHERE flag <> 0";
-    connection.query(query,function(err,result){
-        if(err){
+    connection.query(query, function (err, result) {
+        if (err) {
             throw err;
         }
-        else{
+        else {
             res.send(result);
         }
     })
+
 });
 
-router.get('/getAddFarmerRequests',function(req,res,next){
+router.get('/getAddFarmerRequests', function (req, res, next) {
     var query = "SELECT * FROM `farmerdetails` WHERE flag = 0";
-    connection.query(query,function(err,result){
-        if(err){
+    connection.query(query, function (err, result) {
+        if (err) {
             throw err;
         }
-        else{
+        else {
             res.send(result);
         }
     })
 });
 
-router.put('/addFarmer',function(req,res){
+router.put('/addFarmer', function (req, res) {
     //Update Query
-    var query = "UPDATE farmerdetails SET flag = 1 where farmerid = '" + req.body.farmerid +"'";
-    connection.query(query,function(err,result){
-        if(err){
+    var query = "UPDATE farmerdetails SET flag = 1 where farmerid = '" + req.body.farmerid + "'";
+    connection.query(query, function (err, result) {
+        if (err) {
             throw err;
         }
-        else{
+        else {
             res.send(200);
         }
     });
 
 });
 
-router.delete('/deleteFarmer',function(req,res){
+router.delete('/deleteFarmer', function (req, res) {
     //Update Query
-    var query = "DELETE FROM farmerdetails where farmerid = '" +req.query.data+ "'";
-    connection.query(query,function(err,result){
-        if(err){
+    var query = "DELETE FROM farmerdetails where farmerid = '" + req.query.data + "'";
+    connection.query(query, function (err, result) {
+        if (err) {
             throw err;
         }
-        else{
+        else {
             res.send(200);
         }
     });
@@ -83,51 +107,51 @@ router.delete('/deleteFarmer',function(req,res){
 
 //Product Requests
 
-router.get('/getProducts',function(req,res,next){
+router.get('/getProducts', function (req, res, next) {
     var query = "SELECT * FROM `productdetails` WHERE flag <> 0";
-    connection.query(query,function(err,result){
-        if(err){
+    connection.query(query, function (err, result) {
+        if (err) {
             throw err;
         }
-        else{
+        else {
             res.send(result);
         }
     });
 });
 
-router.get('/getAddProductRequests',function(req,res,next){
+router.get('/getAddProductRequests', function (req, res, next) {
     var query = "SELECT * FROM `productdetails` WHERE flag = 0";
-    connection.query(query,function(err,result){
-        if(err){
+    connection.query(query, function (err, result) {
+        if (err) {
             throw err;
         }
-        else{
+        else {
             res.send(result);
         }
     });
 });
 
-router.put('/addProduct',function(req,res){
+router.put('/addProduct', function (req, res) {
     //Update Query
-    var query = "UPDATE productdetails SET flag = 1 where productid = '" + req.body.productid +"'";
-    connection.query(query,function(err,result){
-        if(err){
+    var query = "UPDATE productdetails SET flag = 1 where productid = '" + req.body.productid + "'";
+    connection.query(query, function (err, result) {
+        if (err) {
             throw err;
         }
-        else{
+        else {
             res.send(200);
         }
     });
 });
 
-router.delete('/deleteProduct',function(req,res){
+router.delete('/deleteProduct', function (req, res) {
     //Update Query
-    var query = "DELETE FROM productdetails where productid = '" +req.query.data+ "'";
-    connection.query(query,function(err,result){
-        if(err){
+    var query = "DELETE FROM productdetails where productid = '" + req.query.data + "'";
+    connection.query(query, function (err, result) {
+        if (err) {
             throw err;
         }
-        else{
+        else {
             res.send(200);
         }
     });
@@ -135,70 +159,70 @@ router.delete('/deleteProduct',function(req,res){
 
 //Customer Requests
 
-router.get('/getCustomers',function(req,res,next){
+router.get('/getCustomers', function (req, res, next) {
     var query = "SELECT * FROM `customerdetails` WHERE flag <> 0";
-    connection.query(query,function(err,result){
-        if(err){
+    connection.query(query, function (err, result) {
+        if (err) {
             throw err;
         }
-        else{
+        else {
             res.send(result);
         }
     });
 });
 
-router.get('/getAddCustomerRequests',function(req,res,next){
+router.get('/getAddCustomerRequests', function (req, res, next) {
     var query = "SELECT * FROM `customerdetails` WHERE flag = 0";
-    connection.query(query,function(err,result){
-        if(err){
+    connection.query(query, function (err, result) {
+        if (err) {
             throw err;
         }
-        else{
+        else {
             res.send(result);
         }
     });
 });
 
-router.put('/addCustomer',function(req,res){
+router.put('/addCustomer', function (req, res) {
     //Update Query
-    var query = "UPDATE customerdetails SET flag = 1 where customerid = '" + req.body.customerid +"'";
-    connection.query(query,function(err,result){
-        if(err){
+    var query = "UPDATE customerdetails SET flag = 1 where customerid = '" + req.body.customerid + "'";
+    connection.query(query, function (err, result) {
+        if (err) {
             throw err;
         }
-        else{
+        else {
             res.send(200);
         }
     });
 });
 
-router.delete('/deleteCustomer',function(req,res){
+router.delete('/deleteCustomer', function (req, res) {
     //Update Query
-    var query = "DELETE FROM customerdetails where customerid = '" +req.query.data+ "'";
-    connection.query(query,function(err,result){
-        if(err){
+    var query = "DELETE FROM customerdetails where customerid = '" + req.query.data + "'";
+    connection.query(query, function (err, result) {
+        if (err) {
             throw err;
         }
-        else{
+        else {
             res.send(200);
         }
     });
 });
 //Drivers Request
 
-router.get('/getDrivers',function(req,res,next){
+router.get('/getDrivers', function (req, res, next) {
     var query = "SELECT * FROM `driverdetails`";
-    connection.query(query,function(err,result){
-        if(err){
+    connection.query(query, function (err, result) {
+        if (err) {
             throw err;
         }
-        else{
+        else {
             res.send(result);
         }
     });
 });
 
-router.post('/addDriver',function(req,res){
+router.post('/addDriver', function (req, res) {
     //Add Query
     //driver.push(req.body.driverid);
 
@@ -208,67 +232,67 @@ router.post('/addDriver',function(req,res){
     //    }
     //}
     var query = "INSERT INTO `driverdetails` " +
-                "(`driverid`, `firstname`, `lastname`, `address`, `city`," +
-                " `state`, `zipcode`, `email`, `phonenumber`) VALUES " +
-                "('"+req.body.driverid+"', '"+req.body.firstname+"', '"+req.body.lastname+"', '"+req.body.address+"', " +
-                "'"+req.body.city+"', '"+req.body.state+"', '"+req.body.zipcode+"', '"+req.body.email+"', '"+req.body.phonenumber+"');";
-    connection.query(query,function(err,result){
-        if(err){
+        "(`driverid`, `firstname`, `lastname`, `address`, `city`," +
+        " `state`, `zipcode`, `email`, `phonenumber`) VALUES " +
+        "('" + req.body.driverid + "', '" + req.body.firstname + "', '" + req.body.lastname + "', '" + req.body.address + "', " +
+        "'" + req.body.city + "', '" + req.body.state + "', '" + req.body.zipcode + "', '" + req.body.email + "', '" + req.body.phonenumber + "');";
+    connection.query(query, function (err, result) {
+        if (err) {
             throw err;
         }
-        else{
+        else {
             res.send(200);
         }
     });
 });
 
-router.get('/editDriver',function(req,res,next){
-    var query = "SELECT * FROM `driverdetails` where driverid = '"+req.query.data+"';";
-    connection.query(query,function(err,result){
-        if(err){
+router.get('/editDriver', function (req, res, next) {
+    var query = "SELECT * FROM `driverdetails` where driverid = '" + req.query.data + "';";
+    connection.query(query, function (err, result) {
+        if (err) {
             throw err;
         }
-        else{
+        else {
             res.send(result);
         }
     });
 });
 
-router.put('/updateDriver',function(req,res,next){
-    var query = "UPDATE `driverdetails` SET `driverid` = '"+req.body.driverid+"', `firstname` = '"+req.body.firstname+"'," +
-                " `lastname` = '"+req.body.lastname+"', `address` = '"+req.body.address+"', `city` = '"+req.body.city+"', `state` = '"+req.body.state+"'," +
-                " `zipcode` = '"+req.body.zipcode+"', `email` = '"+req.body.email+"', `phonenumber` = '"+req.body.phonenumber+"'" +
-                " WHERE `driverdetails`.`driverid` = '"+req.body.CurrentDriverId+"';"
-    connection.query(query,function(err,result){
-        if(err){
+router.put('/updateDriver', function (req, res, next) {
+    var query = "UPDATE `driverdetails` SET `driverid` = '" + req.body.driverid + "', `firstname` = '" + req.body.firstname + "'," +
+        " `lastname` = '" + req.body.lastname + "', `address` = '" + req.body.address + "', `city` = '" + req.body.city + "', `state` = '" + req.body.state + "'," +
+        " `zipcode` = '" + req.body.zipcode + "', `email` = '" + req.body.email + "', `phonenumber` = '" + req.body.phonenumber + "'" +
+        " WHERE `driverdetails`.`driverid` = '" + req.body.CurrentDriverId + "';"
+    connection.query(query, function (err, result) {
+        if (err) {
             throw err;
         }
-        else{
+        else {
             res.send(result);
         }
     });
 });
 
-router.delete('/deleteDriver',function(req,res,next){
-    var query = "DELETE FROM driverdetails where driverid = '" +req.query.data+ "'";
-    connection.query(query,function(err,result){
-        if(err){
+router.delete('/deleteDriver', function (req, res, next) {
+    var query = "DELETE FROM driverdetails where driverid = '" + req.query.data + "'";
+    connection.query(query, function (err, result) {
+        if (err) {
             throw err;
         }
-        else{
+        else {
             res.send(200);
         }
     });
 });
 //Bill Requests
 
-router.get('/getBills',function(req,res){
+router.get('/getBills', function (req, res) {
     var query = "SELECT * FROM `billdetails`";
-    connection.query(query,function(err,result){
-        if(err){
+    connection.query(query, function (err, result) {
+        if (err) {
             throw err;
         }
-        else{
+        else {
             res.send(result);
         }
     });
@@ -276,179 +300,206 @@ router.get('/getBills',function(req,res){
 
 //Trip Requests
 
-router.get('/getTrips',function(req,res){
+router.get('/getTrips', function (req, res) {
     var query = "SELECT * FROM tripdetails";
-    connection.query(query,function(err,result){
-        if(err){
+    connection.query(query, function (err, result) {
+        if (err) {
             throw err;
         }
-        else{
+        else {
             res.send(result);
         }
     });
 });
 //Truck Requests
 
-router.get('/getTrucks',function(req,res){
+router.get('/getTrucks', function (req, res) {
     var query = "SELECT * FROM truckdetails";
-    connection.query(query,function(err,result){
-        if(err){
+    connection.query(query, function (err, result) {
+        if (err) {
             throw err;
         }
-        else{
+        else {
             res.send(result);
         }
     });
 });
 
-router.post('/addTruck',function(req,res){
+router.post('/addTruck', function (req, res) {
     var query = "INSERT INTO `truckdetails` (`truckid`, `truckinfo`, `driverid`)" +
-        "VALUES ('"+req.body.truckid+"', '"+req.body.truckinfo+"', '"+req.body.driverid+"');";
-    connection.query(query,function(err,result){
-        if(err){
+        "VALUES ('" + req.body.truckid + "', '" + req.body.truckinfo + "', '" + req.body.driverid + "');";
+    connection.query(query, function (err, result) {
+        if (err) {
             throw err;
         }
-        else{
+        else {
             res.send(200);
         }
     });
 });
 
-router.get('/editTruck',function(req,res){
-    var query = "SELECT * from `truckdetails` where truckid = '"+req.query.data+"';" ;
-    connection.query(query,function(err,result){
-        if(err){
+router.get('/editTruck', function (req, res) {
+    var query = "SELECT * from `truckdetails` where truckid = '" + req.query.data + "';";
+    connection.query(query, function (err, result) {
+        if (err) {
             throw err;
         }
-        else{
+        else {
             res.send(result);
         }
     });
 });
 
-router.put('/updateTruck',function(req,res){
+router.put('/updateTruck', function (req, res) {
 
-    var query = "UPDATE `truckdetails` SET `truckid` = '" + req.body.truckid + "', `truckinfo` = '"+ req.body.truckinfo+"'," +
-                " `driverid` = '" + req.body.driverid + "' WHERE `truckdetails`.`truckid` = " + req.body.CurrentTruckId + ";";
-    connection.query(query,function(err,result){
-        if(err){
+    var query = "UPDATE `truckdetails` SET `truckid` = '" + req.body.truckid + "', `truckinfo` = '" + req.body.truckinfo + "'," +
+        " `driverid` = '" + req.body.driverid + "' WHERE `truckdetails`.`truckid` = " + req.body.CurrentTruckId + ";";
+    connection.query(query, function (err, result) {
+        if (err) {
             throw err;
         }
-        else{
+        else {
             res.send(200);
         }
     });
 });
 
-router.delete('/deleteTruck',function(req,res){
-    var query = "DELETE FROM truckdetails where truckid = '" +req.query.data+ "'";
-    connection.query(query,function(err,result){
-        if(err){
+router.delete('/deleteTruck', function (req, res) {
+    var query = "DELETE FROM truckdetails where truckid = '" + req.query.data + "'";
+    connection.query(query, function (err, result) {
+        if (err) {
             throw err;
         }
-        else{
+        else {
             res.send(200);
         }
     });
 });
-router.get('/getFarmerProducts',function(req,res,next){
+router.get('/getFarmerProducts', function (req, res, next) {
     console.log("fetching farmers products");
-    /*var query = "select * from productdetails p, farmerdetails f   where p.farmerid=f.farmerid and f.farmerid='111-11-1111';";
-    connection.query(query,function(err,result){
-        if(err){
-            throw err;
-        }
-        else{
-            res.send(result);
-        }
-    })
-    */
-
-    productsCollection.find({}).toArray(function (err,data) {
-        if(data){
-            console.log(data);
+    productsCollection.find({farmerid: "111-11-1111", active: "Y"}).toArray(function (err, data) {
+        if (data) {
+            //console.log(data);
             res.send(data);
         }
     });
 
 });
 
-router.post('/createProduct',function(req,res,next){
+router.post('/createProduct', function (req, res, next) {
 
-   console.log(req.body.price);
+    console.log("in create prod");
+    var document = {
+        farmerid: "111-11-1111",
+        //productid: "",
+        productname: req.body.productname,
+        productprice: req.body.price,
+        description: req.body.description,
+        category: req.body.category,
+        active: 'Y',
+        approved: 'N',
+        productimage: "",
+        productreviews: [],
+        productrating: ""
+    };
+    var productdetail = mongoseconnection.model('productdetail', productSchema);
+    productdetail.nextCount(function (err, count) {
 
-   var query = "INSERT INTO `amazonfresh`.`productdetails` (`farmerid`, `productname`, `productprice`, `description`) VALUES ('111-11-1111', '"+req.body.productname+"', '"+req.body.price+"', '"+req.body.description+"')";
-    connection.query(query,function(err,result){
-        if(err){
-            throw err;
-        }
-        else{
-            console.log("result of insert  "+result);
-            res.send("Success");
-        }
-    })
 
+        var product = new productdetail(document);
+        product.save(function (doc) {
+
+
+            product.nextCount(function (err, count) {
+                console.log(count);
+                if (count > 0)
+                    res.send("Success");
+                else
+                    res.send("Failure");
+
+            });
+        });
+    });
 
 });
 
-router.get('/getFarmerProfile',function(req,res,next){
+router.get('/getFarmerProfile', function (req, res, next) {
     console.log("fetching farmers profile info");
-    var query = "select * from farmerdetails where farmerid='111-11-1111';";
-    connection.query(query,function(err,result){
-        if(err){
+
+    var query = "select * from amazonfresh.farmerdetails where farmerid='111-11-1111'";
+    connection.query(query, function (err, result) {
+        console.log("fetched");
+        if (err) {
             throw err;
         }
-        else{
+        else {
             res.send(result);
         }
     })
 });
 
-router.get('/getEditProduct',function(req,res,next){
-    console.log(req.query.data);
+router.get('/getEditProduct', function (req, res, next) {
+    console.log("getEditProduct" + req.query.data);
     
-    var query = "select * from productdetails where farmerid='111-11-1111' and productid="+req.query.data+";";
-    connection.query(query,function(err,result){
-        if(err){
-            throw err;
-        }
-        else{
-            console.log(result);
-            console.log(result[0].productname);
-            console.log(JSON.stringify(result));
-            res.send(result);
-        }
-    })
+    productsCollection.findOne({productid: Number(req.query.data)},
+        function (err, user) {
+            if (user) {
+                res.send(user);
+            }
+            else {
+                res.send("Failure");
+            }
+        });
 });
 
-router.post('/updateProduct',function(req,res,next){
+
+router.put('/deactivateProduct', function (req, res, next) {
+    console.log("in deactivateProduct");
+    console.log(req);
+    console.log(req.body.params.productid);
+
+    productsCollection.update({productid: req.body.params.productid}, {$set: {active: 'N'}},
+        function (err, upd) {
+            if (upd) {
+                console.log("product deactivated");
+                res.send("success");
+            }
+        });
+});
+
+router.post('/updateProduct', function (req, res, next) {
     console.log("edit product");
-    console.log(req.body.productname + req.body.productprice + req.body.productdescription + req.body.productid);
-    var query = "UPDATE `productdetails` SET `farmerid`='111-11-1111', `productname`='"+req.body.productname+"', `productprice`='"+req.body.productprice+"', `description`='"+req.body.productdescription+"' WHERE `productid`='"+req.body.productid+"';";
-    connection.query(query,function(err,result){
-        if(err){
-            throw err;
-        }
-        else{
-            res.send("Success");
-        }
-    })
+    //  console.log(req.body.productname + req.body.productprice + req.body.productdescription + req.body.productid);
+    productsCollection.update({productid: req.body.productid}, {
+            $set: {
+                productname: req.body.productname,
+                productprice: req.body.productprice,
+                description: req.body.productdescription
+            }
+        },
+        function (err, upd) {
+            if (upd) {
+                //console.log("product updated"+upd);
+                res.send("success");
+            }
+        });
 });
 
-router.put('/editFarmerProfile',function(req,res,next){
+router.put('/editFarmerProfile', function (req, res, next) {
     console.log("edit farmer profile");
 
-    console.log(req.body.editFirstname);
+    // console.log(req.body.editCity);
 
-    /* var query = "UPDATE farmerdetails SET firstname='"+req.body.firstname+"', lastname='"+req.body.lastname+"', email='"+req.body.email+"',address='"+req.body.address+"',city='"+req.body.city+"', state='"+req.body.state+"', zipcode='"+req.body.zipcode+"',password='"+req.body.password+"', phonenumber='"+req.body.phonenumber+"' where farmerid='"+req.body.farmerid+"'";;
-    connection.query(query,function(err,result){
-        if(err){
+    var query = "UPDATE farmerdetails SET firstname='" + req.body.editFirstname + "', lastname='" + req.body.editLastname + "', email='" + req.body.editEmail + "',address='" + req.body.editAddress + "',city='" + req.body.editCity + "', state='" + req.body.editState + "', zipcode='" + req.body.editZipcode + "',password='" + req.body.editPassword + "', phonenumber='" + req.body.editPhonenumber + "' where farmerid='" + req.body.editFarmerID + "'";
+    connection.query(query, function (err, result) {
+        if (err) {
             throw err;
         }
-        else{
-            res.send(result);
+        else {
+            //  console.log("update:"+JSON.stringify(result));
+            res.send("Success");
         }
-    })*/
+    })
 });
 
 
