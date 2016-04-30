@@ -36,7 +36,7 @@ app.use('/api',api);
 /***Ishan's part for customers and login , signup**/
 //app.use('/signup',customersRouter);
 //app.use('/shop',customersRouter);
-app.use('/login',login);
+//app.use('/login',login);
 
 //app.use('/api/getFarmers',routes);
 //app.use('/api/getAddFarmerRequests',routes);
@@ -87,4 +87,3 @@ app.use(function(err, req, res, next) {
 
 
 module.exports = app;
-
