@@ -12,11 +12,15 @@
                     <img src="../../../images/ProductImages/Apples/Fuji_Apple.jpg" alt="Fuji Apple" style="max-width: 100px; max-height: 100px; display: block; margin-left: auto; margin-right: auto; border-style: none">
                 </a>
                 <div class="caption">
+                    <div class="star-ratings-sprite"><span id="rating" ng-style="{'width': product.productrating}" class="star-ratings-sprite-rating"></span></div>
                     <h3>{{product.productprice}}</h3>
                     <p>{{product.productname}}</p>
                     <p>{{product.description}} </p>
+                    <p ng-hide="true">{{product.productid}}</p>
+
                     <p>
-                        <a href="#" class="btn btn-default" role="button">Add to Cart</a>
+                         <button type="button" class="btn btn-primary" ng-click="getEditProduct(product.productid)">Edit</button>
+                         <button type="button" class="btn btn-danger" ng-click="deactivateProduct(product.productid)">Delete</button>
                     </p>
                 </div>
             </div>
