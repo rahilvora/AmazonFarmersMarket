@@ -4,6 +4,10 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('client-sessions');
+
+//configure the sessions with our application
+
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -14,6 +18,15 @@ var routing = require('./routes/routing');
 var mongo = require('./MongoConfig');
 
 var app = express();
+
+
+app.use(session({
+
+  cookieName: 'session',
+  secret: 'cmpe273_amazonfresh',
+  duration: 30 * 60 * 1000,    //setting the time for active session
+  activeDuration: 5 * 60 * 1000,  })); // setting time for the session to be active when the window is open // 5 minutes set currently
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -31,6 +44,27 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 //app.use('/admin',routes);
 app.use('/api',api);
+
+
+/***Ishan's part for customers and login , signup**/
+//app.use('/signup',customersRouter);
+app.use('/shop',customersRouter);
+//app.use('/login',login);
+
+//app.use('/api/getFarmers',routes);
+//app.use('/api/getAddFarmerRequests',routes);
+//app.use('api/addFarmer',routes);
+//app.use('/api/getProducts',routes);
+//app.use('/api/getAddProductRequests',routes);
+//app.use('api/addProduct',routes);
+//app.use('/api/getCustomers',routes);
+//app.use('/api/getAddCustomerRequests',routes);
+//app.use('api/addCustomer',routes);
+//app.use('/api/getDrivers',routes);
+//app.use('api/addDriver',routes);
+//app.use('/api/getBills',routes);
+//app.use('api/getTrips',routes);
+
 app.use('/users', users);
 
 // catch 404 and forward to error handler

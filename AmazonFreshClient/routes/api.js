@@ -5,16 +5,16 @@ var express = require('express');
 var router = express.Router();
 var multer = require('multer');
 var connection = require('../MySQLConfig.js');
-//var mongo = require('../MongoConfig.js');
+var mongo = require('../MongoConfig.js');
 var drivers = [];
 
-//var mongoURL = "mongodb://localhost:27017/amazonfresh";
+var mongoURL = "mongodb://localhost:27017/amazonfresh";
 var productsCollection;
 
-//mongo.connect(mongoURL, function() {
-//    console.log('Connected to mongo at: ' + mongoURL);
-//    productsCollection = mongo.collection('productdetails');
-//});
+mongo.connect(mongoURL, function() {
+    console.log('Connected to mongo at: ' + mongoURL);
+    productsCollection = mongo.collection('productdetails');
+});
 
 
 // var redis = require('redis');
@@ -56,6 +56,7 @@ connection.connect(function(err) {
 ////var Product = connection.model('Product', productSchema);
 
 //Farmer's Requests
+
 router.get('/getFarmers',function(req,res,next){
 
     client.get("getFarmer",function(err,result){
@@ -166,7 +167,6 @@ router.get('/getProducts',function(req,res,next){
             })
         }
     });
-
 });
 
 router.get('/getAddProductRequests',function(req,res,next){
@@ -574,6 +574,9 @@ router.get('/totalDelivery',function(req,res){
             throw err;
         }
         else{
+            console.log(result);
+            console.log(result[0].productname);
+            console.log(JSON.stringify(result));
             res.send(result);
         }
     });
@@ -749,7 +752,7 @@ router.post('/updateProduct',function(req,res,next){
 router.put('/editFarmerProfile',function(req,res,next){
     console.log("edit farmer profile");
 
-    // console.log(req.body.editCity);
+    //console.log(req.body.editFirstname);
 
     var query = "UPDATE farmerdetails SET firstname='" + req.body.editFirstname + "', lastname='" + req.body.editLastname + "', email='" + req.body.editEmail + "',address='" + req.body.editAddress + "',city='" + req.body.editCity + "', state='" + req.body.editState + "', zipcode='" + req.body.editZipcode + "',password='" + req.body.editPassword + "', phonenumber='" + req.body.editPhonenumber + "' where farmerid='" + req.body.editFarmerID + "'";
     connection.query(query, function (err, result) {
@@ -764,7 +767,7 @@ router.put('/editFarmerProfile',function(req,res,next){
 });
 
 router.post('/checkCustomerLogin', function (req, res, next) {
-    console.log("In checkCustomerLogin function");
+    console.log("In checkCustomerLogin function")
     var password, email;
     password = req.body.password;
     //password = crypto.createHash("sha1").update(password).digest("HEX");
@@ -784,17 +787,41 @@ router.post('/checkCustomerLogin', function (req, res, next) {
             var rows = results;
             var jsonString = JSON.stringify(results);
             var jsonParse = JSON.parse(jsonString);
-            //console.log("Results: " + (rows[0].firstname));
-            //  req.session.username = rows[0].firstname;
-            //console.log("Session initialized for '"+req.session.username+"' user");
-            json_responses = {"statusCode": "validLogin"};
+            console.log("Results: "+(rows[0].firstname));
+            console.log("Results: "+(rows[0].customerid));
+            req.session.username = rows[0].customerid;
+             cartid = req.session.username;
+            console.log("Session initialized for '"+req.session.username+"' user");
+            json_responses = {"statusCode" : "validLogin"};
             res.send(json_responses);
         } else {
-            //console.log("In else part of customer login");
-            json_responses = {"statusCode": "invalidLogin"};
+            console.log("In else part of customer login");
+            json_responses = {"statusCode" : "invalidLogin"};
             res.send(json_responses);
         }
     });
+
+    mongo.connect(mongoURL, function () {
+        var coll = mongo.collection('carts');
+
+        coll.findOne({cartid: "111-11-1111"}, function(err, result){
+            if (result) {
+                console.log(" collection id present");
+
+            } else {
+                coll.insert({cartid: cartid, products: []}, function (err, result) {
+                    if (result) {
+                        console.log(result);
+                    }
+                    else {
+                        console.log("returned false");
+                    }
+                })
+            }
+        });
+    });
+
+
 });
 
 router.post('/checkFarmerLogin', function (req, res, next) {
@@ -817,7 +844,7 @@ router.post('/checkFarmerLogin', function (req, res, next) {
             var rows = results;
             var jsonString = JSON.stringify(results);
             var jsonParse = JSON.parse(jsonString);
-            //console.log("Results: " + (rows[0].firstname));
+            console.log("Results: "+(rows[0].firstname));
             //  req.session.username = rows[0].firstname;
             //console.log("Session initialized for '"+req.session.username+"' user");
             json_responses = {"statusCode" : "validLogin"};
@@ -828,186 +855,5 @@ router.post('/checkFarmerLogin', function (req, res, next) {
         }
     });
 });
-
-
-router.get('/getProductInfo', function (req, res, next) {
-    console.log("In getProductInfo -> api.js");
-    var productId = req.query.productid;
-    //console.log(productId);
-
-    productsCollection.findOne({productid: productId}, function (err, data) {
-        if (data) {
-            //console.log(data);
-            res.send(data);
-        }
-    });
-});
-
-router.post('/addProductReview', function (req, res, next) {
-    console.log("In addProductReview -> api.js");
-
-    var productId = req.body.params.productid;
-    var rstars = req.body.params.rstars;
-    var rbody = req.body.params.rbody;
-    var rauthor = req.body.params.rauthor;
-    var reviewDocument = {stars: rstars, body: rbody, contact: rauthor};
-    //console.log(productId);
-    //console.log(reviewDocument);
-
-
-    //tweetsCollection.update({username:req.session.username},{$push:{tweets:{$each:[tDocument],$position:0}}},function(err,tdoc)
-    productsCollection.update({productid: productId}, {
-        $push: {
-            productreviews: {
-                $each: [reviewDocument],
-                $position: 0
-            }
-        }
-    }, function (err, data) {
-        if (data) {
-
-
-            productsCollection.findOne({productid: productId},
-                function (err, result) {
-                    if (result) {
-                        var sum = 0, totalRating;
-                        var reviews = result.productreviews;
-                        for (i = 0; i < reviews.length; i++) {
-
-                            sum = sum + Number(reviews[i].stars); // OR Number(reviews[i].starts)
-
-                        }
-                        totalrating = sum / reviews.length;
-                        totalrating = (totalrating * 20) + "%";
-                        console.log("totalrating: " + totalrating);
-                        /*
-                         productsCollection.update({productid: productId}, {$set: {productrating: totalrating}},
-                         function (err, upd) {
-                         if (upd) {
-                         res.send("success");
-                         }
-                         });
-                         }
-                         else {
-                         res.send("Failure");
-                         }
-
-                         });
-                         */
-
-                        var json_responses = {"statusCode": 200};
-                        //res.send(json_responses);
-                        res.send(data);
-                    }
-                });
-        }
-    });
-});
-
-router.post('/assigntrip', function(request, response) {
-    console.log("assigntrip called");
-    function updateTripDetails(billCtr,truckCtr, resultbill, resulttruck) {
-        
-        var fetchaddress = "select address, zipcode from customerdetails where customerid = '"+resultbill[billCtr].customerid+"'" ;
-        connection.query(fetchaddress,function(err,rows){
-            if(err){ 
-                throw err;}
-            console.log(fetchaddress.address);
-            console.log(fetchaddress.zipcode);
-            var addresspool = ["1322, The Alameda","471, Acalanes Drive","101 E San Fernando"];
-            var randomnumber = Math.floor(Math.random() * 2);
-            var randomaddress = addresspool[randomnumber];
-
-            var addtrip = "INSERT INTO tripdetails (pickuploc, dropoffloc, dropoffzip, tripendflag, driverid1, truckid1, billid1,tripstatus) VALUES ('"+randomaddress+"','"+fetchaddress[billCtr].address+"','"+fetchaddress[billCtr].zipcode+"','0','" + resulttruck[truckCtr].driverid  + "','" + resulttruck[truckCtr].truckid  + "','" + resultbill[billCtr].billid  + "', 'In Progress')";
-            connection.query(addtrip,function(err,rows){
-                console.log(billCtr);
-                console.log(truckCtr);
-                console.log("me idhar hu 1");
-                console.log(rows);
-
-                if(err) {
-                    throw err;}
-                else {
-                    console.log("in else loop");
-                    var updatebill = "UPDATE billdetails SET tripassigned = 1 WHERE (billid = '" + resultbill[billCtr].billid + "')";
-                    console.log(updatebill);
-                    console.log(billCtr);
-                    console.log(truckCtr);
-                    connection.query(updatebill ,function(err,rows){
-                    //connection.release();
-                        if(err) throw err;   
-                        var updatetruck = "UPDATE truckdetails SET truckavailable = 0 WHERE (truckid = '"+ resulttruck[truckCtr].truckid +"')";        
-                        connection.query(updatetruck,function(err,rows){
-                            if(err) throw err;
-                        });
-                    });
-                }
-               
-            });
-        });
-    }
-
-    console.log(connection);
-    var queryunassignedbills = "select * from billdetails where tripassigned = 0";
-    connection.query(queryunassignedbills,function(err,resultbill){
-
-    console.log("result bill display");
-    console.log(resultbill);
-
-        var unassignedtrukquery = "select * from truckdetails where truckavailable = 1";
-        connection.query(unassignedtrukquery,function(err,resulttruck){
-            console.log("check karta hun = " + JSON.stringify(resulttruck));
-            console.log("result truck display");
-            console.log(resulttruck);
-            for(var billCtr = 0, truckCtr = 0; billCtr < resultbill.length && truckCtr < resulttruck.length; billCtr++, truckCtr++ ) {
-                
-                console.log(billCtr);
-                console.log(truckCtr);
-                console.log("inserting 12334----------");
-                updateTripDetails(billCtr, truckCtr, resultbill,resulttruck);
-                
-            }
-        });
-        response.json({resultbill: resultbill});
-    });
-    
-});
-
-router.get('/showmap', function(req,res) {
-
-    var tripid = req.query.tripid;
-    console.log('trip id got from url is 111111' + tripid);
-
-    var query = "SELECT * From tripdetails where tripid = " + tripid;
-    connection.query(query,function(err,result){
-        if(err){
-            throw err;
-        }
-        else{
-            var pickuploc = result[0].pickuploc;
-            var dropoffloc = result[0].dropoffloc;
-            console.log('trip 000000 ' +JSON.stringify(result));
-            res.render('adminViews/trip/map', {pickuploc: pickuploc, dropoffloc: dropoffloc});  
-            var query1 = "UPDATE tripdetails SET tripendflag = '1', tripstatus = 'Completed' WHERE (tripid = '" + tripid + "')";
-            connection.query(query1,function(err,resultnew){
-                if(err){
-                    throw err;
-                }
-                else{
-                    var query2 = "UPDATE truckdetails SET truckavailable = '1' WHERE (truckid = '" + result[0].truckid1 + "')";
-                    connection.query(query2,function(err,resultnewnew){
-                        if(err){
-                            throw err;
-                        }
-                    });
-                }
-                console.log('after status....:' + JSON.stringify(result));
-            }); 
-        }
-    })
-    console.log('trip id got from url is 123456' + query);
-
-});
-
 
 module.exports = router;

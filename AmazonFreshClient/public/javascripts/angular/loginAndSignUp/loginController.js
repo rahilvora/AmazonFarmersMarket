@@ -11,7 +11,7 @@ loginApp.controller('LoginController', function ($scope, $http) {
 
     /** Customer Login Function **/
     $scope.customerLogin = function () {
-        alert("In Customer Login function");
+        //("In Customer Login function");
         $http({
             method: "POST",
             url : 'api/checkCustomerLogin',

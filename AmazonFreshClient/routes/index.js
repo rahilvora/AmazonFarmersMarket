@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/', function(req, res, next) {
-  res.render('homepage');
+  res.render('Homepage');
 });
 
 router.get('/admin', function(req, res, next) {
@@ -17,6 +17,6 @@ router.get('/login',function (req,res,next) {
   res.render('loginAndSignUp/login');
 });
 
-router.get('/')
+//router.get('/')
 
 module.exports = router;

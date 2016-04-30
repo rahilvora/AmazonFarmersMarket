@@ -2,6 +2,18 @@ var express = require('express');
 var router = express.Router();
 var connection = require('../MySQLConfig.js');
 
+var mongo = require('../MongoConfig.js');
+
+var mongoURL = "mongodb://localhost:27017/amazonfresh";
+var productsCollection;
+
+mongo.connect(mongoURL, function() {
+    console.log('Connected to mongo at: ' + mongoURL);
+    productsCollection = mongo.collection('productdetails');
+});
+
+
+
 router.get('/', function (req, res, next) {
     res.render('loginAndSignUp/signUpForm.ejs');
 });
@@ -62,7 +74,7 @@ router.get('/customerHome', function (req, res, next) {
 
 
 router.get('/getCustomerDetails' , function (req, res, next) {
-    var customerid = "555-55-5555";
+    var customerid = req.session.username;
     var getUser = "select * from customerdetails where customerid='" + customerid + "'";
 
     connection.query(getUser, function (err, results) {
@@ -125,9 +137,77 @@ router.put('/updateUserProfile' , function (req, res, next) {
 });
 
 
-router.get('/getCart', function (req, res, next) {
-    ///res.render('customerViews/customerHome.ejs');
-    
+
+router.get('/getHomeDashboard', function (req, res, next) {
+    console.log("inside dashboard node");
+    productsCollection.find({}).toArray(function (err,data) {
+        if(data){
+           // console.log(data);
+            res.send(data);
+        }
+    });
 });
+
+router.post('/addProductToCart', function (req, res, next) {
+
+    var product = req.body.product;
+    console.log("product added : " + JSON.stringify(product));
+
+
+
+    mongo.connect(mongoURL, function () {
+        var coll = mongo.collection('carts');
+
+        coll.update(
+                {cartid: req.session.username},
+                {$push: {products: product}}, function (err, result) {
+                    if (result) {
+                        console.log(result);
+                    }
+                    else {
+                        console.log("returned false");
+                    }
+                });
+    });
+});
+
+
+router.get('/getCart', function (req, res, next) {
+
+    mongo.connect(mongoURL, function () {
+        var coll = mongo.collection('carts');
+        
+        coll.find({cartid:req.session.username}).toArray(function (err,data) {
+            if(data){
+                console.log(data);
+                var total = 0;
+                for(var a in data[0].products){
+                   total += Number(data[0].products[a].productprice);
+                }
+                total = Number(total.toFixed(2));
+                var json_responses = {"cartItems" : data[0].products, "cartTotal" : total}
+                console.log("Cart total is "+total);
+                res.send(json_responses);
+            }
+        });
+    });
+});
+
+router.post('/getSearchResults', function (req, res, next) {
+    var searchItem = req.body.searchItem;
+    console.log("searchItem is :"+searchItem);
+    mongo.connect(mongoURL, function () {
+        var coll = mongo.collection('productdetails');
+
+        coll.createIndex({"productname" : "text"}, function (err, results) {
+                coll.find({$text: {$search: searchItem}}).toArray(function (err, items) {
+                    console.log(items);
+                    res.send(items);
+                })
+            }
+        );
+    });
+});
+
 
 module.exports = router;
