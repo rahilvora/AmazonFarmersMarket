@@ -17,6 +17,12 @@ router.get('/login',function (req,res,next) {
   res.render('loginAndSignUp/login');
 });
 
-//router.get('/')
+router.get('/customerSignUp',function (req,res,next) {
+  res.render('loginAndSignUp/customerSignUp');
+});
+
+router.get('/farmerSignUp',function (req,res,next) {
+  res.render('loginAndSignUp/farmerSignUp');
+});
 
 module.exports = router;

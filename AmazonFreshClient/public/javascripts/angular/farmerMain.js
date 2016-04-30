@@ -172,13 +172,15 @@ FarmerApp.controller("FarmerViewProductController", ["$scope", "$http", "$locati
 
     $http.get('api/getProductInfo/', {params: {productid: prodid}}).then(function (result) {
         //console.log("Farmer main");
-        //console.log(JSON.stringify(result));
+        console.log(JSON.stringify(result));
+        alert("in here");
         if (result.data != "Failure") {
             alert(result);
             $scope.productname = result.data.productname;
             $scope.productprice = result.data.productprice;
             $scope.description = result.data.description;
             $scope.productreviews = result.data.productreviews;
+            $scope.farmerName = result.data.farmername;
         }
         else {
             alert("Error loading productInfo page");
@@ -205,14 +207,15 @@ FarmerApp.controller("FarmerViewProductController", ["$scope", "$http", "$locati
                 alert("Review added successfully");
                 document.getElementById("productReviewForm").reset();
                 $http.get('api/getProductInfo/', {params: {productid: prodid}}).then(function (result) {
-                    console.log("Farmer main");
-                    console.log(JSON.stringify(result));
+                    //console.log("Farmer main");
+                    //console.log(JSON.stringify(result));
                     if (result.data != "Failure") {
                         alert(result);
                         $scope.productname = result.data.productname;
                         $scope.productprice = result.data.productprice;
                         $scope.description = result.data.description;
                         $scope.productreviews = result.data.productreviews;
+                        $scope.farmerName = result.data.farmername;
                     }
                     else {
                         alert("Error loading productInfo page");

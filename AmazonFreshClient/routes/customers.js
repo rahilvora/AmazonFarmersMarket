@@ -15,7 +15,7 @@ mongo.connect(mongoURL, function() {
 
 
 router.get('/', function (req, res, next) {
-    res.render('loginAndSignUp/signUpForm.ejs');
+    res.render('loginAndSignUp/customerSignUp.ejs');
 });
 
 router.post('/checkUser',function(req,res,next){
