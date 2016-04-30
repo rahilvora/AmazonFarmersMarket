@@ -4,6 +4,7 @@
 var adminApp = angular.module("AdminApp",["ngRoute","ui.bootstrap","ngFileUpload"]);
 var trucks = [];
 var drivers = [];
+var trips = [];
 //Controllers
 
 adminApp.controller("FarmerController", ["$scope", "$http", "$location", function($scope, $http, $location){
@@ -301,15 +302,36 @@ adminApp.controller("BillController", ["$scope", "$http", "$location", function(
     });
 }]);
 
-adminApp.controller("TripController", ["$scope", "$http", "$location", function($scope,$http,$location){
+adminApp.controller("TripController", ["$scope", "$http", "$location", "$window", function($scope,$http,$location,$window){
     $scope.trips = [];
 
     //Get Requests
-    $http.get('api/getTrips',{ cache: true}).then(function(result){
-        console.log(result.data);
-        $scope.trips = result.data;
-        //$location.path('/trips');
-    });
+    $http.get('api/getTrips',{ cache: true}).then(function (result) {
+            var data = result.data;
+            console.log("data is ::" + data);
+            $scope.trips = data;
+            $scope.viewby = 10;
+            $scope.totalItems = data.length;
+            $scope.currentPage = 1;
+            $scope.itemsPerPage = $scope.viewby;
+            $location.path('/trips');
+        });    
+
+
+    $scope.showmap = function(p_tripid){
+        /**
+        $http.get('api/showmap',{params: {data:p_tripid}},{ cache: true}).then(function(result){
+            var data = result.data
+            $scope.data = data;
+            console.log("data for map is ::" + JSON.stringify(data));
+            $location.path('/trips/showmap');
+        });
+        **/
+        //alert('asdasd');
+        //window.location.href('http://localhost:3000/api/showmap' + p_tripid);
+            $window.location.href = 'http://localhost:3000/api/showmap?tripid=' + p_tripid;
+        
+    };
 }]);
 
 adminApp.controller("StatisticTotalDeliveryController", ["$scope", "$http", "$location", function($scope,$http,$location){
@@ -460,9 +482,13 @@ adminApp.config(['$routeProvider',
             controller: 'BillController'
         }).
         when('/trips',{
-            templateUrl: '../view/adminViews/trip/ListTrips.ejs',
-            controller: 'TripController'
-        }).
+                templateUrl: '../view/adminViews/trip/ListTrips.ejs',
+                controller: 'TripController'
+            }).
+        when('/trips/showmap',{
+                templateUrl: '../view/adminViews/trip/map.ejs',
+                controller: 'TripController'
+            }).
         when('/driver',{
             templateUrl: '../view/adminViews/driver/ListDrivers.ejs',
             controller: 'DriverController'

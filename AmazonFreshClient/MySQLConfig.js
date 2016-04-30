@@ -6,7 +6,7 @@ console.log("mysql:"+JSON.stringify(mysql));
 var connection = mysql.createConnection({
     host : '127.0.0.1',
     user : 'root',
-    password:"",
+    password:"password1234",
     database:"amazonfresh"
 });
 
