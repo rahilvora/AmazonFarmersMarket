@@ -3,6 +3,7 @@
  */
 var express = require('express');
 var router = express.Router();
+var multer = require('multer');
 var connection = require('../MySQLConfig.js');
 var mongo = require('../MongoConfig.js');
 var drivers = [];
@@ -16,7 +17,12 @@ mongo.connect(mongoURL, function() {
 });
 
 
-
+// var redis = require('redis');
+// var jsonify = require('redis-jsonify')
+// var client = jsonify(redis.createClient(6379, 'localhost', {no_ready_check: true}));
+// client.on('connect', function() {
+//     console.log('Connected to Redis');
+// });
 //Connecting to MySQL
 
 connection.connect(function(err) {
@@ -27,52 +33,83 @@ connection.connect(function(err) {
     console.log('connected as id ' + connection.threadId);
 });
 
-var mongoose = require('mongoose'),
-    Schema = mongoose.Schema,
-    autoIncrement = require('mongoose-auto-increment');
-
-var mongoseconnection = mongoose.createConnection(mongoURL);
-autoIncrement.initialize(mongoseconnection);
-var productSchema = new Schema({
-    farmerid: String,
-    category: String,
-    productname: String,
-    productprice: Number,
-    description: String,
-    active: String,
-    approved: String,
-    productimage: String,
-    productreviews: [String],
-    productrating: Number
-});
-
-productSchema.plugin(autoIncrement.plugin, {model: 'productdetail', field: 'productid'});
-//var Product = connection.model('Product', productSchema);
+//var mongoose = require('mongoose'),
+//    Schema = mongoose.Schema,
+//    autoIncrement = require('mongoose-auto-increment');
+//
+//var mongoseconnection = mongoose.createConnection(mongoURL);
+//autoIncrement.initialize(mongoseconnection);
+//var productSchema = new Schema({
+//    farmerid: String,
+//    category: String,
+//    productname: String,
+//    productprice: Number,
+//    description: String,
+//    active: String,
+//    approved: String,
+//    productimage: String,
+//    productreviews: [String],
+//    productrating: Number
+//});
+//
+//productSchema.plugin(autoIncrement.plugin, {model: 'productdetail', field: 'productid'});
+////var Product = connection.model('Product', productSchema);
 
 //Farmer's Requests
 
 router.get('/getFarmers',function(req,res,next){
-    var query = "SELECT * FROM `farmerdetails` WHERE flag <> 0";
-    connection.query(query, function (err, result) {
-        if (err) {
-            throw err;
-        }
-        else {
+
+    client.get("getFarmer",function(err,result){
+        if(result !== null){
+            console.log("Sending result from redis")
             res.send(result);
         }
-    })
+        else{
+            var query = "SELECT * FROM `farmerdetails` WHERE flag <> 0";
+            connection.query(query,function(err,result){
+                if(err){
+                    throw err;
+                }
+                else{
+                    console.log("Storing result in redis");
+                    //var todayEnd = new Date().setHours(00, 1, 59, 999);
+                    client.set("getFarmer",JSON.stringify(result),function(err,ans){
+                        client.expire("getFarmer", 180, function(err,didSetExpire){
+                            console.log("Expired");
+                        });
+                        res.send(result);
+                    });
+                }
+            })
+        }
+    });
 });
 
-router.get('/getAddFarmerRequests', function (req, res, next) {
-    var query = "SELECT * FROM `farmerdetails` WHERE flag = 0";
-    connection.query(query, function (err, result) {
-        if (err) {
-            throw err;
-        }
-        else {
+router.get('/getAddFarmerRequests',function(req,res,next){
+
+    client.get("getAddFarmerRequests",function(err,result){
+        if(result !== null){
+            console.log("Sending result from redis")
             res.send(result);
         }
-    })
+        else{
+            var query = "SELECT * FROM `farmerdetails` WHERE flag = 0";
+            connection.query(query,function(err,result){
+                if(err){
+                    throw err;
+                }
+                else{
+                    console.log("Storing result in redis");
+                    client.set("getAddFarmerRequests",JSON.stringify(result),function(err,ans){
+                        client.expire("getAddFarmerRequests", 180, function(err,didSetExpire){
+                            console.log("Expired");
+                        });
+                        res.send(result);
+                    });
+                }
+            })
+        }
+    });
 });
 
 router.put('/addFarmer',function(req,res){
@@ -106,37 +143,66 @@ router.delete('/deleteFarmer',function(req,res){
 //Product Requests
 
 router.get('/getProducts',function(req,res,next){
-    var query = "SELECT * FROM `productdetails` WHERE flag <> 0";
-    connection.query(query,function(err,result){
-        if(err){
-            throw err;
+
+    client.get("getProducts",function(err,result){
+        if(result !== null){
+            console.log("Sending product result from redis")
+            res.send(result);
         }
         else{
-            res.send(result);
+            var query = "SELECT * FROM `productdetails` WHERE flag <> 0";
+            connection.query(query,function(err,result){
+                if(err){
+                    throw err;
+                }
+                else{
+                    console.log("Storing result in redis");
+                    client.set("getProducts",JSON.stringify(result),function(err,ans){
+                        client.expire("getProducts", 180, function(err,didSetExpire){
+                            console.log("Expired");
+                        });
+                        res.send(result);
+                    });
+                }
+            })
         }
     });
 });
 
 router.get('/getAddProductRequests',function(req,res,next){
-    var query = "SELECT * FROM `productdetails` WHERE flag = 0";
+    client.get("getAddProductRequests",function(err,result){
+        if(result !== null){
+            console.log("Sending product result from redis");
+            res.send(result);
+        }
+        else{
+            var query = "SELECT * FROM `productdetails` WHERE flag = 0";
+            connection.query(query,function(err,result){
+                if(err){
+                    throw err;
+                }
+                else{
+                    console.log("Storing result in redis");
+                    client.set("getAddProductRequests",JSON.stringify(result),function(err,ans){
+                        client.expire("getAddProductRequests", 180, function(err,didSetExpire){
+                            console.log("Expired");
+                        });
+                        res.send(result);
+                    });
+                }
+            })
+        }
+    });
+});
+
+router.put('/addProduct',function(req,res){
+    //Update Query
+    var query = "UPDATE productdetails SET flag = 1 where productid = '" + req.body.productid +"'";
     connection.query(query,function(err,result){
         if(err){
             throw err;
         }
         else{
-            res.send(result);
-        }
-    });
-});
-
-router.put('/addProduct', function (req, res) {
-    //Update Query
-    var query = "UPDATE productdetails SET flag = 1 where productid = '" + req.body.productid + "'";
-    connection.query(query, function (err, result) {
-        if (err) {
-            throw err;
-        }
-        else {
             res.send(200);
         }
     });
@@ -158,25 +224,53 @@ router.delete('/deleteProduct',function(req,res){
 //Customer Requests
 
 router.get('/getCustomers',function(req,res,next){
-    var query = "SELECT * FROM `customerdetails` WHERE flag <> 0";
-    connection.query(query,function(err,result){
-        if(err){
-            throw err;
+    client.get("getCustomers",function(err,result){
+        if(result !== null){
+            console.log("Sending customer result from redis");
+            res.send(result);
         }
         else{
-            res.send(result);
+            var query = "SELECT * FROM `customerdetails` WHERE flag <> 0";
+            connection.query(query,function(err,result){
+                if(err){
+                    throw err;
+                }
+                else{
+                    console.log("Storing result in redis");
+                    client.set("getCustomers",JSON.stringify(result),function(err,ans){
+                        client.expire("getCustomers", 180, function(err,didSetExpire){
+                            console.log("Expired");
+                        });
+                        res.send(result);
+                    });
+                }
+            })
         }
     });
 });
 
 router.get('/getAddCustomerRequests',function(req,res,next){
-    var query = "SELECT * FROM `customerdetails` WHERE flag = 0";
-    connection.query(query,function(err,result){
-        if(err){
-            throw err;
+    client.get("getAddCustomerRequests",function(err,result){
+        if(result !== null){
+            console.log("Sending customer result from redis");
+            res.send(result);
         }
         else{
-            res.send(result);
+            var query = "SELECT * FROM `customerdetails` WHERE flag = 0";
+            connection.query(query,function(err,result){
+                if(err){
+                    throw err;
+                }
+                else{
+                    console.log("Storing result in redis");
+                    client.set("getAddCustomerRequests",JSON.stringify(result),function(err,ans){
+                        client.expire("getAddCustomerRequests", 180, function(err,didSetExpire){
+                            console.log("Expired");
+                        });
+                        res.send(result);
+                    });
+                }
+            })
         }
     });
 });
@@ -209,13 +303,27 @@ router.delete('/deleteCustomer',function(req,res){
 //Drivers Request
 
 router.get('/getDrivers',function(req,res,next){
-    var query = "SELECT * FROM `driverdetails`";
-    connection.query(query,function(err,result){
-        if(err){
-            throw err;
+    client.get("getDrivers",function(err,result){
+        if(result !== null){
+            console.log("Sending driver result from redis");
+            res.send(result);
         }
         else{
-            res.send(result);
+            var query = "SELECT * FROM `driverdetails`";
+            connection.query(query,function(err,result){
+                if(err){
+                    throw err;
+                }
+                else{
+                    console.log("Storing result in redis");
+                    client.set("getDrivers",JSON.stringify(result),function(err,ans){
+                        client.expire("getDrivers", 180, function(err,didSetExpire){
+                            console.log("Expired");
+                        });
+                        res.send(result);
+                    });
+                }
+            })
         }
     });
 });
@@ -285,13 +393,28 @@ router.delete('/deleteDriver',function(req,res,next){
 //Bill Requests
 
 router.get('/getBills',function(req,res){
-    var query = "SELECT * FROM `billdetails`";
-    connection.query(query,function(err,result){
-        if(err){
-            throw err;
+
+    client.get("getBills",function(err,result){
+        if(result !== null){
+            console.log("Sending bills result from redis");
+            res.send(result);
         }
         else{
-            res.send(result);
+            var query = "SELECT * FROM `billdetails`";
+            connection.query(query,function(err,result){
+                if(err){
+                    throw err;
+                }
+                else{
+                    console.log("Storing result in redis");
+                    client.set("getBills",JSON.stringify(result),function(err,ans){
+                        client.expire("getBills", 180, function(err,didSetExpire){
+                            console.log("Expired");
+                        });
+                        res.send(result);
+                    });
+                }
+            })
         }
     });
 });
@@ -312,13 +435,28 @@ router.get('/getTrips',function(req,res){
 //Truck Requests
 
 router.get('/getTrucks',function(req,res){
-    var query = "SELECT * FROM truckdetails";
-    connection.query(query,function(err,result){
-        if(err){
-            throw err;
+
+    client.get("getTrucks",function(err,result){
+        if(result !== null){
+            console.log("Sending truck result from redis");
+            res.send(result);
         }
         else{
-            res.send(result);
+            var query = "SELECT * FROM truckdetails";
+            connection.query(query,function(err,result){
+                if(err){
+                    throw err;
+                }
+                else{
+                    console.log("Storing result in redis");
+                    client.set("getTrucks",JSON.stringify(result),function(err,ans){
+                        client.expire("getTrucks", 180, function(err,didSetExpire){
+                            console.log("Expired");
+                        });
+                        res.send(result);
+                    });
+                }
+            })
         }
     });
 });
@@ -373,6 +511,133 @@ router.delete('/deleteTruck',function(req,res){
         }
     });
 });
+
+router.get('/getRevenue',function(req,res){
+    var date = req.query.data.split("T")[0];
+    var query = "Select SUM(total) as total from billdetails where billdate LIKE '" +date+ "%'";
+    connection.query(query,function(err,result){
+        if(err){
+            throw err;
+        }
+        else{
+            res.send(result);
+        }
+    });
+});
+
+router.get('/getTrips',function(req,res){
+    var data = req.query.data;
+    console.log(typeof data);
+    res.send(200);
+    //var query = "Select SUM(total) as total from billdetails where billdate LIKE '" +date+ "%'";
+    //connection.query(query,function(err,result){
+    //    if(err){
+    //        throw err;
+    //    }
+    //    else{
+    //        res.send(result);
+    //    }
+    //});
+});
+
+router.get('/revenuePerDay',function(req,res){
+    var query = "SELECT tripdetails.dropoffzip,AVG(billdetails.total) AS revenuePerDay FROM tripdetails "+
+        "INNER JOIN billdetails "+
+        "ON tripdetails.billid2=billdetails.billid "+
+        "GROUP BY dropoffzip";
+    connection.query(query,function(err,result){
+        if(err){
+            throw err;
+        }
+        else{
+            res.send(result);
+        }
+    });
+});
+
+router.get('/totalDelivery',function(req,res){
+    var query = "SELECT dropoffzip,COUNT(tripid) AS total from tripdetails GROUP BY dropoffzip";
+    connection.query(query,function(err,result){
+        if(err){
+            throw err;
+        }
+        else{
+            res.send(result);
+        }
+    });
+});
+
+router.get('/totalDelivery',function(req,res){
+    var query = "SELECT dropoffzip,COUNT(tripid) AS total from tripdetails GROUP BY dropoffzip";
+    connection.query(query,function(err,result){
+        if(err){
+            throw err;
+        }
+        else{
+            console.log(result);
+            console.log(result[0].productname);
+            console.log(JSON.stringify(result));
+            res.send(result);
+        }
+    });
+});
+
+router.get('/pick-dropLocation',function(req,res){
+    var query = "SELECT pickuploc,dropoffloc FROM tripdetails";
+    connection.query(query,function(err,result){
+        if(err){
+            throw err;
+        }
+        else{
+            res.send(result);
+        }
+    });
+});
+
+router.get('/ridesPerDriver',function(req,res){
+    //res.send(200);
+    var query = "SELECT driverid2, COUNT(*) as trips FROM `tripdetails` GROUP BY driverid2";
+    connection.query(query,function(err,result){
+        if(err){
+            throw err;
+        }
+        else{
+            res.send(result);
+        }
+    });
+});
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './public/uploads/');
+    },
+    filename: function (req, file, cb) {
+        var datetimestamp = Date.now();
+        console.log("FIle Object :"+file);
+        cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1]);
+    }
+});
+
+var upload = multer({
+    storage: storage
+}).single('file');
+
+router.post('/upload',function(req,res){
+
+
+    upload(req,res,function(err){
+        console.log("here");
+        if(err){
+            res.json({error_code:1,err_desc:err});
+        }
+        console.log(storage.getFilename);
+        res.json({error_code:0,err_desc:null});
+    });
+
+    //console.log(req);
+    //res.send(200);
+});
+
+
 router.get('/getFarmerProducts',function(req,res,next){
     console.log("fetching farmers products");
     productsCollection.find({farmerid: "111-11-1111", active: "Y"}).toArray(function (err, data) {
@@ -383,6 +648,8 @@ router.get('/getFarmerProducts',function(req,res,next){
     });
 
 });
+
+
 
 router.post('/createProduct',function(req,res,next){
 
@@ -484,7 +751,7 @@ router.post('/updateProduct',function(req,res,next){
 router.put('/editFarmerProfile',function(req,res,next){
     console.log("edit farmer profile");
 
-    // console.log(req.body.editCity);
+    //console.log(req.body.editFirstname);
 
     var query = "UPDATE farmerdetails SET firstname='" + req.body.editFirstname + "', lastname='" + req.body.editLastname + "', email='" + req.body.editEmail + "',address='" + req.body.editAddress + "',city='" + req.body.editCity + "', state='" + req.body.editState + "', zipcode='" + req.body.editZipcode + "',password='" + req.body.editPassword + "', phonenumber='" + req.body.editPhonenumber + "' where farmerid='" + req.body.editFarmerID + "'";
     connection.query(query, function (err, result) {
@@ -499,7 +766,7 @@ router.put('/editFarmerProfile',function(req,res,next){
 });
 
 router.post('/checkCustomerLogin', function (req, res, next) {
-    console.log("In checkCustomerLogin function");
+    console.log("In checkCustomerLogin function")
     var password, email;
     password = req.body.password;
     //password = crypto.createHash("sha1").update(password).digest("HEX");
@@ -519,17 +786,41 @@ router.post('/checkCustomerLogin', function (req, res, next) {
             var rows = results;
             var jsonString = JSON.stringify(results);
             var jsonParse = JSON.parse(jsonString);
-            //console.log("Results: " + (rows[0].firstname));
-            //  req.session.username = rows[0].firstname;
-            //console.log("Session initialized for '"+req.session.username+"' user");
-            json_responses = {"statusCode": "validLogin"};
+            console.log("Results: "+(rows[0].firstname));
+            console.log("Results: "+(rows[0].customerid));
+            req.session.username = rows[0].customerid;
+             cartid = req.session.username;
+            console.log("Session initialized for '"+req.session.username+"' user");
+            json_responses = {"statusCode" : "validLogin"};
             res.send(json_responses);
         } else {
-            //console.log("In else part of customer login");
-            json_responses = {"statusCode": "invalidLogin"};
+            console.log("In else part of customer login");
+            json_responses = {"statusCode" : "invalidLogin"};
             res.send(json_responses);
         }
     });
+
+    mongo.connect(mongoURL, function () {
+        var coll = mongo.collection('carts');
+
+        coll.findOne({cartid: "111-11-1111"}, function(err, result){
+            if (result) {
+                console.log(" collection id present");
+
+            } else {
+                coll.insert({cartid: cartid, products: []}, function (err, result) {
+                    if (result) {
+                        console.log(result);
+                    }
+                    else {
+                        console.log("returned false");
+                    }
+                })
+            }
+        });
+    });
+
+
 });
 
 router.post('/checkFarmerLogin', function (req, res, next) {
@@ -552,7 +843,7 @@ router.post('/checkFarmerLogin', function (req, res, next) {
             var rows = results;
             var jsonString = JSON.stringify(results);
             var jsonParse = JSON.parse(jsonString);
-            //console.log("Results: " + (rows[0].firstname));
+            console.log("Results: "+(rows[0].firstname));
             //  req.session.username = rows[0].firstname;
             //console.log("Session initialized for '"+req.session.username+"' user");
             json_responses = {"statusCode" : "validLogin"};
@@ -560,81 +851,6 @@ router.post('/checkFarmerLogin', function (req, res, next) {
         } else {
             json_responses = {"statusCode" : "invalidLogin"};
             res.send(json_responses);
-        }
-    });
-});
-
-
-router.get('/getProductInfo', function (req, res, next) {
-    console.log("In getProductInfo -> api.js");
-    var productId = req.query.productid;
-    //console.log(productId);
-
-    productsCollection.findOne({productid: productId}, function (err, data) {
-        if (data) {
-            //console.log(data);
-            res.send(data);
-        }
-    });
-});
-
-router.post('/addProductReview', function (req, res, next) {
-    console.log("In addProductReview -> api.js");
-
-    var productId = req.body.params.productid;
-    var rstars = req.body.params.rstars;
-    var rbody = req.body.params.rbody;
-    var rauthor = req.body.params.rauthor;
-    var reviewDocument = {stars: rstars, body: rbody, contact: rauthor};
-    //console.log(productId);
-    //console.log(reviewDocument);
-
-
-    //tweetsCollection.update({username:req.session.username},{$push:{tweets:{$each:[tDocument],$position:0}}},function(err,tdoc)
-    productsCollection.update({productid: productId}, {
-        $push: {
-            productreviews: {
-                $each: [reviewDocument],
-                $position: 0
-            }
-        }
-    }, function (err, data) {
-        if (data) {
-
-
-            productsCollection.findOne({productid: productId},
-                function (err, result) {
-                    if (result) {
-                        var sum = 0, totalRating;
-                        var reviews = result.productreviews;
-                        for (i = 0; i < reviews.length; i++) {
-
-                            sum = sum + Number(reviews[i].stars); // OR Number(reviews[i].starts)
-
-                        }
-                        totalrating = sum / reviews.length;
-                        totalrating = (totalrating * 20) + "%";
-                        console.log("totalrating: " + totalrating);
-                        /*
-                         productsCollection.update({productid: productId}, {$set: {productrating: totalrating}},
-                         function (err, upd) {
-                         if (upd) {
-                         res.send("success");
-                         }
-                         });
-                         }
-                         else {
-                         res.send("Failure");
-                         }
-
-                         });
-                         */
-
-                        var json_responses = {"statusCode": 200};
-                        //res.send(json_responses);
-                        res.send(data);
-                    }
-                });
         }
     });
 });

@@ -1,0 +1,79 @@
+
+<script>
+    function callCharts(x){
+        // Set up the chart
+        var chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'container',
+                type: 'column',
+                options3d: {
+                    enabled: true,
+                    alpha: 15,
+                    beta: 15,
+                    depth: 50,
+                    viewDistance: 25
+                }
+            },
+            title: {
+                text: 'Revenue Per Day'
+            },
+            subtitle: {
+                text: 'Test options by dragging the sliders below'
+            },
+            plotOptions: {
+                column: {
+                    depth: 25
+                }
+            },
+            series: [{
+                data: [x]
+            }]
+        });
+
+        function showValues() {
+            $('#alpha-value').html(chart.options.chart.options3d.alpha);
+            $('#beta-value').html(chart.options.chart.options3d.beta);
+            $('#depth-value').html(chart.options.chart.options3d.depth);
+        }
+
+        // Activate the sliders
+        $('#sliders input').on('input change', function () {
+            chart.options.chart.options3d[this.id] = this.value;
+            showValues();
+            chart.redraw(false);
+        });
+
+        showValues();
+    }
+</script>
+<div class="container-fluid">
+    <div class="col-sm-6" style="height:130px;">
+        <div class="form-group">
+            <label>Enter the date</label>
+            <input class="form-control" type="date" ng-model="date"/>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-success" ng-click="addData()">Calculate</button>
+        </div>
+        <div>
+            <p> Total for {{date | date:'medium'}} is ${{data[0].total}} </p>
+        </div>
+        <div id="container" style="height:400px"></div>
+        <div id="sliders" style="min-width: 310px; max-width: 800px; margin: 0 auto;">
+            <table>
+                <tr>
+                    <td>Alpha Angle</td>
+                    <td><input id="alpha" type="range" min="0" max="45" value="15"/> <span id="alpha-value" class="value"></span></td>
+                </tr>
+                <tr>
+                    <td>Beta Angle</td>
+                    <td><input id="beta" type="range" min="-45" max="45" value="15"/> <span id="beta-value" class="value"></span></td>
+                </tr>
+                <tr>
+                    <td>Depth</td>
+                    <td><input id="depth" type="range" min="20" max="100" value="50"/> <span id="depth-value" class="value"></span></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

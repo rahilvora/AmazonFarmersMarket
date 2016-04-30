@@ -1,0 +1,13 @@
+<p>
+    Upload page
+</p>
+<form>
+    <input
+            type="file"
+            ngf-select
+            ng-model="file"
+            ngf-pattern="image/*,audio/*,video/*"
+            ngf-max-size="200MB"
+    />
+    <button ng-click="upload()">Upload</button>
+</form>

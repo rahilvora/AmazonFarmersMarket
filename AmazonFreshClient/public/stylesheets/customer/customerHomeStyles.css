@@ -18,10 +18,32 @@
     width: 120px;
     z-index: 45;
 }
-#shopBar #goButton {
-    cursor: pointer;
+
+.leftNav{
+    border: 1px solid red;
+    width: 187px;
+    height: 364px;
     position: absolute;
-    right: 0px;
-    width: 41px;
-    margin-top: -31px;
+}
+.goButton{
+    background: url(/images/searchbar-right-go.png);
+    height: 34px;
+    width: 40px;
+    border: none
+    }
+
+.checkoutBtn{
+    width: 425px;
+    background-color: #8FC12B;
+    background-repeat: no-repeat;
+    background-image: none;
+    box-shadow: none;
+    font-size: 16px;
+    font-weight: normal;
+    padding: 12px 16px;
+    border: 0;
+    border-radius: 4px;
+    margin-left: 33%;
+    margin-bottom: 3%;
+    color:black;
 }

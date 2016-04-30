@@ -1,0 +1,28 @@
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th></th>
+        <th>Your Items</th>
+        <th>Price</th>
+    </tr>
+
+    </thead>
+    <tbody>
+    <tr ng-repeat="product in cartItems">
+        <td><img src="../../../images/ProductImages/Apples/Fuji_Apple.jpg" alt="Fuji Apple"
+                 style="height: 50px;width: 50px;"></td>
+        <td><h4>{{product.productname}}</h4>
+            <p>{{product.description}}</p>
+        </td>
+        <td><h4>$ {{product.productprice}}</h4></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td><h3><strong style="float: right;">Your Total :</strong></h3></td>
+        <td><h3>$ {{cartTotal}}</h3></td>
+    </tr>
+    </tbody>
+</table>
+
+<button class="checkoutBtn" ng-click="checkout(cartItems)" type="submit">Checkout
+</button>
