@@ -1,7 +1,7 @@
 /**
  * Created by rahilvora on 20/04/16.
  */
-var adminApp = angular.module("AdminApp",["ngRoute","ui.bootstrap"]);
+var adminApp = angular.module("AdminApp",["ngRoute","ui.bootstrap","ngFileUpload"]);
 var trucks = [];
 var drivers = [];
 //Controllers
@@ -145,26 +145,26 @@ adminApp.controller("TruckController",["$scope","$http","$location",function($sc
 
     $scope.refresh = function(){
 
-            var data1;
-            var data2;
-            $http.get('api/getDrivers',{ cache: true}).then(function (result) {
-                var data1 = result.data;
-                $scope.drivers = data1;
-                //$scope.viewby = 10;
-                //$scope.totalItems = data1.length;
-                //$scope.currentPage = 1;
-                //$scope.itemsPerPage = $scope.viewby;
-            });
+        var data1;
+        var data2;
+        $http.get('api/getDrivers',{ cache: true}).then(function (result) {
+            var data1 = result.data;
+            $scope.drivers = data1;
+            //$scope.viewby = 10;
+            //$scope.totalItems = data1.length;
+            //$scope.currentPage = 1;
+            //$scope.itemsPerPage = $scope.viewby;
+        });
 
-            $http.get('api/getTrucks', { cache: true}).then(function(result){
-                var data = result.data;
-                $scope.trucks = data;
-                $scope.viewby = 10;
-                $scope.totalItems = data.length;
-                $scope.currentPage = 1;
-                $scope.itemsPerPage = $scope.viewby;
-            });
-        };
+        $http.get('api/getTrucks', { cache: true}).then(function(result){
+            var data = result.data;
+            $scope.trucks = data;
+            $scope.viewby = 10;
+            $scope.totalItems = data.length;
+            $scope.currentPage = 1;
+            $scope.itemsPerPage = $scope.viewby;
+        });
+    };
     $scope.refresh();
 
     //Post Request
@@ -309,75 +309,213 @@ adminApp.controller("TripController", ["$scope", "$http", "$location", function(
         console.log(result.data);
         $scope.trips = result.data;
         //$location.path('/trips');
-    })
+    });
 }]);
 
+adminApp.controller("StatisticTotalDeliveryController", ["$scope", "$http", "$location", function($scope,$http,$location){
+    $scope.trips = [];
+
+    //Get Requests
+    $http.get('api/totalDelivery').then(function(result){
+        $scope.totaldelivery = result.data;
+
+        var data = result.data;
+        var MA = [];
+        for(var a in data){
+            var t = [];
+            t.push(data[a].dropoffzip);
+            t.push(data[a].total);
+            MA.push(t);
+        }
+        console.log(MA)
+        generateChart(MA);
+    });
+}]);
+
+adminApp.controller("StatisticRevenueController", ["$scope", "$http", "$location", function($scope,$http,$location){
+    $scope.trips = [];
+
+    //Get Requests
+    $http.get('api/revenuePerDay').then(function(result){
+        $scope.revenuePerDay = result.data;
+        var data = result.data;
+        var mainArray = [];
+        for(var a in data){
+            var temp = [];
+            temp.push(data[a].dropoffzip);
+            temp.push(data[a].revenuePerDay);
+            mainArray.push(temp);
+        }
+        console.log(mainArray)
+        generateChart(mainArray);
+    });
+}]);
+
+adminApp.controller("StatisticController", ["$scope", "$http", "$location", function($scope,$http,$location){
+    $scope.data = [];
+
+    //Get Requests
+    $http.get('api/getTrips',{ cache: true}).then(function(result){
+        //$location.path('/trips');
+    });
+
+    $scope.addData = function(){
+        $http.get('api/getRevenue',{params:{data:$scope.date}},{ cache: true}).then(function(result){
+
+            $scope.data = result.data;
+            var x = $scope.data[0].total;
+            callCharts(x);
+            //$location.path('/trips');
+        });
+    }
+
+    $scope.getTrips = function(){
+        console.log($scope.location);
+        $http.get('api/getTrips',{params:{data:$scope.location}},{cache:true}).then(function(result){
+            $scope.trips = result.data;
+        });
+    }
+
+
+}]);
+
+adminApp.controller("StatisticChordController", ["$scope", "$http", "$location", function($scope,$http,$location){
+    $scope.trips = [];
+
+    //Get Requests
+    $http.get('api/pick-dropLocation',{ cache: true}).then(function(result){
+        console.log(result.data);
+        $scope.trips = result.data;
+        createJSON($scope.trips);
+        //$location.path('/trips');
+    });
+}]);
+
+
+adminApp.controller("StatisticRidesPerDriverController", ["$scope", "$http", "$location", function($scope,$http,$location){
+    $scope.rides = [];
+
+    //Get Requests
+    $http.get('api/ridesPerDriver',{ cache: true}).then(function(result){
+        debugger;
+        var data = result.data;
+        var total = 0;
+        for(var a in data){
+            total += data[a].trips;
+        }
+        $scope.rides = data;
+        createJSON($scope.rides,total);
+    });
+}]);
+
+adminApp.controller("upload", ["$scope", "$http", "$location","Upload", function($scope,$http,$location,Upload){
+    console.log("Upload Controller");
+    $scope.upload = function(){
+        debugger;
+        console.log($scope.file);
+        Upload.upload({
+            url:'api/upload',
+            data:{file:$scope.file}
+        }).then(function(result){
+            console.log("Success");
+        });
+        //console.log(file);
+    }
+}]);
 //Routes
 
 adminApp.config(['$routeProvider',
     function($routeProvider) {
         $routeProvider.
-            when('/farmers',{
-                templateUrl: '../view/adminViews/farmer/ListFarmers.ejs',
-                controller : 'FarmerController'
-            }).
-            when('/farmers/new',{
-                templateUrl: '../view/adminViews/farmer/AddFarmerRequest.ejs',
-                controller: 'FarmerController'
-            }).
-            when('/products',{
-                templateUrl: '../view/adminViews/product/ListProducts.ejs',
-                controller: 'ProductController'
-            }).
-            when('/products/new',{
-                templateUrl: '../view/adminViews/product/AddProductRequest.ejs',
-                controller: 'ProductController'
-            }).
-            when('/customers',{
-                templateUrl: '../view/adminViews/customer/ListCustomers.ejs',
-                controller: 'CustomerController'
-            }).
-            when('/customers/new',{
-                templateUrl: '../view/adminViews/customer/AddCustomerRequest.ejs',
-                controller: 'CustomerController'
-            }).
-            when('/customers/test',{
-                templateUrl: '../view/adminViews/customer/test.ejs',
-                controller: 'testController'
-            }).
-            when('/bills',{
-                templateUrl: '../view/adminViews/bill/ListBills.ejs',
-                controller: 'BillController'
-            }).
-            when('/trips',{
-                templateUrl: '../view/adminViews/trip/ListTrips.ejs',
-                controller: 'TripController'
-            }).
-            when('/driver',{
-                templateUrl: '../view/adminViews/driver/ListDrivers.ejs',
-                controller: 'DriverController'
-            }).
-            when('/driver/new',{
-                templateUrl: '../view/adminViews/driver/AddDriver.ejs',
-                controller: 'DriverController'
-            }).
-            when('/driver/edit',{
-                templateUrl: '../view/adminViews/driver/EditDriver.ejs',
-                controller: 'DriverController'
-            }).
-            when('/trucks',{
-                templateUrl: '../view/adminViews/truck/ListTrucks.ejs',
-                controller: 'TruckController'
-            }).
-            when('/truck/new',{
-                templateUrl: '../view/adminViews/truck/AddTruck.ejs',
-                controller: 'TruckController'
-            }).
-            when('/truck/edit',{
-                templateUrl: '../view/adminViews/truck/EditTruck.ejs',
-                controller: 'TruckController'
-            }).
-            otherwise({
-                redirectTo: "/"
-            })
-}]);
+        when('/farmers',{
+            templateUrl: '../view/adminViews/farmer/ListFarmers.ejs',
+            controller : 'FarmerController'
+        }).
+        when('/farmers/new',{
+            templateUrl: '../view/adminViews/farmer/AddFarmerRequest.ejs',
+            controller: 'FarmerController'
+        }).
+        when('/products',{
+            templateUrl: '../view/adminViews/product/ListProducts.ejs',
+            controller: 'ProductController'
+        }).
+        when('/products/new',{
+            templateUrl: '../view/adminViews/product/AddProductRequest.ejs',
+            controller: 'ProductController'
+        }).
+        when('/customers',{
+            templateUrl: '../view/adminViews/customer/ListCustomers.ejs',
+            controller: 'CustomerController'
+        }).
+        when('/customers/new',{
+            templateUrl: '../view/adminViews/customer/AddCustomerRequest.ejs',
+            controller: 'CustomerController'
+        }).
+        when('/customers/test',{
+            templateUrl: '../view/adminViews/customer/test.ejs',
+            controller: 'testController'
+        }).
+        when('/bills',{
+            templateUrl: '../view/adminViews/bill/ListBills.ejs',
+            controller: 'BillController'
+        }).
+        when('/trips',{
+            templateUrl: '../view/adminViews/trip/ListTrips.ejs',
+            controller: 'TripController'
+        }).
+        when('/driver',{
+            templateUrl: '../view/adminViews/driver/ListDrivers.ejs',
+            controller: 'DriverController'
+        }).
+        when('/driver/new',{
+            templateUrl: '../view/adminViews/driver/AddDriver.ejs',
+            controller: 'DriverController'
+        }).
+        when('/driver/edit',{
+            templateUrl: '../view/adminViews/driver/EditDriver.ejs',
+            controller: 'DriverController'
+        }).
+        when('/trucks',{
+            templateUrl: '../view/adminViews/truck/ListTrucks.ejs',
+            controller: 'TruckController'
+        }).
+        when('/truck/new',{
+            templateUrl: '../view/adminViews/truck/AddTruck.ejs',
+            controller: 'TruckController'
+        }).
+        when('/truck/edit',{
+            templateUrl: '../view/adminViews/truck/EditTruck.ejs',
+            controller: 'TruckController'
+        }).
+        when('/statistic/revenue',{
+            templateUrl: '../view/adminViews/statistic/revenue.ejs',
+            controller: 'StatisticController'
+        }).
+        when('/statistic/delivery',{
+            templateUrl: '../view/adminViews/statistic/delivery.ejs',
+            controller: 'StatisticController'
+        }).
+        when('/statistic/ridesPerArea',{
+            templateUrl: '../view/adminViews/statistic/test.ejs',
+            controller: 'StatisticChordController'
+        }).
+        when('/statistic/ridesPerDriver',{
+            templateUrl: '../view/adminViews/statistic/ridesPerDriver.ejs',
+            controller: 'StatisticRidesPerDriverController'
+        }).
+        when('/statistic/RevenuePerDay-Area Wise',{
+            templateUrl: '../view/adminViews/statistic/RevenuePerDay.ejs',
+            controller: 'StatisticRevenueController'
+        }).
+        when('/statistic/TotalDelivery-Area Wise',{
+            templateUrl: '../view/adminViews/statistic/TotalDelivery.ejs',
+            controller: 'StatisticTotalDeliveryController'
+        }).
+        when('/upload',{
+            templateUrl: '../view/adminViews/upload.ejs',
+            controller: 'upload'
+        }).
+        otherwise({
+            redirectTo: "/"
+        })
+    }]);

@@ -31,27 +31,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 //app.use('/admin',routes);
 app.use('/api',api);
-
-
-/***Ishan's part for customers and login , signup**/
-//app.use('/signup',customersRouter);
-//app.use('/shop',customersRouter);
-//app.use('/login',login);
-
-//app.use('/api/getFarmers',routes);
-//app.use('/api/getAddFarmerRequests',routes);
-//app.use('api/addFarmer',routes);
-//app.use('/api/getProducts',routes);
-//app.use('/api/getAddProductRequests',routes);
-//app.use('api/addProduct',routes);
-//app.use('/api/getCustomers',routes);
-//app.use('/api/getAddCustomerRequests',routes);
-//app.use('api/addCustomer',routes);
-//app.use('/api/getDrivers',routes);
-//app.use('api/addDriver',routes);
-//app.use('/api/getBills',routes);
-//app.use('api/getTrips',routes);
-
 app.use('/users', users);
 
 // catch 404 and forward to error handler
