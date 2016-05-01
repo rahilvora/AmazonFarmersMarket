@@ -5,7 +5,6 @@
         <th>Your Items</th>
         <th>Price</th>
     </tr>
-
     </thead>
     <tbody>
     <tr ng-repeat="product in cartItems">
@@ -15,8 +14,15 @@
             <p>{{product.description}}</p>
         </td>
         <td><h4>$ {{product.productprice}}</h4></td>
+        <td>
+            <div><button type="button" class="btn btn-default btn-sm" ng-click="deleteProduct(product.productid, $index)">
+                <span class="glyphicon glyphicon-trash" ></span>
+            </button></div>
+        </td>
     </tr>
-    <tr>
+
+     <tr>
+         <td></td>
         <td></td>
         <td><h3><strong style="float: right;">Your Total :</strong></h3></td>
         <td><h3>$ {{cartTotal}}</h3></td>

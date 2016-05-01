@@ -12,8 +12,7 @@ var session = require('client-sessions');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var api = require('./routes/api');
-var customersRouter = require('./routes/customers');
-//var login = require('./routes/login');
+//var customersRouter = require('./routes/customers');
 var routing = require('./routes/routing');
 var mongo = require('./MongoConfig');
 
@@ -40,17 +39,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-//Admin Requests
 app.use('/', routes);
-//app.use('/admin',routes);
 app.use('/api',api);
-
-
-/***Ishan's part for customers and login , signup**/
-//app.use('/signup',customersRouter);
-app.use('/shop',customersRouter);
-//app.use('/login',login);
-
+//app.use('/shop',customersRouter);
 app.use('/users', users);
 
 // catch 404 and forward to error handler

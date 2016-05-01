@@ -1,10 +1,24 @@
-<div class="container" style="border: 1px solid gold; width: 71%; height: 86%;">
+<div class="leftNav" ng-model="categories" style="width: 15%;">
+    <div>
+        <ul>
+            <li ng-repeat="values in categories">
+                <a style="text-transform: capitalize; cursor: pointer" ng-click="searchByCategory(values);">{{values}}</a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="container-fluid" style="width: 70%;">
     <div style="margin-top: 40px;">
-        <div class="col-sm-6 col-md-3" ng-repeat="product in farmerProducts">
+        <div class="col-sm-6 col-md-3"
+             ng-repeat="product in farmerProducts.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
             <div class="thumbnail custom">
-                <img src="../../../images/ProductImages/Apples/Fuji_Apple.jpg" alt="Fuji Apple"
-                     style="max-width: 100px; max-height: 100px; display: block; margin-left: auto; margin-right: auto; border-style: none">
+                <a ng-click="getProductInfo(product.productid)">
+                    <img src="../../../images/ProductImages/Apples/Fuji_Apple.jpg" alt="Fuji Apple"
+                         style="max-width: 100px; max-height: 100px; display: block; margin-left: auto; margin-right: auto; border-style: none">
+                </a>
                 <div class="caption">
+                    <div class="star-ratings-sprite"><span id="rating" ng-style="{'width': product.productrating}"
+                                                           class="star-ratings-sprite-rating"></span></div>
                     <h3>{{product.productprice}}</h3>
                     <p>{{product.productname}}</p>
                     <p>{{product.description}} </p>
@@ -15,4 +29,5 @@
             </div>
         </div>
     </div>
+    <uib-pagination total-items="totalItems" ng-model="currentPage"></uib-pagination>
 </div>

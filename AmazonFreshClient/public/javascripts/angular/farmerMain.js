@@ -1,4 +1,4 @@
-var FarmerApp = angular.module("FarmerApp",["ngRoute"]);
+var FarmerApp = angular.module("FarmerApp", ["ngRoute","ui.bootstrap","ngFileUpload"]);
 
 var editproductid = 0;
 var prodid = 0;
@@ -10,17 +10,16 @@ FarmerApp.controller("FarmerProductController", ["$scope", "$http", "$location",
     $scope.farmerProducts = [];
     $scope.farmers = [];
 
-
     //Get all the farmers products
 
     $http.get('api/getFarmerProducts').then(function (result) {
 
-        console.log(JSON.stringify(result));
+        //console.log(JSON.stringify(result));
         var data = result.data;
         $scope.farmerProducts = data;
 
         //For pagiation to work
-        $scope.viewby = 10;
+        $scope.viewby = 8;
         $scope.totalItems = data.length;
         $scope.currentPage = 1;
         $scope.itemsPerPage = $scope.viewby;
@@ -35,11 +34,11 @@ FarmerApp.controller("FarmerProductController", ["$scope", "$http", "$location",
         console.log($scope.form.price);
 
         $http.post('api/createProduct', $scope.form).then(function (result) {
-            if(result.data== "Success"){
+            if (result.data == "Success") {
                 alert("Product added");
                 document.getElementById("form").reset();
             }
-            else{
+            else {
                 alert("Error inserting product. Verify information");
             }
 
@@ -59,11 +58,11 @@ FarmerApp.controller("FarmerProductController", ["$scope", "$http", "$location",
         prodid = productid;
         $location.path('/getProductInfo/' + productid);
     }
-    
-    $scope.deactivateProduct= function(productid){
+
+    $scope.deactivateProduct = function (productid) {
 
         console.log(productid);
-        $http.put('api/deactivateProduct',{params : {productid:productid}}).then(function(result){
+        $http.put('api/deactivateProduct', {params: {productid: productid}}).then(function (result) {
 
         });
 
@@ -73,20 +72,20 @@ FarmerApp.controller("FarmerProductController", ["$scope", "$http", "$location",
 
 FarmerApp.controller("FarmerEditProductController", ["$scope", "$http", "$location", function ($scope, $http, $location) {
 
-    alert("edit ctrl"+editproductid);
+    alert("edit ctrl" + editproductid);
     $http.get('api/getEditProduct', {params: {data: editproductid}}).then(function (result) {
         alert(JSON.stringify(result));
-        if(result.data!="Failure") {
+        if (result.data != "Failure") {
 
-            $scope.form.productid= result.data.productid;
-            $scope.form.productname=result.data.productname;
-            $scope.form.productprice=result.data.productprice;
-            $scope.form.productdescription=result.data.description;
+            $scope.form.productid = result.data.productid;
+            $scope.form.productname = result.data.productname;
+            $scope.form.productprice = result.data.productprice;
+            $scope.form.productdescription = result.data.description;
         }
-        else{
+        else {
             alert("Error loading product page");
 
-           // $location.path('/allProducts');
+            // $location.path('/allProducts');
         }
 
     });
@@ -95,7 +94,7 @@ FarmerApp.controller("FarmerEditProductController", ["$scope", "$http", "$locati
         alert(" in update product");
 
         $http.post('api/updateProduct', $scope.form).then(function (result) {
-            if(result.data == "Success")
+            if (result.data == "Success")
                 alert("product updated");
             $location.path('/allProducts');
 
@@ -160,7 +159,7 @@ FarmerApp.controller("FarmerProfileController", ["$scope", "$http", "$location",
 
         $http.put('api/editFarmerProfile', $scope.editProfileForm).then(function (result) {
             alert("Successfully updated");
-           // $("#editProfile").hide();
+            // $("#editProfile").hide();
             //$("#viewProfile").show();
             location.reload();
 
@@ -233,6 +232,18 @@ FarmerApp.controller("FarmerViewProductController", ["$scope", "$http", "$locati
 
 }]);
 
+
+FarmerApp.controller("FarmerDeliveryController", ["$scope", "$http", "$location", function ($scope, $http, $location) {
+    alert("in delivery controller");
+
+    $http.get('api/getDeliveryInfo').then(function (result) {
+
+        $scope.orders = result;
+
+    });
+}]);
+
+
 FarmerApp.config(['$routeProvider',
     function ($routeProvider) {
         $routeProvider.when('/allProducts', {
@@ -256,6 +267,9 @@ FarmerApp.config(['$routeProvider',
         }).when('/addProductReview', {
             templateUrl: '../view/farmerViews/productInfo.ejs',
             controller: 'FarmerViewProductController'
+        }).when('/deliveryHistory', {
+            templateUrl: '../view/farmerViews/deliveryHistory.ejs',
+            controller: 'FarmerDeliveryController'
         }).otherwise({
             controller: 'defaultController'
         })

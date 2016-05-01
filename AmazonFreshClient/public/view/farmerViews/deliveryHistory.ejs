@@ -1,0 +1,27 @@
+<div>
+    <h1>List of products delivered</h1>
+
+    <form>
+        <div class="form-group">
+            <input ng-model="search.$" type="text" class="form-control" placeholder="Search">
+        </div>
+    </form>
+
+    <table class="table table-bordered table-striped">
+        <tr>
+            <th>Bill ID</th>
+            <th>Product ID</th>
+            <th>Product Name</th>
+            <th>Quantity</th>
+            <th>Delivery Date</th>
+        </tr>
+        <tr ng-repeat="order in orders.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage)) | filter:search">
+            <td> {{order.billid}} </td>
+            <td> {{order.productid}} </td>
+            <td> {{order.productname}} </td>
+            <td> {{order.quantity}} </td>
+            <td> {{order.deliverydate | date:'dd-MM-yyyy'}} </td>
+        </tr>
+    </table>
+    <uib-pagination total-items="totalItems" ng-model="currentPage"></uib-pagination>
+</div>

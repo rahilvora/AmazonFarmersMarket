@@ -66,13 +66,14 @@ adminApp.controller("ProductController",["$scope","$http","$location",function($
     $http.get('api/getAddProductRequests').then(function(result){
         console.log(result.data);
         $scope.products = result.data;
-        //$location.path('/products/new');
+       // $location.path('/products/new');
     });
 
     //Put Request
 
     $scope.addProduct = function(p_productid){
         $http.put('api/addProduct',{productid:p_productid}).then(function(result){
+            location.reload();
             $location.path('/products');
         });
     }

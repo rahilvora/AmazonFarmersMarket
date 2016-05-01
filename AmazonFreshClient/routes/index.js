@@ -25,4 +25,9 @@ router.get('/farmerSignUp',function (req,res,next) {
   res.render('loginAndSignUp/farmerSignUp');
 });
 
+router.get('/customerHome',function(req,res,next){
+  res.render('customerViews/customerHome');
+});
+
+
 module.exports = router;

@@ -1,0 +1,62 @@
+<div class="row">
+    <div class="container-fluid" style="width: 50%; float: left;">
+        <div style="width:30%; float: left">
+            <div id="productImage">
+                <img src="../../images/ProductImages/Apples/Fuji_Apple.jpg" alt="Fuji Apple"
+                     style="width: 200px; float: left;position: relative; margin-bottom: 10px; display: block; margin-left: auto; margin-right: auto; border-style: none">
+            </div>
+        </div>
+        <div style="width: 70%;float: left">
+            <h1>{{productname}}</h1>
+            <h4>{{description}} </h4>
+            <h2>{{productprice}}</h2>
+            <p ng-hide="true">{{farmerid}}</p>
+            <p>Sold by <a ng-click="reviewFarmer(farmerName,farmerid)">{{farmerName}}</a>. Shipped by <b>AmazonFresh</b> </p>
+        </div>
+    </div>
+    <div style="width: 50%; float: left;">
+        <form id="productReviewForm" name="reviewForm" style="width: 80%; float: left">
+            <!--  Review Form -->
+            <h4>Submit a Review about the Product</h4>
+            <fieldset class="form-group">
+                <select ng-model="reviewForm.stars" class="form-control" title="Stars" ng-init="reviewForm.stars=5">
+                    <option value="5">5</option>
+                    <option value="4">4</option>
+                    <option value="3">3</option>
+                    <option value="2">2</option>
+                    <option value="1">1</option>
+                </select>
+            </fieldset>
+            <fieldset class="form-group">
+    <textarea ng-model="reviewForm.body" class="form-control" placeholder="Write a short review of the product..."
+              title="Review"></textarea>
+            </fieldset>
+            <fieldset class="form-group">
+                <input ng-model="reviewForm.author" type="email" class="form-control"
+                       placeholder="jimmyDean@example.org"
+                       title="Email"/>
+            </fieldset>
+
+            <fieldset class="form-group">
+                <input type="submit" class="btn btn-primary pull-right" value="Submit Review"
+                       ng-click="addProductReview(reviewForm.stars,reviewForm.body,reviewForm.author)"/>
+            </fieldset>
+        </form>
+    </div>
+</div>
+<br>
+<div class="row container-fluid">
+    <!--  Product Reviews List -->
+    <ul>
+        <h2>Reviews</h2>
+        <li ng-repeat="review in productreviews">
+            <blockquote>
+                <strong>{{review.stars}} Stars</strong>
+                <br>
+                {{review.body}}
+                <br>
+                <cite class="clearfix">—{{review.contact}}</cite>
+            </blockquote>
+        </li>
+    </ul>
+</div>

@@ -21,7 +21,7 @@ loginApp.controller('LoginController', function ($scope, $http) {
             }
         }).success(function(data) {
             if(data.statusCode=="validLogin"){
-                window.location.assign("/shop/customerHome");
+                window.location.assign("/customerHome");
             }
             else if (data.statusCode == "invalidLogin"){
                 $scope.existingUserName = false;
