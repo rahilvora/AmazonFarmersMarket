@@ -1064,18 +1064,21 @@ router.get('/generateData',function(req,res){
 router.post('/assigntrip', function(request, response) {
     console.log("assigntrip called");
     function updateTripDetails(billCtr,truckCtr, resultbill, resulttruck) {
-        
-        var fetchaddress = "select address, zipcode from customerdetails where customerid = '"+resultbill[billCtr].customerid+"'" ;
-        connection.query(fetchaddress,function(err,rows){
+        console.log(resultbill[billCtr].customerid);
+
+        var fetchaddress = "select address, city from customerdetails where customerid = '"+resultbill[billCtr].customerid+"';" ;
+        connection.query(fetchaddress,function(err,custrows){
             if(err){ 
                 throw err;}
-            console.log(fetchaddress.address);
-            console.log(fetchaddress.zipcode);
-            var addresspool = ["1322, The Alameda","471, Acalanes Drive","101 E San Fernando"];
+                console.log(custrows);
+            console.log(custrows[0].address);
+            console.log(custrows[0].city);
+
+            var addresspool = [{address:"1322, The Alameda",city:"san jose"},{address:"471, Acalanes Drive",city:"sunnyvale"},{address:"101 E San Fernando",city:"downtown"}];
             var randomnumber = Math.floor(Math.random() * 2);
             var randomaddress = addresspool[randomnumber];
 
-            var addtrip = "INSERT INTO tripdetails (pickuploc, dropoffloc, dropoffzip, tripendflag, driverid1, truckid1, billid1,tripstatus) VALUES ('"+randomaddress+"','"+fetchaddress[billCtr].address+"','"+fetchaddress[billCtr].zipcode+"','0','" + resulttruck[truckCtr].driverid  + "','" + resulttruck[truckCtr].truckid  + "','" + resultbill[billCtr].billid  + "', 'In Progress')";
+            var addtrip = "INSERT INTO tripdetails (pickuploc, dropoffloc, pickupcity, dropoffcity, tripendflag, driverid1, truckid1, billid1,tripstatus) VALUES ('"+randomaddress.address+"','"+custrows[0].address+"','"+randomaddress.city+"','"+custrows[0].city+"','0','" + resulttruck[truckCtr].driverid  + "','" + resulttruck[truckCtr].truckid  + "','" + resultbill[billCtr].billid  + "', 'In Progress')";
             connection.query(addtrip,function(err,rows){
                 console.log(billCtr);
                 console.log(truckCtr);
@@ -1129,6 +1132,7 @@ router.post('/assigntrip', function(request, response) {
     });
     
 });
+
 
 router.get('/showmap', function(req,res) {
 
