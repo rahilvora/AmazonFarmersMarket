@@ -21,4 +21,25 @@ describe('http test',function(){
             done();
         });
     });
+
+    it('it should make get request to add new driver',function(done){
+        http.get('http://localhost:3000/admin#/driver/new',function(res){
+            assert.equal(200,res.statusCode);
+            done();
+        });
+    });
+
+    it('it should make get request to get bills list',function(done){
+        http.get('http://localhost:3000/admin#/bills',function(res){
+            assert.equal(200,res.statusCode);
+            done();
+        });
+    });
+
+    it('it should make get request to add new farmer',function(done){
+        http.get('http://localhost:3000/admin#/farmers/new',function(res){
+            assert.equal(200,res.statusCode);
+            done();
+        });
+    });
 });

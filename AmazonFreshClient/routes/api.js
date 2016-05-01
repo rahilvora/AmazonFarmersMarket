@@ -1059,4 +1059,111 @@ router.get('/generateData',function(req,res){
     }
     //res.send(200);
 });
+
+
+router.post('/assigntrip', function(request, response) {
+    console.log("assigntrip called");
+    function updateTripDetails(billCtr,truckCtr, resultbill, resulttruck) {
+        
+        var fetchaddress = "select address, zipcode from customerdetails where customerid = '"+resultbill[billCtr].customerid+"'" ;
+        connection.query(fetchaddress,function(err,rows){
+            if(err){ 
+                throw err;}
+            console.log(fetchaddress.address);
+            console.log(fetchaddress.zipcode);
+            var addresspool = ["1322, The Alameda","471, Acalanes Drive","101 E San Fernando"];
+            var randomnumber = Math.floor(Math.random() * 2);
+            var randomaddress = addresspool[randomnumber];
+
+            var addtrip = "INSERT INTO tripdetails (pickuploc, dropoffloc, dropoffzip, tripendflag, driverid1, truckid1, billid1,tripstatus) VALUES ('"+randomaddress+"','"+fetchaddress[billCtr].address+"','"+fetchaddress[billCtr].zipcode+"','0','" + resulttruck[truckCtr].driverid  + "','" + resulttruck[truckCtr].truckid  + "','" + resultbill[billCtr].billid  + "', 'In Progress')";
+            connection.query(addtrip,function(err,rows){
+                console.log(billCtr);
+                console.log(truckCtr);
+                console.log("me idhar hu 1");
+                console.log(rows);
+
+                if(err) {
+                    throw err;}
+                else {
+                    console.log("in else loop");
+                    var updatebill = "UPDATE billdetails SET tripassigned = 1 WHERE (billid = '" + resultbill[billCtr].billid + "')";
+                    console.log(updatebill);
+                    console.log(billCtr);
+                    console.log(truckCtr);
+                    connection.query(updatebill ,function(err,rows){
+                    //connection.release();
+                        if(err) throw err;   
+                        var updatetruck = "UPDATE truckdetails SET truckavailable = 0 WHERE (truckid = '"+ resulttruck[truckCtr].truckid +"')";        
+                        connection.query(updatetruck,function(err,rows){
+                            if(err) throw err;
+                        });
+                    });
+                }
+               
+            });
+        });
+    }
+
+    console.log(connection);
+    var queryunassignedbills = "select * from billdetails where tripassigned = 0";
+    connection.query(queryunassignedbills,function(err,resultbill){
+
+    console.log("result bill display");
+    console.log(resultbill);
+
+        var unassignedtrukquery = "select * from truckdetails where truckavailable = 1";
+        connection.query(unassignedtrukquery,function(err,resulttruck){
+            console.log("check karta hun = " + JSON.stringify(resulttruck));
+            console.log("result truck display");
+            console.log(resulttruck);
+            for(var billCtr = 0, truckCtr = 0; billCtr < resultbill.length && truckCtr < resulttruck.length; billCtr++, truckCtr++ ) {
+                
+                console.log(billCtr);
+                console.log(truckCtr);
+                console.log("inserting 12334----------");
+                updateTripDetails(billCtr, truckCtr, resultbill,resulttruck);
+                
+            }
+        });
+        response.json({resultbill: resultbill});
+    });
+    
+});
+
+router.get('/showmap', function(req,res) {
+
+    var tripid = req.query.tripid;
+    console.log('trip id got from url is 111111' + tripid);
+
+    var query = "SELECT * From tripdetails where tripid = " + tripid;
+    connection.query(query,function(err,result){
+        if(err){
+            throw err;
+        }
+        else{
+            var pickuploc = result[0].pickuploc;
+            var dropoffloc = result[0].dropoffloc;
+            console.log('trip 000000 ' +JSON.stringify(result));
+            res.render('adminViews/trip/map', {pickuploc: pickuploc, dropoffloc: dropoffloc});  
+            var query1 = "UPDATE tripdetails SET tripendflag = '1', tripstatus = 'Completed' WHERE (tripid = '" + tripid + "')";
+            connection.query(query1,function(err,resultnew){
+                if(err){
+                    throw err;
+                }
+                else{
+                    var query2 = "UPDATE truckdetails SET truckavailable = '1' WHERE (truckid = '" + result[0].truckid1 + "')";
+                    connection.query(query2,function(err,resultnewnew){
+                        if(err){
+                            throw err;
+                        }
+                    });
+                }
+                console.log('after status....:' + JSON.stringify(result));
+            }); 
+        }
+    })
+    console.log('trip id got from url is 123456' + query);
+
+});
+
 module.exports = router;
