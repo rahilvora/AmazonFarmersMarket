@@ -13,7 +13,7 @@ adminApp.controller("FarmerController", ["$scope", "$http", "$location", functio
 
     //Get Requests
 
-    $http.get('api/getFarmers',{ cache: true}).then(function(result){
+    $http.get('api/getFarmers').then(function(result){
         var data = result.data;
         $scope.farmersAvailable = data;
         $scope.viewby = 10;
@@ -23,7 +23,7 @@ adminApp.controller("FarmerController", ["$scope", "$http", "$location", functio
         //$location.path('/farmers');
     });
 
-    $http.get('api/getAddFarmerRequests',{ cache: true}).then(function(result){
+    $http.get('api/getAddFarmerRequests').then(function(result){
         console.log(result.data);
         $scope.farmers = result.data;
         //$location.path('/farmers/new');
@@ -53,7 +53,7 @@ adminApp.controller("ProductController",["$scope","$http","$location",function($
 
     //Get Requests
 
-    $http.get('api/getProducts',{ cache: true}).then(function(result){
+    $http.get('api/getProducts').then(function(result){
         var data = result.data;
         $scope.productsAvailable = result.data;
         $scope.viewby = 10;
@@ -63,7 +63,7 @@ adminApp.controller("ProductController",["$scope","$http","$location",function($
         //$location.path('/products');
     });
 
-    $http.get('api/getAddProductRequests',{ cache: true}).then(function(result){
+    $http.get('api/getAddProductRequests').then(function(result){
         console.log(result.data);
         $scope.products = result.data;
         //$location.path('/products/new');
@@ -91,7 +91,7 @@ adminApp.controller("DriverController",["$scope","$http","$location",function($s
 
     //Get Requests
     $scope.refresh = function() {
-        $http.get('api/getDrivers',{ cache: true}).then(function (result) {
+        $http.get('api/getDrivers').then(function (result) {
             var data = result.data;
             $scope.drivers = data;
             $scope.viewby = 10;
@@ -121,11 +121,18 @@ adminApp.controller("DriverController",["$scope","$http","$location",function($s
     //Put Request
 
     $scope.updateDriver = function(){
-        $scope.form.CurrentDriverId = drivers[0].driverid;
-        $http.put('api/updateDriver',$scope.form).then(function(result){
-            $scope.refresh();
+        debugger;
+        try{
+            $scope.form.CurrentDriverId = drivers[0].driverid;
+            $http.put('api/updateDriver',$scope.form).then(function(result){
+                $scope.refresh();
+                $location.path('/driver');
+            });
+        }
+        catch(e){
+            console.log("driver is not defined")
             $location.path('/driver');
-        });
+        }
     };
     //Delete Request
 
@@ -148,7 +155,7 @@ adminApp.controller("TruckController",["$scope","$http","$location",function($sc
 
         var data1;
         var data2;
-        $http.get('api/getDrivers',{ cache: true}).then(function (result) {
+        $http.get('api/getDrivers').then(function (result) {
             var data1 = result.data;
             $scope.drivers = data1;
             //$scope.viewby = 10;
@@ -157,7 +164,7 @@ adminApp.controller("TruckController",["$scope","$http","$location",function($sc
             //$scope.itemsPerPage = $scope.viewby;
         });
 
-        $http.get('api/getTrucks', { cache: true}).then(function(result){
+        $http.get('api/getTrucks').then(function(result){
             var data = result.data;
             $scope.trucks = data;
             $scope.viewby = 10;
@@ -181,7 +188,7 @@ adminApp.controller("TruckController",["$scope","$http","$location",function($sc
     //Put Request
 
     $scope.editTruck = function(p_truckid){
-        $http.get('api/editTruck',{params: {data:p_truckid}},{ cache: true}).then(function(result){
+        $http.get('api/editTruck',{params: {data:p_truckid}}).then(function(result){
             trucks  = $scope.truck = result.data;
             $location.path('/truck/edit');
         });
@@ -212,7 +219,7 @@ adminApp.controller("CustomerController", ["$scope", "$http", "$location", funct
 
     //Get Requests
 
-    $http.get('api/getCustomers',{ cache: true}).then(function(result){
+    $http.get('api/getCustomers').then(function(result){
         var data = result.data;
         console.log("Total Customers: " + data.length);
         $scope.customersAvailable = data;
@@ -236,7 +243,7 @@ adminApp.controller("CustomerController", ["$scope", "$http", "$location", funct
         //}
     });
 
-    $http.get('api/getAddCustomerRequests',{ cache: true}).then(function(result){
+    $http.get('api/getAddCustomerRequests').then(function(result){
         var data = result.data;
         console.log("Total Customer Requests are: " + result.data.length);
         $scope.customers = data;
@@ -444,6 +451,12 @@ adminApp.controller("upload", ["$scope", "$http", "$location","Upload", function
         //console.log(file);
     }
 }]);
+
+adminApp.controller("fakeDataController", ["$scope", "$http", "$location", function($scope,$http,$location){
+    $http.get('api/generateData').then(function(result){
+        console.log("Success");
+    });
+}]);
 //Routes
 
 adminApp.config(['$routeProvider',
@@ -540,6 +553,10 @@ adminApp.config(['$routeProvider',
         when('/upload',{
             templateUrl: '../view/adminViews/upload.ejs',
             controller: 'upload'
+        }).
+        when('/fake/product',{
+            templateUrl: '../view/adminViews/generatedata.ejs',
+            controller: 'fakeDataController'
         }).
         otherwise({
             redirectTo: "/"

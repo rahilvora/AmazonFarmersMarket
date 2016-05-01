@@ -39,60 +39,94 @@
             <a class="navbar-brand" href="#">Home</a>
         </div>
 
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <li class="dropdown">
-                            <a ng-href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Farmers <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#/farmers">Show All Farmers</a></li>
-                                <li><a href="#/farmers/new">Add New Farmer request </a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a ng-href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Product <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#/products">Show All Product</a></li>
-                                <li><a href="#/products/new">Add New Products Request</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a ng-href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Customer <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#/customers">Show All Customer</a></li>
-                                <li><a href="#/customers/new">Add New Customer</a></li>
-                                <li><a href="#/customers/test">test</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a ng-href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Bills <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#/bills">Show All Bills</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a ng-href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Trips <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#/trips">Show All trips of a truck</a></li>
-                                <li><a href="#/">Show All trips of a driver</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a ng-href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Driver <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#/driver">Show All drivers</a></li>
-                                <li><a href="#/driver/new">Add New Driver</a></li>
-                            </ul>
-                        </li>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a ng-href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Farmers <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#/farmers">Show All Farmers</a></li>
+                        <li><a href="#/farmers/new">Add New Farmer request </a></li>
                     </ul>
-                </div><!-- /.navbar-collapse -->
-            </div><!-- /.container-fluid -->
-        </nav>
-        <div>
-            <p>
-                Welcome Admin
-            </p>
-        </div>
+                </li>
+                <li class="dropdown">
+                    <a ng-href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Product <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#/products">Show All Product</a></li>
+                        <li><a href="#/products/new">Add New Products Request</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a ng-href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Customer <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#/customers">Show All Customer</a></li>
+                        <li><a href="#/customers/new">Add New Customer</a></li>
+                        <li><a href="#/customers/test">test</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a ng-href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Bills <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#/bills">Show All Bills</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a ng-href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Trips <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#/trips">Show All trips of a truck</a></li>
+                        <li><a href="#/">Show All trips of a driver</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a ng-href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Trucks <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#/trucks">Show All Trucks</a></li>
+                        <li><a href="#/truck/new">Add New Truck</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a ng-href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Driver <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#/driver">Show All drivers</a></li>
+                        <li><a href="#/driver/new">Add New Driver</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a ng-href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Statistics <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#/statistic/revenue">Revenue Per Day</a></li>
+                        <li><a href="#/statistic/delivery">Total Delivery</a></li>
+                        <li><a href="#/statistic/RevenuePerDay-Area Wise">RevenuePerDay-Area Wise</a></li>
+                        <li><a href="#/statistic/TotalDelivery-Area Wise">Total Delivery-Area Wise</a></li>
+                        <li><a href="#/statistic/ridesPerArea">Rides Per Area</a></li>
+                        <li><a href="#/statistic/ridesPerDriver">Rides Per Driver</a></li>
+                        <li><a href="#/statistic/ridesPerCustomer">Rides Per Customer</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a ng-href="#/upload" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Upload Test</a>
+                </li>
+                <li class="dropdown">
+                    <a ng-href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> FD Generator <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#/fake/product">Generate Fake Product data</a></li>
+                        <li><a href="#/statistic/delivery">Total Delivery</a></li>
+                        <li><a href="#/statistic/RevenuePerDay-Area Wise">RevenuePerDay-Area Wise</a></li>
+                        <li><a href="#/statistic/TotalDelivery-Area Wise">Total Delivery-Area Wise</a></li>
+                        <li><a href="#/statistic/ridesPerArea">Rides Per Area</a></li>
+                        <li><a href="#/statistic/ridesPerDriver">Rides Per Driver</a></li>
+                        <li><a href="#/statistic/ridesPerCustomer">Rides Per Customer</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+<div>
+    <p>
+        Welcome Admin
+    </p>
+</div>
 
         <div ng-view class="container-fluid">
             <p>Some data</p>
