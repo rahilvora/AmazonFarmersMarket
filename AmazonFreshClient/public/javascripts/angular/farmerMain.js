@@ -6,6 +6,17 @@ var rstars = 0;
 var rbody = {};
 var rauthor = {};
 
+FarmerApp.controller("FarmerHomeController", ["$scope", "$http", "$location", function ($scope, $http, $location) {
+    //alert("in home controller");
+
+    $http.get('api/getFarmerReviewsHome').then(function (result) {
+        $scope.fname = result.data.farmername;
+        $scope.farmerReviews = result.data.reviews;
+
+    });
+}]);
+
+
 FarmerApp.controller("FarmerProductController", ["$scope", "$http", "$location", function ($scope, $http, $location) {
     $scope.farmerProducts = [];
     $scope.farmers = [];
@@ -31,7 +42,7 @@ FarmerApp.controller("FarmerProductController", ["$scope", "$http", "$location",
 
 
     $scope.addProduct = function () {
-        console.log($scope.form.price);
+        //console.log($scope.form.price);
 
         $http.post('api/createProduct', $scope.form).then(function (result) {
             if (result.data == "Success") {
@@ -47,21 +58,21 @@ FarmerApp.controller("FarmerProductController", ["$scope", "$http", "$location",
 
     $scope.getEditProduct = function (productid) {
 
-        alert(productid);
+        //alert(productid);
         editproductid = productid;
         $location.path('/editProduct');
 
     }
 
     $scope.getProductInfo = function (productid) {
-        alert(productid);
+        //alert(productid);
         prodid = productid;
         $location.path('/getProductInfo/' + productid);
     }
 
     $scope.deactivateProduct = function (productid) {
 
-        console.log(productid);
+        //console.log(productid);
         $http.put('api/deactivateProduct', {params: {productid: productid}}).then(function (result) {
 
         });
@@ -72,9 +83,9 @@ FarmerApp.controller("FarmerProductController", ["$scope", "$http", "$location",
 
 FarmerApp.controller("FarmerEditProductController", ["$scope", "$http", "$location", function ($scope, $http, $location) {
 
-    alert("edit ctrl" + editproductid);
+    //alert("edit ctrl" + editproductid);
     $http.get('api/getEditProduct', {params: {data: editproductid}}).then(function (result) {
-        alert(JSON.stringify(result));
+        //alert(JSON.stringify(result));
         if (result.data != "Failure") {
 
             $scope.form.productid = result.data.productid;
@@ -91,7 +102,7 @@ FarmerApp.controller("FarmerEditProductController", ["$scope", "$http", "$locati
     });
 
     $scope.updateProduct = function () {
-        alert(" in update product");
+        //alert(" in update product");
 
         $http.post('api/updateProduct', $scope.form).then(function (result) {
             if (result.data == "Success")
@@ -103,7 +114,7 @@ FarmerApp.controller("FarmerEditProductController", ["$scope", "$http", "$locati
     }
 
     $scope.cancelUpdateProduct = function () {
-        alert(" cancelling update");
+        //alert(" cancelling update");
         $location.path('/allProducts');
     }
 
@@ -155,8 +166,6 @@ FarmerApp.controller("FarmerProfileController", ["$scope", "$http", "$location",
     }
     $scope.editFarmerProfile = function () {
 
-        alert("here");
-
         $http.put('api/editFarmerProfile', $scope.editProfileForm).then(function (result) {
             alert("Successfully updated");
             // $("#editProfile").hide();
@@ -171,8 +180,8 @@ FarmerApp.controller("FarmerViewProductController", ["$scope", "$http", "$locati
 
     $http.get('api/getProductInfo/', {params: {productid: prodid}}).then(function (result) {
         //console.log("Farmer main");
-        console.log(JSON.stringify(result));
-        alert("in here");
+        //console.log(JSON.stringify(result));
+        //alert("in here");
         if (result.data != "Failure") {
             alert(result);
             $scope.productname = result.data.productname;
@@ -188,7 +197,7 @@ FarmerApp.controller("FarmerViewProductController", ["$scope", "$http", "$locati
     });
 
     $scope.addProductReview = function (rstars, rbody, rauthor) {
-        alert("In Add Product Review" + prodid);
+        //alert("In Add Product Review" + prodid);
         //prodid = productid;
         rstars = rstars;
         rbody = rbody;
@@ -203,7 +212,7 @@ FarmerApp.controller("FarmerViewProductController", ["$scope", "$http", "$locati
             }
         }).then(function (result) {
             if (result.data != "Failure") {
-                alert("Review added successfully");
+                //alert("Review added successfully");
                 document.getElementById("productReviewForm").reset();
                 $http.get('api/getProductInfo/', {params: {productid: prodid}}).then(function (result) {
                     //console.log("Farmer main");
@@ -221,7 +230,6 @@ FarmerApp.controller("FarmerViewProductController", ["$scope", "$http", "$locati
                         $location.path('/allProducts');
                     }
                 });
-
             }
             else {
                 alert("Error loading productInfo page");
@@ -270,7 +278,8 @@ FarmerApp.config(['$routeProvider',
         }).when('/deliveryHistory', {
             templateUrl: '../view/farmerViews/deliveryHistory.ejs',
             controller: 'FarmerDeliveryController'
-        }).otherwise({
-            controller: 'defaultController'
+        }).when('/',{
+            templateUrl: '../view/farmerViews/farmerHomepage.ejs',
+            controller: 'FarmerHomeController'
         })
     }]);

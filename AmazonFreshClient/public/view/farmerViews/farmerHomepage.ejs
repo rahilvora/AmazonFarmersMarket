@@ -1,0 +1,16 @@
+<h1>Welcome {{fname}}!</h1>
+<div class="row container-fluid">
+    <h2>Here is what customers say about you!</h2>
+    <ul>
+        <h3>Reviews</h3>
+        <li ng-repeat="review in farmerReviews">
+            <blockquote>
+                <strong>{{review.stars}} Stars</strong>
+                <br>
+                {{review.body}}
+                <br>
+                <cite class="clearfix">—{{review.name}}</cite>
+            </blockquote>
+        </li>
+    </ul>
+</div>

@@ -16,7 +16,7 @@ adminApp.controller("FarmerController", ["$scope", "$http", "$location", functio
     $http.get('api/getFarmers').then(function(result){
         var data = result.data;
         $scope.farmersAvailable = data;
-        $scope.viewby = 10;
+        $scope.viewby = 100;
         $scope.totalItems = data.length;
         $scope.currentPage = 1;
         $scope.itemsPerPage = $scope.viewby;
@@ -56,7 +56,7 @@ adminApp.controller("ProductController",["$scope","$http","$location",function($
     $http.get('api/getProducts').then(function(result){
         var data = result.data;
         $scope.productsAvailable = result.data;
-        $scope.viewby = 10;
+        $scope.viewby = 100;
         $scope.totalItems = data.length;
         $scope.currentPage = 1;
         $scope.itemsPerPage = $scope.viewby;
@@ -95,7 +95,7 @@ adminApp.controller("DriverController",["$scope","$http","$location",function($s
         $http.get('api/getDrivers').then(function (result) {
             var data = result.data;
             $scope.drivers = data;
-            $scope.viewby = 10;
+            $scope.viewby = 100;
             $scope.totalItems = data.length;
             $scope.currentPage = 1;
             $scope.itemsPerPage = $scope.viewby;
@@ -168,7 +168,7 @@ adminApp.controller("TruckController",["$scope","$http","$location",function($sc
         $http.get('api/getTrucks').then(function(result){
             var data = result.data;
             $scope.trucks = data;
-            $scope.viewby = 10;
+            $scope.viewby = 100;
             $scope.totalItems = data.length;
             $scope.currentPage = 1;
             $scope.itemsPerPage = $scope.viewby;
@@ -225,7 +225,7 @@ adminApp.controller("CustomerController", ["$scope", "$http", "$location", funct
         console.log("Total Customers: " + data.length);
         $scope.customersAvailable = data;
 
-        $scope.viewby = 10;
+        $scope.viewby = 100;
         $scope.totalItems = data.length;
         $scope.currentPage = 1;
         $scope.itemsPerPage = $scope.viewby;
@@ -249,7 +249,7 @@ adminApp.controller("CustomerController", ["$scope", "$http", "$location", funct
         console.log("Total Customer Requests are: " + result.data.length);
         $scope.customers = data;
 
-        $scope.view = 10;
+        $scope.view = 100;
         $scope.ti = data.length;
         $scope.currPage = 1;
         $scope.itemsPP = $scope.view;
@@ -302,7 +302,7 @@ adminApp.controller("BillController", ["$scope", "$http", "$location", function(
         var data = result.data;
         console.log(result.data);
         $scope.bills = data;
-        $scope.viewby = 10;
+        $scope.viewby = 100;
         $scope.totalItems = data.length;
         $scope.currentPage = 1;
         $scope.itemsPerPage = $scope.viewby;
@@ -318,7 +318,7 @@ adminApp.controller("TripController", ["$scope", "$http", "$location", "$window"
             var data = result.data;
             console.log("data is ::" + data);
             $scope.trips = data;
-            $scope.viewby = 10;
+            $scope.viewby = 100;
             $scope.totalItems = data.length;
             $scope.currentPage = 1;
             $scope.itemsPerPage = $scope.viewby;

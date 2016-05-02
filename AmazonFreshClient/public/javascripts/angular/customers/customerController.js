@@ -119,14 +119,11 @@ customerApp.controller("ParentController", ["$scope", "$http", "$location", func
 
     $scope.searchByCategory = function (category) {
         console.log("inside searchByCategory " + category);
-/*
-        $scope.searchResults = searchRes;
-        $scope.viewby = 8;
-        $scope.totalItems = searchRes.length;
-        $scope.currentPage = 1;
-        $scope.itemsPerPage = $scope.viewby;
-*/
-        $http.get('api/getSearchResults', {params:{data:category}}).then(function (result) {
+        
+        $http.post('api/getSearchResults',
+         {
+         "searchItem" : category
+         }).then(function (result) {
          //$scope.searchResults = result.data;
 
             var data = result.data;
@@ -225,7 +222,7 @@ customerApp.controller("CustomerHomeController", ["$scope", "$http", "$location"
             var data = result.data;
             searchRes = data;
             /* $scope.searchResults = data;*/
-            $scope.viewby = 8;
+            $scope.viewby = 48;
             $scope.totalItems = data.length;
             $scope.currentPage = 1;
             $scope.itemsPerPage = $scope.viewby;
@@ -242,7 +239,7 @@ customerApp.controller("CustomerHomeController", ["$scope", "$http", "$location"
         $scope.farmerProducts = data;
 
         //For pagiation to work
-        $scope.viewby = 8;
+        $scope.viewby = 48;
         $scope.totalItems = data.length;
         $scope.currentPage = 1;
         $scope.itemsPerPage = $scope.viewby;

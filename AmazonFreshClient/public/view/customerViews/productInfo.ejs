@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" style="margin-left: 5%; margin-right: 5%;margin-top: 1%">
     <div class="container-fluid" style="width: 50%; float: left;">
         <div style="width:30%; float: left">
             <div id="productImage">
@@ -6,7 +6,7 @@
                      style="width: 200px; float: left;position: relative; margin-bottom: 10px; display: block; margin-left: auto; margin-right: auto; border-style: none">
             </div>
         </div>
-        <div style="width: 70%;float: left">
+        <div style="width: 90%;float: left">
             <h1>{{productname}}</h1>
             <h4>{{description}} </h4>
             <h2>{{productprice}}</h2>
@@ -15,7 +15,7 @@
         </div>
     </div>
     <div style="width: 50%; float: left;">
-        <form id="productReviewForm" name="reviewForm" style="width: 80%; float: left">
+        <form id="productReviewForm" name="reviewForm" style="width: 90%; float: left">
             <!--  Review Form -->
             <h4>Submit a Review about the Product</h4>
             <fieldset class="form-group">
@@ -32,9 +32,9 @@
               title="Review"></textarea>
             </fieldset>
             <fieldset class="form-group">
-                <input ng-model="reviewForm.author" type="email" class="form-control"
-                       placeholder="jimmyDean@example.org"
-                       title="Email"/>
+                <input ng-model="reviewForm.author" type="text" class="form-control"
+                       placeholder="Enter your name"
+                       title="Name"/>
             </fieldset>
 
             <fieldset class="form-group">

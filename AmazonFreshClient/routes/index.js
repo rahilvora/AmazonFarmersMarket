@@ -29,5 +29,8 @@ router.get('/customerHome',function(req,res,next){
   res.render('customerViews/customerHome');
 });
 
-
+router.get('/logout',function(req,res,next){
+  req.session.destroy();
+  res.redirect('/');
+});
 module.exports = router;

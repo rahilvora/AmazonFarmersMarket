@@ -1,4 +1,4 @@
-<div class="leftNav" ng-model="categories" style="width: 15%;">
+<div class="leftNav" ng-model="categories" style="width: 15%;margin-top: 10px">
     <div>
         <ul>
             <li ng-repeat="values in categories">
@@ -8,8 +8,8 @@
     </div>
 </div>
 <div class="container-fluid" style="width: 70%;">
-    <div style="margin-top: 40px;">
-        <div class="col-sm-6 col-md-3"
+    <div style="margin-top: 10px;">
+        <div class="col-sm-6 col-md-4"
              ng-repeat="product in farmerProducts.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
             <div class="thumbnail custom">
                 <a ng-click="getProductInfo(product.productid)" style="cursor: pointer">
