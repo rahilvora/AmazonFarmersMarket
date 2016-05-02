@@ -25,6 +25,11 @@ customerApp.config(['$routeProvider', function ($routeProvider) {
     }).when('/reviewFarmer', {
         templateUrl: '../view/customerViews/reviewFarmer.ejs',
         controller: 'FarmerReviewController'
+    }).when('/orderHistory', {
+        templateUrl: '../view/customerViews/orderHistory.ejs',
+        controller: 'OrderHistoryController'
+    }).when('/checkoutPage', {
+        templateUrl: '../view/customerViews/checkoutPage.ejs'
     })
 }]);
 
@@ -40,7 +45,19 @@ customerApp.controller("searchController", ["$scope", "$http", "$location", func
         //alert(productid);
         prodid = productid;
         $location.path('/getProductInfo/' + productid);
-    }
+    };
+
+    $scope.addToCart = function (product) {
+        // console.log("Adding product : "+product+" to cart");
+        console.log(JSON.stringify(product));
+        $http.post('api/addProductToCart',
+            {
+                "product": product
+            }).then(function (data) {
+            $location.path('/');
+        });
+    };
+
 }]);
 
 customerApp.controller("FarmerReviewController", ["$scope", "$http", "$location", function ($scope, $http, $location) {
@@ -109,10 +126,7 @@ customerApp.controller("ParentController", ["$scope", "$http", "$location", func
         $scope.currentPage = 1;
         $scope.itemsPerPage = $scope.viewby;
 */
-        $http.post('api/getSearchResults',
-         {
-         "searchItem" : category
-         }).then(function (result) {
+        $http.get('api/getSearchResults', {params:{data:category}}).then(function (result) {
          //$scope.searchResults = result.data;
 
             var data = result.data;
@@ -130,10 +144,7 @@ customerApp.controller("ParentController", ["$scope", "$http", "$location", func
 
     $scope.search = function () {
         console.log("inside search " + $scope.searchItem);
-        $http.post('api/getSearchResults',
-            {
-                "searchItem": $scope.searchItem
-            }).then(function (result) {
+        $http.get('api/getSearchResults', {params:{data:$scope.searchItem}}).then(function (result) {
             //$scope.searchResults = result.data;
 
             //For Pagination to Work
@@ -207,10 +218,7 @@ customerApp.controller("CustomerHomeController", ["$scope", "$http", "$location"
 
     $scope.searchByCategory = function (category) {
         console.log("inside searchByCategory " + category);
-        $http.post('api/getSearchResults',
-            {
-                "searchItem": category
-            }).then(function (result) {
+        $http.get('api/getSearchResults', {params:{data:category}}).then(function (result) {
             //$scope.searchResults = result.data;
             console.log(JSON.stringify(result));
 
@@ -264,12 +272,16 @@ customerApp.controller("CustomerHomeController", ["$scope", "$http", "$location"
 /*** Controller for CustomerCartPage***/
 customerApp.controller("CustomerCartController", ["$scope", "$http", "$location", function ($scope, $http, $location) {
     console.log("inside CustomerCartController");
-
+    $scope.showCheckoutBtn = false;
+    $scope.showOrderPlaced = false;
 
     $http.get('api/getCart').then(function (result) {
         //console.log(JSON.stringify(result));
         $scope.cartItems = result.data.cartItems;
         $scope.cartTotal = result.data.cartTotal;
+        $scope.cartid = result.data.cartid;
+        $scope.showCheckoutBtn = true;
+        
         //window.location.assign("/cartDetails");
 
     });
@@ -282,19 +294,111 @@ customerApp.controller("CustomerCartController", ["$scope", "$http", "$location"
                 "productid": productid,
                 "index": index
             }).then(function (data) {
-            //alert("reloading");
-            window.location.assign("api/cartDetails");
+            location.reload();
         });
     };
 
 
-    $scope.checkout = function (cartItems) {
-        console.log("inside checkout : " + JSON.stringify($scope.cartItems));
-        $http.post('api/checkout',
+    $scope.checkout = function (){
+        $scope.showCheckoutBtn = false;
+        $scope.showOrderPlaced = true;
+    };
+
+/** Datepicker for deliverydate starts**/
+    $scope.today = function() {
+        $scope.dt = new Date();
+    };
+    $scope.today();
+
+    $scope.clear = function() {
+        $scope.dt = null;
+    };
+
+    $scope.inlineOptions = {
+        customClass: getDayClass,
+        minDate: new Date(),
+        showWeeks: true
+    };
+
+    $scope.dateOptions = {
+        dateDisabled: disabled,
+        formatYear: 'yy',
+        minDate: new Date(),
+        startingDay: 1
+    };
+
+    // Disable weekend selection
+    function disabled(data) {
+        var date = data.date,
+            mode = data.mode;
+        return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
+    }
+
+
+    $scope.open2 = function() {
+        $scope.popup2.opened = true;
+    };
+
+    $scope.setDate = function(year, month, day) {
+        $scope.dt = new Date(year, month, day);
+    };
+
+    $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+    $scope.format = $scope.formats[0];
+    $scope.altInputFormats = ['M!/d!/yyyy'];
+
+    $scope.popup1 = {
+        opened: false
+    };
+
+    $scope.popup2 = {
+        opened: false
+    };
+
+    var tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    var afterTomorrow = new Date();
+    afterTomorrow.setDate(tomorrow.getDate() + 1);
+    $scope.events = [
+        {
+            date: tomorrow,
+            status: 'full'
+        },
+        {
+            date: afterTomorrow,
+            status: 'partially'
+        }
+    ];
+
+    function getDayClass(data) {
+        var date = data.date,
+            mode = data.mode;
+        if (mode === 'day') {
+            var dayToCheck = new Date(date).setHours(0,0,0,0);
+
+            for (var i = 0; i < $scope.events.length; i++) {
+                var currentDay = new Date($scope.events[i].date).setHours(0,0,0,0);
+
+                if (dayToCheck === currentDay) {
+                    return $scope.events[i].status;
+                }
+            }
+        }
+
+        return '';
+    }
+/** Datepicker for deliverydate ends**/
+
+    $scope.generateBill = function (cartItems){
+        console.log("inside deliveryDate : "+$scope.dt);
+        $http.post('/api/checkout',
             {
-                "cartItems": cartItems
+                "cartItems" : cartItems,
+                "deliveryDate" : $scope.dt,
+                "cartTotal" : $scope.cartTotal,
+                "cartid" : $scope.cartid
             }).then(function (data) {
-            $location.path('/customerHome');
+            $location.path('/checkoutPage');
         });
     };
 }]);
@@ -362,7 +466,7 @@ customerApp.controller("CustomerViewProductController", ["$scope", "$http", "$lo
                 $location.path('/allProducts');
             }
         });
-    }
+    };
 
     $scope.reviewFarmer = function (farmerName, farmerid) {
         //alert("in review farmer");
@@ -370,4 +474,12 @@ customerApp.controller("CustomerViewProductController", ["$scope", "$http", "$lo
         fid = farmerid;
         $location.path('/reviewFarmer');
     }
+}]);
+
+customerApp.controller("OrderHistoryController", ["$scope", "$http", "$location", function ($scope, $http, $location) {
+
+    $http.get('api/getOrderHistory/').then(function (result) {
+        $scope.orderDetails = result.data;
+    });
+
 }]);

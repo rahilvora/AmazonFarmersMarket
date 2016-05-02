@@ -54,6 +54,7 @@ var productSchema = new Schema({
 });
 
 productSchema.plugin(autoIncrement.plugin, {model: 'productdetail', field: 'productid'});
+var cartid;
 //var Product = connection.model('Product', productSchema);
 
 //Farmer's Requests
@@ -61,10 +62,10 @@ productSchema.plugin(autoIncrement.plugin, {model: 'productdetail', field: 'prod
 router.get('/getFarmers',function(req,res,next){
 
     client.get("getFarmer",function(err,result){
-        if(result !== null){
-            console.log("Sending result from redis")
-            res.send(result);
-        }
+            if(result !== null){
+                console.log("Sending result from redis");
+                res.send(result);
+            }
         else{
             var query = "SELECT * FROM `farmerdetails` WHERE flag <> 0";
             connection.query(query,function(err,result){
@@ -153,7 +154,7 @@ router.get('/getProducts', function (req, res, next) {
 
     client.get("getProducts", function (err, result) {
         if (result !== null) {
-            console.log("Sending product result from redis")
+            console.log("Sending product result from redis");
             res.send(result);
         }
         else {
@@ -863,10 +864,11 @@ router.post('/checkCustomerLogin', function (req, res, next) {
         }
     });
 
+    var cartid = req.session.username;
     mongo.connect(mongoURL, function () {
         var coll = mongo.collection('carts');
 
-        coll.findOne({cartid: "111-11-1111"}, function(err, result){
+        coll.findOne({"cartid": cartid}, function(err, result){
             if (result) {
                 console.log(" collection id present");
 
@@ -1161,17 +1163,13 @@ router.get('/generateData',function(req,res){
 
 
 router.post('/assigntrip', function(request, response) {
-    console.log("assigntrip called");
+
     function updateTripDetails(billCtr,truckCtr, resultbill, resulttruck) {
-        console.log(resultbill[billCtr].customerid);
 
         var fetchaddress = "select address, city from customerdetails where customerid = '"+resultbill[billCtr].customerid+"';" ;
         connection.query(fetchaddress,function(err,custrows){
             if(err){ 
                 throw err;}
-                console.log(custrows);
-            console.log(custrows[0].address);
-            console.log(custrows[0].city);
 
             var addresspool = [{address:"1322, The Alameda",city:"san jose"},{address:"471, Acalanes Drive",city:"sunnyvale"},{address:"101 E San Fernando",city:"downtown"}];
             var randomnumber = Math.floor(Math.random() * 2);
@@ -1179,21 +1177,14 @@ router.post('/assigntrip', function(request, response) {
 
             var addtrip = "INSERT INTO tripdetails (pickuploc, dropoffloc, pickupcity, dropoffcity, tripendflag, driverid1, truckid1, billid1,tripstatus) VALUES ('"+randomaddress.address+"','"+custrows[0].address+"','"+randomaddress.city+"','"+custrows[0].city+"','0','" + resulttruck[truckCtr].driverid  + "','" + resulttruck[truckCtr].truckid  + "','" + resultbill[billCtr].billid  + "', 'In Progress')";
             connection.query(addtrip,function(err,rows){
-                console.log(billCtr);
-                console.log(truckCtr);
-                console.log("me idhar hu 1");
-                console.log(rows);
 
                 if(err) {
                     throw err;}
                 else {
-                    console.log("in else loop");
+
                     var updatebill = "UPDATE billdetails SET tripassigned = 1 WHERE (billid = '" + resultbill[billCtr].billid + "')";
-                    console.log(updatebill);
-                    console.log(billCtr);
-                    console.log(truckCtr);
                     connection.query(updatebill ,function(err,rows){
-                    //connection.release();
+
                         if(err) throw err;   
                         var updatetruck = "UPDATE truckdetails SET truckavailable = 0 WHERE (truckid = '"+ resulttruck[truckCtr].truckid +"')";        
                         connection.query(updatetruck,function(err,rows){
@@ -1206,23 +1197,15 @@ router.post('/assigntrip', function(request, response) {
         });
     }
 
-    console.log(connection);
+
     var queryunassignedbills = "select * from billdetails where tripassigned = 0";
     connection.query(queryunassignedbills,function(err,resultbill){
 
-    console.log("result bill display");
-    console.log(resultbill);
-
         var unassignedtrukquery = "select * from truckdetails where truckavailable = 1";
         connection.query(unassignedtrukquery,function(err,resulttruck){
-            console.log("check karta hun = " + JSON.stringify(resulttruck));
-            console.log("result truck display");
-            console.log(resulttruck);
+
             for(var billCtr = 0, truckCtr = 0; billCtr < resultbill.length && truckCtr < resulttruck.length; billCtr++, truckCtr++ ) {
-                
-                console.log(billCtr);
-                console.log(truckCtr);
-                console.log("inserting 12334----------");
+
                 updateTripDetails(billCtr, truckCtr, resultbill,resulttruck);
                 
             }
@@ -1236,7 +1219,6 @@ router.post('/assigntrip', function(request, response) {
 router.get('/showmap', function(req,res) {
 
     var tripid = req.query.tripid;
-    console.log('trip id got from url is 111111' + tripid);
 
     var query = "SELECT * From tripdetails where tripid = " + tripid;
     connection.query(query,function(err,result){
@@ -1246,7 +1228,6 @@ router.get('/showmap', function(req,res) {
         else{
             var pickuploc = result[0].pickuploc;
             var dropoffloc = result[0].dropoffloc;
-            console.log('trip 000000 ' +JSON.stringify(result));
             res.render('adminViews/trip/map', {pickuploc: pickuploc, dropoffloc: dropoffloc});  
             var query1 = "UPDATE tripdetails SET tripendflag = '1', tripstatus = 'Completed' WHERE (tripid = '" + tripid + "')";
             connection.query(query1,function(err,resultnew){
@@ -1261,12 +1242,11 @@ router.get('/showmap', function(req,res) {
                         }
                     });
                 }
-                console.log('after status....:' + JSON.stringify(result));
+
             }); 
         }
-    })
-    console.log('trip id got from url is 123456' + query);
-
+    });
+    
 });
 
 router.get('/getCustomerDetails', function (req, res, next) {
@@ -1315,6 +1295,8 @@ router.get('/getCustomerDetails', function (req, res, next) {
     });
 });
 
+
+/**Function to update user's profile starts**/
 router.put('/updateUserProfile', function (req, res, next) {
     var json_responses;
     var updateProfileQuery = "UPDATE customerdetails SET firstname='" + req.body.firstname + "', lastname='" + req.body.lastname + "', email='" + req.body.email + "',address='" + req.body.address + "',city='" + req.body.city + "', state='" + req.body.state + "', zipcode='" + req.body.zipcode + "',password='" + req.body.password + "', phonenumber='" + req.body.phonenumber + "', ccnumber='" + req.body.ccnumber + "' where customerid='" + req.body.customerid + "'";
@@ -1331,7 +1313,9 @@ router.put('/updateUserProfile', function (req, res, next) {
         }
     });
 });
+/**Function to update user's profile ends**/
 
+/**Function to get products on the HomePage starts**/
 router.get('/getHomeDashboard', function (req, res, next) {
     console.log("inside dashboard node");
     productsCollection.find({approved: "Y"}).toArray(function (err, data) {
@@ -1341,9 +1325,9 @@ router.get('/getHomeDashboard', function (req, res, next) {
         }
     });
 });
+/**Function to get products on the HomePage starts**/
 
-
-
+/**Function to add a product to the cart starts**/
 router.post('/addProductToCart', function (req, res, next) {
 
     var product = req.body.product;
@@ -1357,6 +1341,7 @@ router.post('/addProductToCart', function (req, res, next) {
             {$push: {products: product}}, function (err, result) {
                 if (result) {
                     console.log(result);
+                    res.send(200);
                 }
                 else {
                     console.log("returned false");
@@ -1364,13 +1349,17 @@ router.post('/addProductToCart', function (req, res, next) {
             });
     });
 });
+/**Function to add a product to the cart ends**/
 
+
+
+/**Function to get the current user's cart starts**/
 router.get('/getCart', function (req, res, next) {
-
+    var cartid = req.session.username;
     mongo.connect(mongoURL, function () {
         var coll = mongo.collection('carts');
 
-        coll.find({cartid: req.session.username}).toArray(function (err, data) {
+        coll.find({"cartid": cartid}).toArray(function (err, data) {
             if (data) {
                 console.log(data);
                 var total = 0;
@@ -1378,14 +1367,17 @@ router.get('/getCart', function (req, res, next) {
                     total += Number(data[0].products[a].productprice);
                 }
                 total = Number(total.toFixed(2));
-                var json_responses = {"cartItems": data[0].products, "cartTotal": total}
+                var json_responses = {"cartItems": data[0].products, "cartTotal": total, "cartid" : data[0].cartid};
                 console.log("Cart total is " + total);
                 res.send(json_responses);
             }
         });
     });
 });
+/**Function to get the current user's cart ends**/
 
+
+/**Function to delete a product from the cart starts**/
 router.post('/deleteProductFromCart', function (req, res, next) {
     var productid = req.body.productid;
     console.log("productid is :" + productid);
@@ -1397,6 +1389,7 @@ router.post('/deleteProductFromCart', function (req, res, next) {
             {$pull: {products: {productid: productid}}}, function (err, result) {
                 if (result) {
                     console.log(result);
+                    res.send(200);
                 }
                 else {
                     console.log("returned false");
@@ -1404,8 +1397,9 @@ router.post('/deleteProductFromCart', function (req, res, next) {
             });
     });
 });
+/**Function to delete a product from the cart ends**/
 
-
+/**Function to get Homepage Left categories starts**/
 router.get('/getHomeCategories', function (req, res, next) {
     console.log("inside getHomeCategories node");
     productsCollection.distinct('category', function (err, data) {
@@ -1416,22 +1410,139 @@ router.get('/getHomeCategories', function (req, res, next) {
 
     });
 });
+/**Function to get Homepage Left categories ends**/
 
-router.post('/getSearchResults', function (req, res, next) {
-    var searchItem = req.body.searchItem;
+/**Function to search results starts**/
+router.get('/getSearchResults', function (req, res, next) {
+    var searchItem = req.query.data;
     console.log("searchItem is :" + searchItem);
-    mongo.connect(mongoURL, function () {
-        var coll = mongo.collection('productdetails');
 
-        coll.createIndex({"productname": "text", "category": "text"}, function (err, results) {
-                coll.find({$text: {$search: searchItem}}).toArray(function (err, items) {
-                    console.log(items);
-                    res.send(items);
-                })
+
+    client.get("getSearchResults",function(err,result) {
+        if (result !== null) {
+            console.log("Sending SearchResults from redis");
+            res.send(result);
+        }
+        else {
+            mongo.connect(mongoURL, function () {
+                var coll = mongo.collection('productdetails');
+
+                coll.createIndex({"productname": "text", "category": "text"}, function (err, results) {
+                        coll.find({$text: {$search: searchItem}}).toArray(function (err, items) {
+
+                            if (items) {
+                                console.log("Storing searchresults in redis");
+                                client.set("getSearchResults", JSON.stringify(items), function (err, ans) {
+                                    client.expire("getAddProductRequests", 180, function (err, didSetExpire) {
+                                        console.log("getAddProductRequests key Expired");
+                                    });
+                                });
+                                console.log(items);
+                                res.send(items);
+                            }
+                            else {
+                                console.log("returned false");
+                            }
+                        })
+                    }
+                );
+            });
+        }
+    })
+});
+/**Function to search results ends**/
+
+/**Checkout Functionality starts**/
+router.post('/checkout', function (req, res, next) {
+    var cartItems = req.body.cartItems;
+    var deliveryDate = req.body.deliveryDate;
+    deliveryDate = deliveryDate.substring(0, 10);
+    var cartid = req.body.cartid;
+    var cartTotal = req.body.cartTotal;
+
+    var min = 10000;
+    var max = 999999;
+    var orderid = Math.floor(Math.random() * (max - min + 1)) + min;
+    console.log("OrderID is  : " + orderid);
+
+    mongo.connect(mongoURL, function () {
+        var coll = mongo.collection('carts');
+        coll.remove({"cartid": cartid}, function (err, result) {
+            if (result) {
+                console.log("Cart " + cartid + "has been removed");
             }
-        );
+            else {
+                console.log("returned false");
+            }
+        })
+
+    });
+
+    mongo.connect(mongoURL, function () {
+        var orderColl = mongo.collection('orderdetails');
+        orderColl.insert({
+            "orderid": orderid,
+            "cartid": cartid,
+            "products": cartItems,
+            "ordertotal": cartTotal,
+            "deliveryDate": deliveryDate
+        }, function (err, result) {
+            if (result) {
+                //console.log("result orderid "+JSON.stringify(result));
+                console.log("Cart " + cartid + "has been inserted into orderdetails");
+
+                orderColl.find({orderid: orderid}).toArray(function (err, data) {
+                    if (data) {
+                        console.log("here " + data);
+                        generateBill(data);
+                        res.send(200);
+                    }
+                });
+            } else {
+                console.log("returned false");
+            }
+        })
     });
 });
+/**Checkout Functionality ends**/
+
+/**Generate bill after checkout starts**/
+function generateBill(orderData) {
+    var billid = orderData[0].orderid;
+    var deliverydate = orderData[0].deliveryDate;
+    var total = orderData[0].ordertotal;
+    var customerid = orderData[0].cartid;
+
+    var query = "INSERT INTO billdetails(billid , billdate , deliverydate , total , customerid) VALUES ('" + billid + "' , NOW(),'" + deliverydate + "' , '" + total + "' , '" + customerid + "')";
+
+    connection.query(query, function (err, result) {
+        if (err) {
+            throw err;
+        } else {
+            console.log("bill generated");
+        }
+    });
+}
+/**Generate bill after checkout starts**/
+
+router.get('/getOrderHistory', function (req, res, next) {
+    var userid = req.session.username;
+
+    mongo.connect(mongoURL, function () {
+        var orderColl = mongo.collection('orderdetails');
+
+                orderColl.find({cartid: userid}).toArray(function (err, data) {
+                    if (data) {
+                        console.log("getOrderHistory : " + data);
+                        res.send(data);
+                    }
+                });
+
+
+    });
+
+});
+
 
 
 router.get('/getDeliveryInfo', function (req, res, next) {

@@ -24,7 +24,7 @@ app.use(session({
   cookieName: 'session',
   secret: 'cmpe273_amazonfresh',
   duration: 30 * 60 * 1000,    //setting the time for active session
-  activeDuration: 5 * 60 * 1000,  })); // setting time for the session to be active when the window is open // 5 minutes set currently
+  activeDuration: 5 * 60 * 10000,  })); // setting time for the session to be active when the window is open // 5 minutes set currently
 
 
 // view engine setup

@@ -335,8 +335,6 @@ adminApp.controller("TripController", ["$scope", "$http", "$location", "$window"
             $location.path('/trips/showmap');
         });
         **/
-        //alert('asdasd');
-        //window.location.href('http://localhost:3000/api/showmap' + p_tripid);
             $window.location.href = 'http://localhost:3000/api/showmap?tripid=' + p_tripid;
         
     };
