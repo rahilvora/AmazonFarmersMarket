@@ -1,64 +1,3 @@
-/*********************************************************************\
-*                                                                     *
-* epolys.js                                          by Mike Williams *
-*                                                                     *
-* A Google Maps API Extension                                         *
-*                                                                     *
-* Adds various Methods to GPolygon and GPolyline                      *
-*                                                                     *
-* .Contains(latlng) returns true is the poly contains the specified   *
-*                   GLatLng                                           *
-*                                                                     *
-* .Area()           returns the approximate area of a poly that is    *
-*                   not self-intersecting                             *
-*                                                                     *
-* .Distance()       returns the length of the poly path               *
-*                                                                     *
-* .Bounds()         returns a GLatLngBounds that bounds the poly      *
-*                                                                     *
-* .GetPointAtDistance() returns a GLatLng at the specified distance   *
-*                   along the path.                                   *
-*                   The distance is specified in metres               *
-*                   Reurns null if the path is shorter than that      *
-*                                                                     *
-* .GetPointsAtDistance() returns an array of GLatLngs at the          *
-*                   specified interval along the path.                *
-*                   The distance is specified in metres               *
-*                                                                     *
-* .GetIndexAtDistance() returns the vertex number at the specified    *
-*                   distance along the path.                          *
-*                   The distance is specified in metres               *
-*                   Reurns null if the path is shorter than that      *
-*                                                                     *
-* .Bearing(v1?,v2?) returns the bearing between two vertices          *
-*                   if v1 is null, returns bearing from first to last *
-*                   if v2 is null, returns bearing from v1 to next    *
-*                                                                     *
-*                                                                     *
-***********************************************************************
-*                                                                     *
-*   This Javascript is provided by Mike Williams                      *
-*   Community Church Javascript Team                                  *
-*   http://www.bisphamchurch.org.uk/                                  *
-*   http://econym.org.uk/gmap/                                        *
-*                                                                     *
-*   This work is licenced under a Creative Commons Licence            *
-*   http://creativecommons.org/licenses/by/2.0/uk/                    *
-*                                                                     *
-***********************************************************************
-*                                                                     *
-* Version 1.1       6-Jun-2007                                        *
-* Version 1.2       1-Jul-2007 - fix: Bounds was omitting vertex zero *
-*                                add: Bearing                         *
-* Version 1.3       28-Nov-2008  add: GetPointsAtDistance()           *
-* Version 1.4       12-Jan-2009  fix: GetPointsAtDistance()           *
-*                                                                     *
-\*********************************************************************/
-
-
-// === A method for testing if a point is inside a polygon
-// === Returns true if poly contains point
-// === Algorithm shamelessly stolen from http://alienryderflex.com/polygon/ 
 GPolygon.prototype.Contains = function(point) {
   var j=0;
   var oddNodes = false;
@@ -79,9 +18,6 @@ GPolygon.prototype.Contains = function(point) {
   return oddNodes;
 }
 
-// === A method which returns the approximate area of a non-intersecting polygon in square metres ===
-// === It doesn't fully account for spechical geometry, so will be inaccurate for large polygons ===
-// === The polygon must not intersect itself ===
 GPolygon.prototype.Area = function() {
   var a = 0;
   var j = 0;
@@ -100,7 +36,6 @@ GPolygon.prototype.Area = function() {
   return Math.abs(a * 0.5);
 }
 
-// === A method which returns the length of a path in metres ===
 GPolygon.prototype.Distance = function() {
   var dist = 0;
   for (var i=1; i < this.getVertexCount(); i++) {
@@ -109,7 +44,6 @@ GPolygon.prototype.Distance = function() {
   return dist;
 }
 
-// === A method which returns the bounds as a GLatLngBounds ===
 GPolygon.prototype.Bounds = function() {
   var bounds = new GLatLngBounds();
   for (var i=0; i < this.getVertexCount(); i++) {
@@ -118,8 +52,6 @@ GPolygon.prototype.Bounds = function() {
   return bounds;
 }
 
-// === A method which returns a GLatLng of a point a given distance along the path ===
-// === Returns null if the path is shorter than the specified distance ===
 GPolygon.prototype.GetPointAtDistance = function(metres) {
   // some awkward special cases
   if (metres == 0) return this.getVertex(0);
@@ -137,11 +69,10 @@ GPolygon.prototype.GetPointAtDistance = function(metres) {
   return new GLatLng( p1.lat() + (p2.lat()-p1.lat())*m, p1.lng() + (p2.lng()-p1.lng())*m);
 }
 
-// === A method which returns an array of GLatLngs of points a given interval along the path ===
 GPolygon.prototype.GetPointsAtDistance = function(metres) {
   var next = metres;
   var points = [];
-  // some awkward special cases
+
   if (metres <= 0) return points;
   var dist=0;
   var olddist=0;
@@ -159,10 +90,8 @@ GPolygon.prototype.GetPointsAtDistance = function(metres) {
   return points;
 }
 
-// === A method which returns the Vertex number at a given distance along the path ===
-// === Returns null if the path is shorter than the specified distance ===
 GPolygon.prototype.GetIndexAtDistance = function(metres) {
-  // some awkward special cases
+
   if (metres == 0) return this.getVertex(0);
   if (metres < 0) return null;
   var dist=0;
@@ -175,10 +104,6 @@ GPolygon.prototype.GetIndexAtDistance = function(metres) {
   return i;
 }
 
-// === A function which returns the bearing between two vertices in decgrees from 0 to 360===
-// === If v1 is null, it returns the bearing between the first and last vertex ===
-// === If v1 is present but v2 is null, returns the bearing from v1 to the next vertex ===
-// === If either vertex is out of range, returns void ===
 GPolygon.prototype.Bearing = function(v1,v2) {
   if (v1 == null) {
     v1 = 0;
@@ -203,9 +128,6 @@ GPolygon.prototype.Bearing = function(v1,v2) {
   angle = angle * 180.0 / Math.PI;
   return parseFloat(angle.toFixed(1));
 }
-
-
-
 
 // === Copy all the above functions to GPolyline ===
 GPolyline.prototype.Contains             = GPolygon.prototype.Contains;

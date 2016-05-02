@@ -197,7 +197,7 @@ customerApp.controller("CustomerProfileController", ["$scope", "$http", "$locati
                 "zipcode": $scope.customerDetails.zipcode,
                 "city": $scope.customerDetails.city
             }).then(function (data) {
-            $location.path('/customerHome');
+            $location.path('/');
         });
     };
 }]);

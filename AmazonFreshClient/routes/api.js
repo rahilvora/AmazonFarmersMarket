@@ -64,41 +64,43 @@ router.get('/getFarmers', function (req, res, next) {
 
     client.get("getFarmer", function (err, result) {
         if (result !== null) {
-            console.log("Sending result from redis")
+            console.log("Sending result from redis");
             res.send(result);
         }
         else {
-    client.get("getFarmer",function(err,result){
-            if(result !== null){
-                console.log("Sending result from redis");
-                res.send(result);
-            }
-        else{
-            var query = "SELECT * FROM `farmerdetails` WHERE flag <> 0";
-            connection.query(query, function (err, result) {
-                if (err) {
-                    throw err;
+            client.get("getFarmer", function (err, result) {
+                if (result !== null) {
+                    console.log("Sending result from redis");
+                    res.send(result);
                 }
                 else {
-                    console.log("Storing result in redis");
-                    //var todayEnd = new Date().setHours(00, 1, 59, 999);
-                    client.set("getFarmer", JSON.stringify(result), function (err, ans) {
-                        client.expire("getFarmer", 180, function (err, didSetExpire) {
-                            console.log("Expired");
-                        });
-                        res.send(result);
-                    });
+                    var query = "SELECT * FROM `farmerdetails` WHERE flag <> 0";
+                    connection.query(query, function (err, result) {
+                        if (err) {
+                            throw err;
+                        }
+                        else {
+                            console.log("Storing result in redis");
+                            //var todayEnd = new Date().setHours(00, 1, 59, 999);
+                            client.set("getFarmer", JSON.stringify(result), function (err, ans) {
+                                client.expire("getFarmer", 180, function (err, didSetExpire) {
+                                    console.log("Expired");
+                                });
+                                res.send(result);
+                            });
+                        }
+                    })
                 }
-            })
+            });
         }
-    });
+    })
 });
 
 router.get('/getAddFarmerRequests', function (req, res, next) {
 
     client.get("getAddFarmerRequests", function (err, result) {
         if (result !== null) {
-            console.log("Sending result from redis")
+            console.log("Sending result from redis");
             res.send(result);
         }
         else {
@@ -171,23 +173,6 @@ router.get('/getProducts', function (req, res, next) {
                     res.send(data);
                 }
             });
-            /*
-             var query = "SELECT * FROM `productdetails` WHERE flag <> 0";
-             connection.query(query, function (err, result) {
-             if (err) {
-             throw err;
-             }
-             else {
-             console.log("Storing result in redis");
-             client.set("getProducts", JSON.stringify(result), function (err, ans) {
-             client.expire("getProducts", 180, function (err, didSetExpire) {
-             console.log("Expired");
-             });
-             res.send(result);
-             });
-             }
-             })
-             */
         }
     });
 });
@@ -206,40 +191,11 @@ router.get('/getAddProductRequests', function (req, res, next) {
                     res.send(data);
                 }
             });
-            /*
-             var query = "SELECT * FROM `productdetails` WHERE flag = 0";
-             connection.query(query, function (err, result) {
-             if (err) {
-             throw err;
-             }
-             else {
-             console.log("Storing result in redis");
-             client.set("getAddProductRequests", JSON.stringify(result), function (err, ans) {
-             client.expire("getAddProductRequests", 180, function (err, didSetExpire) {
-             console.log("Expired");
-             });
-             res.send(result);
-             });
-             }
-             })
-             */
         }
     });
 });
 
 router.put('/addProduct', function (req, res) {
-    //Update Query
-    /*
-     var query = "UPDATE productdetails SET flag = 1 where productid = '" + req.body.productid + "'";
-     connection.query(query, function (err, result) {
-     if (err) {
-     throw err;
-     }
-     else {
-     res.send(200);
-     }
-     });
-     */
     console.log(req.body.productid);
 
     productsCollection.update({productid: req.body.productid}, {$set: {approved: "Y"}},
@@ -252,18 +208,7 @@ router.put('/addProduct', function (req, res) {
 });
 
 router.delete('/deleteProduct', function (req, res) {
-    //Update Query
-    /*
-     var query = "DELETE FROM productdetails where productid = '" + req.query.data + "'";
-     connection.query(query, function (err, result) {
-     if (err) {
-     throw err;
-     }
-     else {
-     res.send(200);
-     }
-     });
-     */
+
     productsCollection.update({productid: req.body.productid}, {$set: {active: "N"}},
         function (err, upd) {
             if (upd) {
@@ -599,21 +544,21 @@ router.get('/getRevenue', function (req, res) {
 });
 
 /*
-router.get('/getTrips', function (req, res) {
-    var data = req.query.data;
-    console.log(typeof data);
-    res.send(200);
-    //var query = "Select SUM(total) as total from billdetails where billdate LIKE '" +date+ "%'";
-    //connection.query(query,function(err,result){
-    //    if(err){
-    //        throw err;
-    //    }
-    //    else{
-    //        res.send(result);
-    //    }
-    //});
-});
-*/
+ router.get('/getTrips', function (req, res) {
+ var data = req.query.data;
+ console.log(typeof data);
+ res.send(200);
+ //var query = "Select SUM(total) as total from billdetails where billdate LIKE '" +date+ "%'";
+ //connection.query(query,function(err,result){
+ //    if(err){
+ //        throw err;
+ //    }
+ //    else{
+ //        res.send(result);
+ //    }
+ //});
+ });
+ */
 
 router.get('/revenuePerDay', function (req, res) {
     var query = "SELECT tripdetails.dropoffzip,AVG(billdetails.total) AS revenuePerDay FROM tripdetails " +
@@ -824,35 +769,35 @@ router.put('/editFarmerProfile', function (req, res, next) {
     })
 });
 
-router.post('/checkCustomerLogin', urlencodedParser, function (req, res, next) {
+router.post('/checkCustomerLogin', function (req, res, next) {
     console.log("In checkCustomerLogin function");
     /*
-    passport.authenticate('login', { username : req.body.email, password : req.body.password},function(err, user, info) {
-        console.log("err "+err);
-        console.log("user "+user);
-        console.log("info "+JSON.stringify(info));
-        if(err) {
-            return next(err);
-        }
+     passport.authenticate('login', { username : req.body.email, password : req.body.password},function(err, user, info) {
+     console.log("err "+err);
+     console.log("user "+user);
+     console.log("info "+JSON.stringify(info));
+     if(err) {
+     return next(err);
+     }
 
-        if (user.length > 0) {
-            var rows = user;
-            var jsonString = JSON.stringify(results);
-            var jsonParse = JSON.parse(jsonString);
-            console.log("Results: " + (rows[0].firstname));
-            console.log("Results: " + (rows[0].customerid));
-            req.session.username = rows[0].customerid;
-            cartid = req.session.username;
-            console.log("Session initialized for '" + req.session.username + "' user");
-            json_responses = {"statusCode": "validLogin"};
-            res.send(json_responses);
-        } else {
-            console.log("In else part of customer login");
-            json_responses = {"statusCode": "invalidLogin"};
-            res.send(json_responses);
-        }
-    })(req, res, next);
-    */
+     if (user.length > 0) {
+     var rows = user;
+     var jsonString = JSON.stringify(results);
+     var jsonParse = JSON.parse(jsonString);
+     console.log("Results: " + (rows[0].firstname));
+     console.log("Results: " + (rows[0].customerid));
+     req.session.username = rows[0].customerid;
+     cartid = req.session.username;
+     console.log("Session initialized for '" + req.session.username + "' user");
+     json_responses = {"statusCode": "validLogin"};
+     res.send(json_responses);
+     } else {
+     console.log("In else part of customer login");
+     json_responses = {"statusCode": "invalidLogin"};
+     res.send(json_responses);
+     }
+     })(req, res, next);
+     */
     var password, email;
 
     password = req.body.password;
@@ -886,12 +831,13 @@ router.post('/checkCustomerLogin', urlencodedParser, function (req, res, next) {
         }
     });
 
-    var cartid = req.session.username;
-    mongo.connect(mongoURL, function () {
-        var coll = mongo.collection('carts');
 
-        coll.findOne({cartid: "111-11-1111"}, function (err, result) {
-        coll.findOne({"cartid": cartid}, function(err, result){
+var cartid = req.session.username;
+mongo.connect(mongoURL, function () {
+    var coll = mongo.collection('carts');
+
+    coll.findOne({cartid: "111-11-1111"}, function (err, result) {
+        coll.findOne({"cartid": cartid}, function (err, result) {
             if (result) {
                 console.log(" collection id present");
 
@@ -908,7 +854,7 @@ router.post('/checkCustomerLogin', urlencodedParser, function (req, res, next) {
         });
     });
 });
-
+});
 router.post('/checkFarmerLogin', function (req, res, next) {
     var password, email;
     password = req.body.password;
@@ -928,9 +874,7 @@ router.post('/checkFarmerLogin', function (req, res, next) {
             var rows = results;
             var jsonString = JSON.stringify(results);
             var jsonParse = JSON.parse(jsonString);
-            //console.log("Results: " + (rows[0].firstname));
-            //  req.session.username = rows[0].firstname;
-            //console.log("Session initialized for '"+req.session.username+"' user");
+
             json_responses = {"statusCode": "validLogin"};
             res.send(json_responses);
         } else {
@@ -977,8 +921,6 @@ router.post('/addProductReview', function (req, res, next) {
     //console.log(productId);
     //console.log(reviewDocument);
 
-
-    //tweetsCollection.update({username:req.session.username},{$push:{tweets:{$each:[tDocument],$position:0}}},function(err,tdoc)
     productsCollection.update({productid: productId}, {
         $push: {
             productreviews: {
@@ -1193,15 +1135,18 @@ router.post('/assigntrip', function (request, response) {
             console.log(custrows[0].address);
             console.log(custrows[0].city);
 
-            var addresspool = [{address: "1322, The Alameda", city: "san jose"}, {
-                address: "471, Acalanes Drive",
-                city: "sunnyvale"
-            }, {address: "101 E San Fernando", city: "downtown"}];
-            var randomnumber = Math.floor(Math.random() * 2);
+            var addresspool = [{address: "777 Story Rd, San Jose, CA 95122", city: "San Jose"},
+                {address: "150 Lawrence Station Road, Sunnyvale, CA 94086", city: "Sunnyvale"},
+                {address: "1000 North Rengstorff Avenue, Mountain View, CA 94040", city: "Mountain View"},
+                {address: "217 Alma St, Palo Alto, CA 94301", city: "Palo Alto"},
+                {address: "2605 The Alameda, Santa Clara, CA 95050", city: "Santa Clara"},
+                {address: "46848 Mission Blvd, Fremont, CA 94539", city: "Fremont"},
+                {address: "2020 Market St, San Francisco, CA 94114", city: "San Francisco"}];
+            var randomnumber = Math.floor(Math.random() * 6);
             var randomaddress = addresspool[randomnumber];
 
-            var addtrip = "INSERT INTO tripdetails (pickuploc, dropoffloc, pickupcity, dropoffcity, tripendflag, driverid1, truckid1, billid1,tripstatus) VALUES ('"+randomaddress.address+"','"+custrows[0].address+"','"+randomaddress.city+"','"+custrows[0].city+"','0','" + resulttruck[truckCtr].driverid  + "','" + resulttruck[truckCtr].truckid  + "','" + resultbill[billCtr].billid  + "', 'In Progress')";
-            connection.query(addtrip,function(err,rows){
+            var addtrip = "INSERT INTO tripdetails (pickuploc, dropoffloc, pickupcity, dropoffcity, tripendflag, driverid1, truckid1, billid1,tripstatus) VALUES ('" + randomaddress.address + "','" + custrows[0].address + "','" + randomaddress.city + "','" + custrows[0].city + "','0','" + resulttruck[truckCtr].driverid + "','" + resulttruck[truckCtr].truckid + "','" + resultbill[billCtr].billid + "', 'In Progress')";
+            connection.query(addtrip, function (err, rows) {
 
                 if (err) {
                     throw err;
@@ -1209,31 +1154,30 @@ router.post('/assigntrip', function (request, response) {
                 else {
                     console.log("in else loop");
                     var updatebill = "UPDATE billdetails SET tripassigned = 1 WHERE (billid = '" + resultbill[billCtr].billid + "')";
-                    connection.query(updatebill ,function(err,rows){
+                    connection.query(updatebill, function (err, rows) {
 
-                        if(err) throw err;   
-                        var updatetruck = "UPDATE truckdetails SET truckavailable = 0 WHERE (truckid = '"+ resulttruck[truckCtr].truckid +"')";        
-                        connection.query(updatetruck,function(err,rows){
-                            if(err) throw err;
+                        if (err) throw err;
+                        var updatetruck = "UPDATE truckdetails SET truckavailable = 0 WHERE (truckid = '" + resulttruck[truckCtr].truckid + "')";
+                        connection.query(updatetruck, function (err, rows) {
+                            if (err) throw err;
                         });
                     });
                 }
-               
+
             });
         });
     }
 
-
     var queryunassignedbills = "select * from billdetails where tripassigned = 0";
-    connection.query(queryunassignedbills,function(err,resultbill){
+    connection.query(queryunassignedbills, function (err, resultbill) {
 
         var unassignedtrukquery = "select * from truckdetails where truckavailable = 1";
-        connection.query(unassignedtrukquery,function(err,resulttruck){
+        connection.query(unassignedtrukquery, function (err, resulttruck) {
 
-            for(var billCtr = 0, truckCtr = 0; billCtr < resultbill.length && truckCtr < resulttruck.length; billCtr++, truckCtr++ ) {
+            for (var billCtr = 0, truckCtr = 0; billCtr < resultbill.length && truckCtr < resulttruck.length; billCtr++, truckCtr++) {
 
-                updateTripDetails(billCtr, truckCtr, resultbill,resulttruck);
-                
+                updateTripDetails(billCtr, truckCtr, resultbill, resulttruck);
+
             }
         });
         response.json({resultbill: resultbill});
@@ -1253,7 +1197,7 @@ router.get('/showmap', function (req, res) {
         else {
             var pickuploc = result[0].pickuploc;
             var dropoffloc = result[0].dropoffloc;
-            res.render('adminViews/trip/map', {pickuploc: pickuploc, dropoffloc: dropoffloc});  
+            res.render('adminViews/trip/map', {pickuploc: pickuploc, dropoffloc: dropoffloc});
             var query1 = "UPDATE tripdetails SET tripendflag = '1', tripstatus = 'Completed' WHERE (tripid = '" + tripid + "')";
             connection.query(query1, function (err, resultnew) {
                 if (err) {
@@ -1268,10 +1212,10 @@ router.get('/showmap', function (req, res) {
                     });
                 }
 
-            }); 
+            });
         }
     });
-    
+
 });
 
 router.get('/getCustomerDetails', function (req, res, next) {
@@ -1377,7 +1321,6 @@ router.post('/addProductToCart', function (req, res, next) {
 /**Function to add a product to the cart ends**/
 
 
-
 /**Function to get the current user's cart starts**/
 router.get('/getCart', function (req, res, next) {
     var cartid = req.session.username;
@@ -1392,7 +1335,11 @@ router.get('/getCart', function (req, res, next) {
                     total += Number(data[0].products[a].productprice);
                 }
                 total = Number(total.toFixed(2));
-                var json_responses = {"cartItems": data[0].products, "cartTotal": total, "cartid" : data[0].cartid};
+                var json_responses = {
+                    "cartItems": data[0].products,
+                    "cartTotal": total,
+                    "cartid": data[0].cartid
+                };
                 console.log("Cart total is " + total);
                 res.send(json_responses);
             }
@@ -1443,7 +1390,7 @@ router.get('/getSearchResults', function (req, res, next) {
     console.log("searchItem is :" + searchItem);
 
 
-    client.get("getSearchResults",function(err,result) {
+    client.get("getSearchResults", function (err, result) {
         if (result !== null) {
             console.log("Sending SearchResults from redis");
             res.send(result);
@@ -1548,6 +1495,7 @@ function generateBill(orderData) {
         }
     });
 }
+
 /**Generate bill after checkout starts**/
 
 router.get('/getOrderHistory', function (req, res, next) {
@@ -1556,12 +1504,12 @@ router.get('/getOrderHistory', function (req, res, next) {
     mongo.connect(mongoURL, function () {
         var orderColl = mongo.collection('orderdetails');
 
-                orderColl.find({cartid: userid}).toArray(function (err, data) {
-                    if (data) {
-                        console.log("getOrderHistory : " + data);
-                        res.send(data);
-                    }
-                });
+        orderColl.find({cartid: userid}).toArray(function (err, data) {
+            if (data) {
+                console.log("getOrderHistory : " + data);
+                res.send(data);
+            }
+        });
 
 
     });
@@ -1596,4 +1544,5 @@ router.get('/getFarmerReviewsHome', function (req, res, next) {
         }
     });
 });
+
 module.exports = router;
