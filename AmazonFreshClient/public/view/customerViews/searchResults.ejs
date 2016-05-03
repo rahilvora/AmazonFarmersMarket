@@ -9,7 +9,7 @@
             <div class="caption">
                 <div class="star-ratings-sprite"><span id="rating" ng-style="{'width': product.productrating}"
                                                        class="star-ratings-sprite-rating"></span></div>
-                <h3>{{product.products.productprice}}</h3>
+                <h3>{{product.productprice}}</h3>
                 <p>{{product.productname}}</p>
                 <p>{{product.description}} </p>
                 <p>
@@ -18,6 +18,6 @@
             </div>
         </div>
     </div>
-    <uib-pagination total-items="totalItems" ng-model="currentPage"></uib-pagination>
 </div>
+<uib-pagination total-items="totalItems" ng-model="currentPage"></uib-pagination>
 

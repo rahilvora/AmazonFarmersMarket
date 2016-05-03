@@ -16,7 +16,7 @@ loginApp.controller('LoginController', function ($scope, $http) {
             method: "POST",
             url : 'api/checkCustomerLogin',
             data: {
-                "email" : $scope.email,
+                "username" : $scope.email,
                 "password" : $scope.password
             }
         }).success(function(data) {
@@ -38,7 +38,7 @@ loginApp.controller('LoginController', function ($scope, $http) {
             method: "POST",
             url : 'api/checkFarmerLogin',
             data: {
-                "email" : $scope.email,
+                "username" : $scope.email,
                 "password" : $scope.password
             }
         }).success(function(data) {
@@ -51,7 +51,7 @@ loginApp.controller('LoginController', function ($scope, $http) {
         }).error(function(error) {
             $scope.unexpected_error = false;
         });
-    }
+    };
 
     /** Farmer Login Function Ends**/
 });

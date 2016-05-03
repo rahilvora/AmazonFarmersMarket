@@ -1,6 +1,3 @@
-/**
- * Created by rahilvora on 21/04/16.
- */
 var express = require('express');
 var router = express.Router();
 var multer = require('multer');
@@ -25,8 +22,8 @@ var client = jsonify(redis.createClient(6379, 'localhost', {no_ready_check: true
 client.on('connect', function () {
     console.log('Connected to Redis');
 });
-//Connecting to MySQL
 
+//Connecting to MySQL
 connection.connect(function (err) {
     if (err) {
         console.error('error connecting: ' + err.stack);
@@ -58,10 +55,9 @@ var productSchema = new Schema({
 productSchema.plugin(autoIncrement.plugin, {model: 'productdetail', field: 'productid'});
 //var Product = connection.model('Product', productSchema);
 
+
 //Farmer's Requests
-
 router.get('/getFarmers', function (req, res, next) {
-
     client.get("getFarmer", function (err, result) {
         if (result !== null) {
             console.log("Sending result from redis");
@@ -137,7 +133,6 @@ router.put('/addFarmer', function (req, res) {
             });
         }
     });
-
 });
 
 router.delete('/deleteFarmer', function (req, res) {
@@ -221,6 +216,7 @@ router.delete('/deleteProduct', function (req, res) {
 //Customer Requests
 
 router.get('/getCustomers', function (req, res, next) {
+
     client.get("getCustomers", function (err, result) {
         if (result !== null) {
             console.log("Sending customer result from redis");
@@ -247,6 +243,7 @@ router.get('/getCustomers', function (req, res, next) {
 });
 
 router.get('/getAddCustomerRequests', function (req, res, next) {
+
     client.get("getAddCustomerRequests", function (err, result) {
         if (result !== null) {
             console.log("Sending customer result from redis");
@@ -303,9 +300,10 @@ router.delete('/deleteCustomer', function (req, res) {
         }
     });
 });
-//Drivers Request
 
+//Drivers Request
 router.get('/getDrivers', function (req, res, next) {
+
     client.get("getDrivers", function (err, result) {
         if (result !== null) {
             console.log("Sending driver result from redis");
@@ -543,23 +541,6 @@ router.get('/getRevenue', function (req, res) {
     });
 });
 
-/*
- router.get('/getTrips', function (req, res) {
- var data = req.query.data;
- console.log(typeof data);
- res.send(200);
- //var query = "Select SUM(total) as total from billdetails where billdate LIKE '" +date+ "%'";
- //connection.query(query,function(err,result){
- //    if(err){
- //        throw err;
- //    }
- //    else{
- //        res.send(result);
- //    }
- //});
- });
- */
-
 router.get('/revenuePerDay', function (req, res) {
     var query = "SELECT tripdetails.dropoffzip,AVG(billdetails.total) AS revenuePerDay FROM tripdetails " +
         "INNER JOIN billdetails " +
@@ -614,6 +595,7 @@ router.get('/ridesPerDriver', function (req, res) {
         }
     });
 });
+
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, './public/uploads/');
@@ -638,29 +620,25 @@ router.post('/upload', function (req, res) {
         console.log(storage.getFilename);
         res.json({error_code: 0, err_desc: null});
     });
-
-    //console.log(req);
-    //res.send(200);
 });
 
 
 router.get('/getFarmerProducts', function (req, res, next) {
     console.log("fetching farmers products");
-    productsCollection.find({farmerid: "444-44-4444", active: "Y"}).toArray(function (err, data) {
+    productsCollection.find({farmerid: req.session.farmerid, active: "Y"}).toArray(function (err, data) {
         if (data) {
             //console.log(data);
             res.send(data);
         }
     });
-
 });
 
 router.post('/createProduct', function (req, res, next) {
 
     console.log("in create prod");
     var document = {
-        farmerid: "111-11-1111", //fethed from session
-        farmername: "Abhishek Gurudutt", //fetched from session
+        farmerid: req.session.farmerid, //fethed from session
+        farmername: req.session.farmername, //fetched from session
         productname: req.body.productname,
         productprice: req.body.price,
         description: req.body.description,
@@ -671,9 +649,9 @@ router.post('/createProduct', function (req, res, next) {
         productreviews: [],
         productrating: ""
     };
+
     var productdetail = mongoseconnection.model('productdetail', productSchema);
     productdetail.nextCount(function (err, count) {
-
 
         var product = new productdetail(document);
         product.save(function (doc) {
@@ -689,12 +667,11 @@ router.post('/createProduct', function (req, res, next) {
             });
         });
     });
-
 });
 
 router.get('/getFarmerProfile', function (req, res, next) {
     console.log("fetching farmers profile info");
-    var query = "select * from farmerdetails where farmerid='111-11-1111';";
+    var query = "select * from farmerdetails where farmerid=" + req.session.farmerid + ";";
     connection.query(query, function (err, result) {
         if (err) {
             throw err;
@@ -770,119 +747,121 @@ router.put('/editFarmerProfile', function (req, res, next) {
 });
 
 router.post('/checkCustomerLogin', function (req, res, next) {
-    console.log("In checkCustomerLogin function");
-    /*
-     passport.authenticate('login', { username : req.body.email, password : req.body.password},function(err, user, info) {
-     console.log("err "+err);
-     console.log("user "+user);
-     console.log("info "+JSON.stringify(info));
-     if(err) {
-     return next(err);
-     }
-
-     if (user.length > 0) {
-     var rows = user;
-     var jsonString = JSON.stringify(results);
-     var jsonParse = JSON.parse(jsonString);
-     console.log("Results: " + (rows[0].firstname));
-     console.log("Results: " + (rows[0].customerid));
-     req.session.username = rows[0].customerid;
-     cartid = req.session.username;
-     console.log("Session initialized for '" + req.session.username + "' user");
-     json_responses = {"statusCode": "validLogin"};
-     res.send(json_responses);
-     } else {
-     console.log("In else part of customer login");
-     json_responses = {"statusCode": "invalidLogin"};
-     res.send(json_responses);
-     }
-     })(req, res, next);
-     */
-    var password, email;
-
-    password = req.body.password;
-    //password = crypto.createHash("sha1").update(password).digest("HEX");
-    email = req.body.email;
-
-    var json_responses;
-
-    var getUser = "select * from customerdetails where email='" + email + "' and password='" + password + "' and flag=1";
-    console.log("Query for Login is:" + getUser);
-
-    connection.query(getUser, function (err, results) {
+    console.log("in checkCustomerLogin api");
+    console.log(req.body);
+    var user = req.body;
+    passport.authenticate('checkCustomerLogin', function (err, user, info) {
+        console.log("user " + user.firstname);
+        console.log("info " + info);
         if (err) {
-            throw err;
+            return next(err);
         }
-        else if (results.length > 0) {
-            var rows = results;
-            var jsonString = JSON.stringify(results);
-            var jsonParse = JSON.parse(jsonString);
-            console.log("Results: " + (rows[0].firstname));
-            console.log("Results: " + (rows[0].customerid));
-            req.session.username = rows[0].customerid;
-            cartid = req.session.username;
-            console.log("Session initialized for '" + req.session.username + "' user");
-            json_responses = {"statusCode": "validLogin"};
-            res.send(json_responses);
-        } else {
+
+        if (!user) {
             console.log("In else part of customer login");
             json_responses = {"statusCode": "invalidLogin"};
             res.send(json_responses);
         }
-    });
 
-
-var cartid = req.session.username;
-mongo.connect(mongoURL, function () {
-    var coll = mongo.collection('carts');
-
-    coll.findOne({cartid: "111-11-1111"}, function (err, result) {
-        coll.findOne({"cartid": cartid}, function (err, result) {
-            if (result) {
-                console.log(" collection id present");
-
-            } else {
-                coll.insert({cartid: cartid, products: []}, function (err, result) {
-                    if (result) {
-                        console.log(result);
-                    }
-                    else {
-                        console.log("returned false");
-                    }
-                })
+        req.logIn(user, {session: false}, function (err) {
+            if (err) {
+                return next(err);
             }
-        });
-    });
-});
-});
-router.post('/checkFarmerLogin', function (req, res, next) {
-    var password, email;
-    password = req.body.password;
-    //password = crypto.createHash("sha1").update(password).digest("HEX");
-    email = req.body.email;
 
-    var json_responses;
+            req.session.username = user.username;
+            req.session.customerid = user.customerid;
 
-    var getUser = "select * from farmerdetails where email='" + email + "' and password='" + password + "' and flag=1";
-    console.log("Query for Login is:" + getUser);
-
-    connection.query(getUser, function (err, results) {
-        if (err) {
-            throw err;
-        }
-        else if (results.length > 0) {
-            var rows = results;
-            var jsonString = JSON.stringify(results);
+            var rows = user;
+            var jsonString = JSON.stringify(user);
             var jsonParse = JSON.parse(jsonString);
 
+            req.session.username = rows.customerid;
+            cartid = req.session.username;
+            console.log("Session initialized for '" + req.session.username + "' user");
             json_responses = {"statusCode": "validLogin"};
             res.send(json_responses);
-        } else {
+
+            var cartid = req.session.username;
+            mongo.connect(mongoURL, function () {
+                var coll = mongo.collection('carts');
+
+                coll.findOne({cartid: req.session.customerid}, function (err, result) {
+                    coll.findOne({"cartid": cartid}, function (err, result) {
+                        if (result) {
+                            console.log(" collection id present");
+
+                        } else {
+                            coll.insert({cartid: cartid, products: []}, function (err, result) {
+                                if (result) {
+                                    console.log(result);
+                                }
+                                else {
+                                    console.log("returned false");
+                                }
+                            })
+                        }
+                    });
+                });
+            });
+
+        })
+    })(req, res, next);
+});
+
+router.get('/checkCustomerLogin', isAuthenticated, function (req, res) {
+    console.log("Success login");
+    //res.render('successLogin', {user:{username: req.session.user}});
+});
+
+function isAuthenticated(req, res, next) {
+    if (req.session.user) {
+        return next();
+    }
+}
+
+router.post('/checkFarmerLogin', function (req, res, next) {
+    console.log("in checkFarmerLogin api");
+    console.log(req.body);
+    var user = req.body;
+    passport.authenticate('checkFarmerLogin', function (err, user, info) {
+        console.log("user " + user.firstname);
+        console.log("info " + info);
+        if (err) {
+            return next(err);
+        }
+
+        if (!user) {
+            console.log("In else part of farmer login");
             json_responses = {"statusCode": "invalidLogin"};
             res.send(json_responses);
         }
-    });
+
+        req.logIn(user, {session: false}, function (err) {
+            if (err) {
+                return next(err);
+            }
+
+            req.session.farmername = user.firstname + " " + user.lastname;
+            req.session.farmerid = user.farmerid;
+            console.log(req.session.farmername + " " + req.session.farmerid);
+
+            var rows = user;
+            var jsonString = JSON.stringify(user);
+            var jsonParse = JSON.parse(jsonString);
+
+            //req.session.username = rows.customerid;
+            console.log("Session initialized for '" + req.session.username + "' user");
+            json_responses = {"statusCode": "validLogin"};
+            res.send(json_responses);
+        })
+    })(req, res, next);
 });
+
+router.get('/checkFarmerLogin', isAuthenticated, function (req, res) {
+    console.log("Success login");
+    //res.render('successLogin', {user:{username: req.session.user}});
+});
+
 
 router.get('/getProductInfo', function (req, res, next) {
     console.log("In getProductInfo -> api.js");
@@ -936,9 +915,7 @@ router.post('/addProductReview', function (req, res, next) {
                         var sum = 0, totalRating;
                         var reviews = result.productreviews;
                         for (i = 0; i < reviews.length; i++) {
-
                             sum = sum + Number(reviews[i].stars); // OR Number(reviews[i].starts)
-
                         }
                         totalrating = sum / reviews.length;
                         totalrating = (totalrating * 20) + "%";
@@ -988,9 +965,7 @@ router.post('/addFarmerReview', function (req, res, next) {
                         var sum = 0, totalRating;
                         var reviews = result.reviews;
                         for (i = 0; i < reviews.length; i++) {
-
                             sum = sum + Number(reviews[i].stars); // OR Number(reviews[i].starts)
-
                         }
                         totalrating = sum / reviews.length;
                         totalrating = (totalrating * 20) + "%";
@@ -1001,12 +976,9 @@ router.post('/addFarmerReview', function (req, res, next) {
                                 if (upd) {
                                     res.send("success");
                                 }
-
-
                                 else {
                                     res.send("Failure");
                                 }
-
                             });
                     }
                 });
@@ -1142,12 +1114,12 @@ router.post('/assigntrip', function (request, response) {
                 {address: "2605 The Alameda, Santa Clara, CA 95050", city: "Santa Clara"},
                 {address: "46848 Mission Blvd, Fremont, CA 94539", city: "Fremont"},
                 {address: "2020 Market St, San Francisco, CA 94114", city: "San Francisco"}];
+
             var randomnumber = Math.floor(Math.random() * 6);
             var randomaddress = addresspool[randomnumber];
 
             var addtrip = "INSERT INTO tripdetails (pickuploc, dropoffloc, pickupcity, dropoffcity, tripendflag, driverid1, truckid1, billid1,tripstatus) VALUES ('" + randomaddress.address + "','" + custrows[0].address + "','" + randomaddress.city + "','" + custrows[0].city + "','0','" + resulttruck[truckCtr].driverid + "','" + resulttruck[truckCtr].truckid + "','" + resultbill[billCtr].billid + "', 'In Progress')";
             connection.query(addtrip, function (err, rows) {
-
                 if (err) {
                     throw err;
                 }
@@ -1155,7 +1127,6 @@ router.post('/assigntrip', function (request, response) {
                     console.log("in else loop");
                     var updatebill = "UPDATE billdetails SET tripassigned = 1 WHERE (billid = '" + resultbill[billCtr].billid + "')";
                     connection.query(updatebill, function (err, rows) {
-
                         if (err) throw err;
                         var updatetruck = "UPDATE truckdetails SET truckavailable = 0 WHERE (truckid = '" + resulttruck[truckCtr].truckid + "')";
                         connection.query(updatetruck, function (err, rows) {
@@ -1163,21 +1134,16 @@ router.post('/assigntrip', function (request, response) {
                         });
                     });
                 }
-
             });
         });
     }
 
     var queryunassignedbills = "select * from billdetails where tripassigned = 0";
     connection.query(queryunassignedbills, function (err, resultbill) {
-
         var unassignedtrukquery = "select * from truckdetails where truckavailable = 1";
         connection.query(unassignedtrukquery, function (err, resulttruck) {
-
             for (var billCtr = 0, truckCtr = 0; billCtr < resultbill.length && truckCtr < resulttruck.length; billCtr++, truckCtr++) {
-
                 updateTripDetails(billCtr, truckCtr, resultbill, resulttruck);
-
             }
         });
         response.json({resultbill: resultbill});
@@ -1211,7 +1177,6 @@ router.get('/showmap', function (req, res) {
                         }
                     });
                 }
-
             });
         }
     });
@@ -1264,7 +1229,6 @@ router.get('/getCustomerDetails', function (req, res, next) {
     });
 });
 
-
 /**Function to update user's profile starts**/
 router.put('/updateUserProfile', function (req, res, next) {
     var json_responses;
@@ -1282,7 +1246,6 @@ router.put('/updateUserProfile', function (req, res, next) {
         }
     });
 });
-/**Function to update user's profile ends**/
 
 /**Function to get products on the HomePage starts**/
 router.get('/getHomeDashboard', function (req, res, next) {
@@ -1294,7 +1257,6 @@ router.get('/getHomeDashboard', function (req, res, next) {
         }
     });
 });
-/**Function to get products on the HomePage starts**/
 
 /**Function to add a product to the cart starts**/
 router.post('/addProductToCart', function (req, res, next) {
@@ -1318,8 +1280,6 @@ router.post('/addProductToCart', function (req, res, next) {
             });
     });
 });
-/**Function to add a product to the cart ends**/
-
 
 /**Function to get the current user's cart starts**/
 router.get('/getCart', function (req, res, next) {
@@ -1346,8 +1306,6 @@ router.get('/getCart', function (req, res, next) {
         });
     });
 });
-/**Function to get the current user's cart ends**/
-
 
 /**Function to delete a product from the cart starts**/
 router.post('/deleteProductFromCart', function (req, res, next) {
@@ -1369,7 +1327,6 @@ router.post('/deleteProductFromCart', function (req, res, next) {
             });
     });
 });
-/**Function to delete a product from the cart ends**/
 
 /**Function to get Homepage Left categories starts**/
 router.get('/getHomeCategories', function (req, res, next) {
@@ -1382,7 +1339,7 @@ router.get('/getHomeCategories', function (req, res, next) {
 
     });
 });
-/**Function to get Homepage Left categories ends**/
+
 
 /**Function to search results starts**/
 router.get('/getSearchResults', function (req, res, next) {
@@ -1390,38 +1347,39 @@ router.get('/getSearchResults', function (req, res, next) {
     console.log("searchItem is :" + searchItem);
 
 
-    client.get("getSearchResults", function (err, result) {
-        if (result !== null) {
-            console.log("Sending SearchResults from redis");
-            res.send(result);
-        }
-        else {
-            mongo.connect(mongoURL, function () {
-                var coll = mongo.collection('productdetails');
+    //client.get("getSearchResults", function (err, result) {
+    /*if (result !== null) {
+     console.log("Sending SearchResults from redis");
+     res.send(result);
+     }*/
+    //  else {
+    mongo.connect(mongoURL, function () {
+        var coll = mongo.collection('productdetails');
 
-                coll.createIndex({"productname": "text", "category": "text"}, function (err, results) {
-                        coll.find({$text: {$search: searchItem}}).toArray(function (err, items) {
+        coll.createIndex({"productname": "text", "category": "text"}, function (err, results) {
+                coll.find({$text: {$search: searchItem}}).toArray(function (err, items) {
 
-                            if (items) {
-                                console.log("Storing searchresults in redis");
-                                client.set("getSearchResults", JSON.stringify(items), function (err, ans) {
-                                    client.expire("getAddProductRequests", 180, function (err, didSetExpire) {
-                                        console.log("getAddProductRequests key Expired");
-                                    });
-                                });
-                                console.log(items);
-                                res.send(items);
-                            }
-                            else {
-                                console.log("returned false");
-                            }
-                        })
+                    if (items) {
+                        console.log(items);
+                        res.send(items);
+                        console.log("Storing searchresults in redis");
+                        /*client.set("getSearchResults", JSON.stringify(items), function (err, ans) {
+                         client.expire("getSearchResults", 1, function (err, didSetExpire) {
+                         console.log("getSearchResults key Expired");
+                         });
+                         });*/
+
                     }
-                );
-            });
-        }
-    })
+                    else {
+                        console.log("returned false");
+                    }
+                })
+            }
+        );
+    });
+    //}
 });
+//});
 /**Function to search results ends**/
 
 /**Checkout Functionality starts**/
@@ -1510,12 +1468,8 @@ router.get('/getOrderHistory', function (req, res, next) {
                 res.send(data);
             }
         });
-
-
     });
-
 });
-
 
 router.get('/getDeliveryInfo', function (req, res, next) {
     console.log("in getDeliveryInfo");
@@ -1537,7 +1491,7 @@ router.get('/getDeliveryInfo', function (req, res, next) {
 });
 
 router.get('/getFarmerReviewsHome', function (req, res, next) {
-    farmerreviews.findOne({farmerid: '111-11-1111'}, function (err, data) {
+    farmerreviews.findOne({farmerid: req.session.farmerid}, function (err, data) {
         if (data) {
             console.log(data);
             res.send(data);

@@ -130,8 +130,8 @@
             <p ng-show="signUpForm.phonenumber.$invalid && !signUpForm.phonenumber.$pristine" class="help-block">Enter
                 your Contact</p>
         </div>
-
-        <button style="width: 450px;
+        <div class="form-group">
+            <button class="form-group" style="
     background-color: #8FC12B;
     background-repeat: no-repeat;
     background-image: none;
@@ -142,7 +142,9 @@
     border: 0;
     border-radius: 4px;
     color:black;" ng-click="customerSignUp();" type="submit" ng-disabled="signUpForm.$invalid">Sign Up
-        </button>
+            </button>
+        </div>
+
 
     </form>
 </div>

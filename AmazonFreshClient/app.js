@@ -5,14 +5,14 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('client-sessions');
-var passport = require('passport');
 
+//Added by Balaji
+var passport = require('passport');
 require('./routes/passport')(passport);
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var api = require('./routes/api');
-//var customersRouter = require('./routes/customers');
 var routing = require('./routes/routing');
 var mongo = require('./MongoConfig');
 
@@ -39,10 +39,14 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//Added by Balaji
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use('/', routes);
 app.use('/api', api);
-//app.use('/shop',customersRouter);
 app.use('/users', users);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
