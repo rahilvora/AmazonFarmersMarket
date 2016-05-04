@@ -4,7 +4,9 @@ var multer = require('multer');
 var mq_client = require('../rpc/client');
 var connection = require('../MySQLConfig.js');
 var mongo = require('../MongoConfig.js');
-var drivers = [];
+var logger = require('morgan');
+var passport = require('passport');
+require('./passport')(passport);
 
 var mongoURL = "mongodb://localhost:27017/amazonfresh";
 var productsCollection, farmerreviews;
@@ -1052,12 +1054,14 @@ function isAuthenticated(req, res, next) {
 
 router.post('/checkFarmerLogin', function (req, res, next) {
     console.log("in checkFarmerLogin api");
-    console.log(req.body);
+    console.log("Request is"+req.body);
     var user = req.body;
+    //console.log("User is: "+user);
     passport.authenticate('checkFarmerLogin', function (err, user, info) {
         console.log("user " + user.firstname);
         console.log("info " + info);
         if (err) {
+            console.log(err);
             return next(err);
         }
 

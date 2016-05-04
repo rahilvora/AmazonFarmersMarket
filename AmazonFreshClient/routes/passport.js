@@ -2,7 +2,6 @@ var passport = require("passport");
 var LocalStrategy = require("passport-local").Strategy;
 //var mongo = require('./db/mongo');
 var connection = require('../MySQLConfig.js');
-console.log("Connection is : " + connection);
 
 module.exports = function (passport) {
 
@@ -29,7 +28,7 @@ module.exports = function (passport) {
 
     passport.use('checkFarmerLogin', new LocalStrategy(function (username, password, done) {
 
-        console.log(username + " " + password);
+        console.log("Inside checkFarmerLogin->passport.js" + username + " " + password);
 
         connection.query("SELECT * FROM `farmerdetails` WHERE `email` = '" + username + "' and flag=1", function (err, rows) {
             console.log("retrieved the foll rows:" + JSON.stringify(rows));
