@@ -28,7 +28,7 @@ module.exports = function (passport) {
 
     passport.use('checkFarmerLogin', new LocalStrategy(function (username, password, done) {
 
-        console.log("Inside checkFarmerLogin->passport.js" + username + " " + password);
+        console.log(username + " " + password);
 
         connection.query("SELECT * FROM `farmerdetails` WHERE `email` = '" + username + "' and flag=1", function (err, rows) {
             console.log("retrieved the foll rows:" + JSON.stringify(rows));

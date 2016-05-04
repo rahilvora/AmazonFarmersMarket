@@ -227,7 +227,8 @@ FarmerApp.controller("FarmerViewProductController", ["$scope", "$http", "$locati
         //console.log(JSON.stringify(result));
         //alert("in here");
         if (result.data != "Failure") {
-            alert(result);
+            //alert(result);
+            $scope.productimage = result.data.productimage;
             $scope.productname = result.data.productname;
             $scope.productprice = result.data.productprice;
             $scope.description = result.data.description;
