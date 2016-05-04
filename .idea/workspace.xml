@@ -1,42 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BookmarkManager">
+    <bookmark url="file://$PROJECT_DIR$/AmazonFreshClient/routes/api.js" description="});" line="622" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="ed477f4c-c9b2-46a7-bfe6-d4b3df892309" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/AmazonFreshClient/node_modules/mongodb-core/README.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/AmazonFreshClient/node_modules/mongodb/README.md" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/uploads/file-1462333773188.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/uploads/file-1462334323531.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/uploads/file-1462334698155.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/uploads/file-1462334866974.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/uploads/file-1462334902870.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/uploads/file-1462334955679.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/uploads/file-1462335024427.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/uploads/file-1462335056479.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/uploads/file-1462335086584.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/uploads/file-1462335126076.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/uploads/file-1462335161623.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/uploads/file-1462335216377.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/uploads/file-1462335241355.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/uploads/file-1462335268668.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/uploads/file-1462335334285.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/uploads/file-1462335387794.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/uploads/file-1462335444710.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/uploads/file-1462335491941.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/uploads/file-1462335535364.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/uploads/file-1462335575599.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/uploads/file-1462353370077.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/uploads/file-1462353381380.mp4" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/AmazonFreshClient/public/images/ProductImages/Best_Produce/Avacado.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/AmazonFreshClient/public/images/ProductImages/Best_Produce/Organic_Bananas.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/AmazonFreshClient/public/images/ProductImages/Best_Produce/Organic_Raspberries.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/AmazonFreshClient/public/images/ProductImages/Best_Produce/Organic_Strawberries.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/AmazonFreshClient/public/view/farmerViews/editProfile.ejs" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/AmazonFreshClient/public/view/test.html" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/view/farmerViews/viewImages.ejs" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/MySQLConfig.js" afterPath="$PROJECT_DIR$/AmazonFreshClient/MySQLConfig.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/app.js" afterPath="$PROJECT_DIR$/AmazonFreshClient/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/node_modules/mongodb-core/HISTORY.md" afterPath="$PROJECT_DIR$/AmazonFreshClient/node_modules/mongodb-core/HISTORY.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/node_modules/mongodb-core/lib/connection/connection.js" afterPath="$PROJECT_DIR$/AmazonFreshClient/node_modules/mongodb-core/lib/connection/connection.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/node_modules/mongodb-core/lib/cursor.js" afterPath="$PROJECT_DIR$/AmazonFreshClient/node_modules/mongodb-core/lib/cursor.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/node_modules/mongodb-core/lib/topologies/mongos.js" afterPath="$PROJECT_DIR$/AmazonFreshClient/node_modules/mongodb-core/lib/topologies/mongos.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/node_modules/mongodb-core/lib/topologies/replset.js" afterPath="$PROJECT_DIR$/AmazonFreshClient/node_modules/mongodb-core/lib/topologies/replset.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/node_modules/mongodb-core/lib/topologies/server.js" afterPath="$PROJECT_DIR$/AmazonFreshClient/node_modules/mongodb-core/lib/topologies/server.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/node_modules/mongodb-core/lib/wireprotocol/3_2_support.js" afterPath="$PROJECT_DIR$/AmazonFreshClient/node_modules/mongodb-core/lib/wireprotocol/3_2_support.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/node_modules/mongodb-core/package.json" afterPath="$PROJECT_DIR$/AmazonFreshClient/node_modules/mongodb-core/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/node_modules/mongodb/HISTORY.md" afterPath="$PROJECT_DIR$/AmazonFreshClient/node_modules/mongodb/HISTORY.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/node_modules/mongodb/lib/collection.js" afterPath="$PROJECT_DIR$/AmazonFreshClient/node_modules/mongodb/lib/collection.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/node_modules/mongodb/lib/cursor.js" afterPath="$PROJECT_DIR$/AmazonFreshClient/node_modules/mongodb/lib/cursor.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/node_modules/mongodb/lib/db.js" afterPath="$PROJECT_DIR$/AmazonFreshClient/node_modules/mongodb/lib/db.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/node_modules/mongodb/package.json" afterPath="$PROJECT_DIR$/AmazonFreshClient/node_modules/mongodb/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/public/javascripts/angular/AdminMain.js" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/javascripts/angular/AdminMain.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/bill/ListBills.ejs" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/bill/ListBills.ejs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/customer/AddCustomerRequest.ejs" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/customer/AddCustomerRequest.ejs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/driver/EditDriver.ejs" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/driver/EditDriver.ejs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/farmer/AddFarmerRequest.ejs" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/farmer/AddFarmerRequest.ejs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/product/AddProductRequest.ejs" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/product/AddProductRequest.ejs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/statistic/RevenuePerDay.ejs" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/statistic/RevenuePerDay.ejs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/statistic/TotalDelivery.ejs" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/statistic/TotalDelivery.ejs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/statistic/test.ejs" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/statistic/test.ejs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/trip/ListTrips.ejs" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/trip/ListTrips.ejs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/truck/AddTruck.ejs" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/truck/AddTruck.ejs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/truck/EditTruck.ejs" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/truck/EditTruck.ejs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/public/javascripts/angular/customers/customerController.js" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/javascripts/angular/customers/customerController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/public/javascripts/angular/farmerMain.js" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/javascripts/angular/farmerMain.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/public/stylesheets/simple-sidebar.css" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/stylesheets/simple-sidebar.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/public/view/customerViews/cartDetailsPage.ejs" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/view/customerViews/cartDetailsPage.ejs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/public/view/customerViews/checkoutPage.ejs" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/view/customerViews/checkoutPage.ejs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/public/view/customerViews/editCustomerProfile.ejs" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/view/customerViews/editCustomerProfile.ejs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/public/view/customerViews/homeDashboard.ejs" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/view/customerViews/homeDashboard.ejs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/public/view/customerViews/productInfo.ejs" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/view/customerViews/productInfo.ejs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/public/view/customerViews/reviewFarmer.ejs" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/view/customerViews/reviewFarmer.ejs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/public/view/customerViews/searchResults.ejs" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/view/customerViews/searchResults.ejs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/public/view/farmerViews/addNewProduct.ejs" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/view/farmerViews/addNewProduct.ejs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/public/view/farmerViews/editProduct.ejs" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/view/farmerViews/editProduct.ejs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/public/view/farmerViews/farmerProducts.ejs" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/view/farmerViews/farmerProducts.ejs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/public/view/farmerViews/productInfo.ejs" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/view/farmerViews/productInfo.ejs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/public/view/farmerViews/viewProfile.ejs" afterPath="$PROJECT_DIR$/AmazonFreshClient/public/view/farmerViews/viewProfile.ejs" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/routes/api.js" afterPath="$PROJECT_DIR$/AmazonFreshClient/routes/api.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/testing/mocha1.js" afterPath="$PROJECT_DIR$/AmazonFreshClient/testing/mocha1.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/views/adminViews/admin.ejs" afterPath="$PROJECT_DIR$/AmazonFreshClient/views/adminViews/admin.ejs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshServer/server.js" afterPath="$PROJECT_DIR$/AmazonFreshServer/server.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshServer/services/login.js" afterPath="$PROJECT_DIR$/AmazonFreshServer/services/login.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/views/Homepage.ejs" afterPath="$PROJECT_DIR$/AmazonFreshClient/views/Homepage.ejs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/views/customerViews/customerHome.ejs" afterPath="$PROJECT_DIR$/AmazonFreshClient/views/customerViews/customerHome.ejs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AmazonFreshClient/views/farmerViews/farmer.ejs" afterPath="$PROJECT_DIR$/AmazonFreshClient/views/farmerViews/farmer.ejs" />
     </list>
     <ignored path="AmazonFresh.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -57,61 +74,61 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="api.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="farmerMain.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/javascripts/angular/farmerMain.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="402">
+              <caret line="296" column="6" selection-start-line="296" selection-start-column="6" selection-end-line="296" selection-end-column="6" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="viewImages.ejs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/farmerViews/viewImages.ejs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="6" column="57" selection-start-line="6" selection-start-column="57" selection-end-line="6" selection-end-column="57" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="farmerProducts.ejs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/farmerViews/farmerProducts.ejs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="17" column="48" selection-start-line="17" selection-start-column="48" selection-end-line="17" selection-end-column="48" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="viewProfile.ejs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/farmerViews/viewProfile.ejs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="197">
+              <caret line="107" column="26" selection-start-line="107" selection-start-column="26" selection-end-line="107" selection-end-column="26" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="farmer.ejs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/AmazonFreshClient/views/farmerViews/farmer.ejs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="1" selection-start-line="0" selection-start-column="1" selection-end-line="0" selection-end-column="1" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="api.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/AmazonFreshClient/routes/api.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-17.486841">
-              <caret line="251" column="7" selection-start-line="251" selection-start-column="7" selection-end-line="251" selection-end-column="7" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AdminMain.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/javascripts/angular/AdminMain.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="92" column="17" selection-start-line="92" selection-start-column="17" selection-end-line="92" selection-end-column="17" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AddProductRequest.ejs" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/product/AddProductRequest.ejs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-14.625">
-              <caret line="30" column="4" selection-start-line="30" selection-start-column="4" selection-end-line="30" selection-end-column="85" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AddTruck.ejs" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/truck/AddTruck.ejs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.5">
-              <caret line="12" column="138" selection-start-line="12" selection-start-column="8" selection-end-line="12" selection-end-column="138" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EditTruck.ejs" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/truck/EditTruck.ejs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.0">
-              <caret line="8" column="57" selection-start-line="8" selection-start-column="57" selection-end-line="8" selection-end-column="85" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MySQLConfig.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/AmazonFreshClient/MySQLConfig.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="7" column="18" selection-start-line="7" selection-start-column="18" selection-end-line="7" selection-end-column="18" />
+            <state relative-caret-position="371">
+              <caret line="1561" column="40" selection-start-line="1561" selection-start-column="29" selection-end-line="1561" selection-end-column="40" />
               <folding />
             </state>
           </provider>
@@ -134,57 +151,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+        <option value="$PROJECT_DIR$/AmazonFreshClient/public/javascripts/angular/productView.js" />
+        <option value="$PROJECT_DIR$/AmazonFreshClient/views/index.ejs" />
+        <option value="$PROJECT_DIR$/AmazonFreshClient/public/partials/home.html" />
+        <option value="$PROJECT_DIR$/AmazonFreshClient/public/javascripts/angular/productMain.js" />
         <option value="$PROJECT_DIR$/AmazonFreshClient/routes/products.js" />
         <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/product/ListProducts.ejs" />
         <option value="$PROJECT_DIR$/AmazonFreshClient/public/stylesheets/style.css" />
         <option value="$PROJECT_DIR$/AmazonFreshClient/views/loginAndSignUp/signUpForm.ejs" />
-        <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/customerViews/editCustomerProfile.ejs" />
         <option value="$PROJECT_DIR$/AmazonFreshClient/views/farmer.ejs" />
         <option value="$PROJECT_DIR$/AmazonFreshClient/public/stylesheets/farmer/farmer.css" />
         <option value="$PROJECT_DIR$/AmazonFreshClient/MongoConfig.js" />
-        <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/farmerViews/farmerProducts.ejs" />
-        <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/farmerViews/addNewProduct.ejs" />
-        <option value="$PROJECT_DIR$/AmazonFreshClient/public/javascripts/angular/farmerMain.js" />
-        <option value="$PROJECT_DIR$/AmazonFreshClient/views/Homepage.ejs" />
         <option value="$PROJECT_DIR$/AmazonFreshClient/views/partials/dummy.html" />
-        <option value="$PROJECT_DIR$/AmazonFreshClient/views/farmerViews/farmer.ejs" />
         <option value="$PROJECT_DIR$/AmazonFreshClient/routes/login.js" />
         <option value="$PROJECT_DIR$/AmazonFreshClient/.gitignore" />
         <option value="$PROJECT_DIR$/AmazonFreshClient/routes/customers.js" />
-        <option value="$PROJECT_DIR$/AmazonFreshClient/views/loginAndSignUp/login.ejs" />
-        <option value="$PROJECT_DIR$/AmazonFreshClient/public/javascripts/angular/loginAndSignUp/loginController.js" />
         <option value="$PROJECT_DIR$/AmazonFreshClient/public/javascripts/angular/customers/customerHomeController.js" />
-        <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/customerViews/homeDashboard.ejs" />
-        <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/customerViews/searchResults.ejs" />
+        <option value="$PROJECT_DIR$/AmazonFreshClient/MySQLConfig.js" />
+        <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/trip/ListTrips.ejs" />
         <option value="$PROJECT_DIR$/AmazonFreshClient/routes/index.js" />
         <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/generatedata.ejs" />
-        <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/product/AddProductRequest.ejs" />
-        <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/farmer/AddFarmerRequest.ejs" />
-        <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/customer/AddCustomerRequest.ejs" />
-        <option value="$PROJECT_DIR$/AmazonFreshClient/rpc/amqprpc.js" />
-        <option value="internal/module.js" />
-        <option value="$PROJECT_DIR$/AmazonFreshClient/rpc/client.js" />
-        <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/bill/ListBills.ejs" />
         <option value="$PROJECT_DIR$/AmazonFreshClient/views/adminViews/admin.ejs" />
-        <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/trip/ListTrips.ejs" />
-        <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/statistic/RevenuePerDay.ejs" />
-        <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/statistic/TotalDelivery.ejs" />
-        <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/statistic/test.ejs" />
-        <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/statistic/ridesPerDriver.ejs" />
-        <option value="$PROJECT_DIR$/AmazonFreshClient/testing/mocha1.js" />
-        <option value="internal/linkedlist.js" />
-        <option value="timers.js" />
-        <option value="$PROJECT_DIR$/AmazonFreshServer/services/login.js" />
-        <option value="$PROJECT_DIR$/AmazonFreshServer/server.js" />
-        <option value="$PROJECT_DIR$/AmazonFreshServer/services/adminServices.js" />
-        <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/driver/EditDriver.ejs" />
-        <option value="$PROJECT_DIR$/AmazonFreshClient/MySQLConfig.js" />
         <option value="$PROJECT_DIR$/AmazonFreshClient/fakeProductData.js" />
+        <option value="$PROJECT_DIR$/AmazonFreshClient/testing/mocha1.js" />
+        <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/bill/ListBills.ejs" />
+        <option value="$PROJECT_DIR$/AmazonFreshClient/bin/www" />
+        <option value="$PROJECT_DIR$/AmazonFreshClient/views/loginAndSignUp/login.ejs" />
+        <option value="$PROJECT_DIR$/AmazonFreshClient/public/javascripts/angular/loginAndSignUp/loginController.js" />
+        <option value="$PROJECT_DIR$/AmazonFreshClient/routes/passport.js" />
         <option value="$PROJECT_DIR$/AmazonFreshClient/app.js" />
-        <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/truck/AddTruck.ejs" />
-        <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/truck/EditTruck.ejs" />
         <option value="$PROJECT_DIR$/AmazonFreshClient/public/javascripts/angular/AdminMain.js" />
+        <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/customerViews/checkoutPage.ejs" />
+        <option value="$PROJECT_DIR$/AmazonFreshClient/public/javascripts/angular/customers/customerController.js" />
+        <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/customerViews/productInfo.ejs" />
+        <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/customerViews/searchResults.ejs" />
+        <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/farmerViews/productInfo.ejs" />
+        <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/customerViews/cartDetailsPage.ejs" />
+        <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/customerViews/reviewFarmer.ejs" />
+        <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/farmerViews/editProduct.ejs" />
+        <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/customerViews/editCustomerProfile.ejs" />
+        <option value="$PROJECT_DIR$/AmazonFreshClient/views/customerViews/customerHome.ejs" />
+        <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/customerViews/homeDashboard.ejs" />
+        <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/farmerViews/addNewProduct.ejs" />
+        <option value="$PROJECT_DIR$/AmazonFreshClient/views/Homepage.ejs" />
+        <option value="$PROJECT_DIR$/AmazonFreshClient/public/stylesheets/simple-sidebar.css" />
+        <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/farmerViews/editProfile.ejs" />
         <option value="$PROJECT_DIR$/AmazonFreshClient/routes/api.js" />
+        <option value="$PROJECT_DIR$/AmazonFreshClient/views/farmerViews/farmer.ejs" />
+        <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/farmerViews/viewImages.ejs" />
+        <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/farmerViews/farmerProducts.ejs" />
+        <option value="$PROJECT_DIR$/AmazonFreshClient/public/view/farmerViews/viewProfile.ejs" />
+        <option value="$PROJECT_DIR$/AmazonFreshClient/public/javascripts/angular/farmerMain.js" />
       </list>
     </option>
   </component>
@@ -198,8 +215,8 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="y" value="23" />
-    <option name="width" value="1280" />
-    <option name="height" value="773" />
+    <option name="width" value="1440" />
+    <option name="height" value="830" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -226,64 +243,31 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="AmazonFresh" />
+              <option name="myItemId" value="AmazonFarmersMarket" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="AmazonFresh" />
+              <option name="myItemId" value="AmazonFarmersMarket" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="AmazonFresh" />
+              <option name="myItemId" value="AmazonFarmersMarket" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="AmazonFresh" />
+              <option name="myItemId" value="AmazonFarmersMarket" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="AmazonFresh" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AmazonFreshServer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AmazonFresh" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AmazonFresh" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AmazonFreshServer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="services" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AmazonFresh" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AmazonFresh" />
+              <option name="myItemId" value="AmazonFarmersMarket" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -293,11 +277,29 @@
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="AmazonFresh" />
+              <option name="myItemId" value="AmazonFarmersMarket" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="AmazonFresh" />
+              <option name="myItemId" value="AmazonFarmersMarket" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AmazonFreshClient" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AmazonFarmersMarket" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AmazonFarmersMarket" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -311,11 +313,11 @@
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="AmazonFresh" />
+              <option name="myItemId" value="AmazonFarmersMarket" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="AmazonFresh" />
+              <option name="myItemId" value="AmazonFarmersMarket" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -329,11 +331,37 @@
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="AmazonFresh" />
+              <option name="myItemId" value="AmazonFarmersMarket" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="AmazonFresh" />
+              <option name="myItemId" value="AmazonFarmersMarket" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AmazonFreshClient" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="view" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="farmerViews" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AmazonFarmersMarket" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AmazonFarmersMarket" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -351,11 +379,11 @@
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="AmazonFresh" />
+              <option name="myItemId" value="AmazonFarmersMarket" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="AmazonFresh" />
+              <option name="myItemId" value="AmazonFarmersMarket" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -367,81 +395,17 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="view" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="adminViews" />
+              <option name="myItemId" value="uploads" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="AmazonFresh" />
+              <option name="myItemId" value="AmazonFarmersMarket" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="AmazonFresh" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AmazonFreshClient" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="view" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="adminViews" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="truck" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AmazonFresh" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AmazonFresh" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AmazonFreshClient" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="view" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="adminViews" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="product" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AmazonFresh" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AmazonFresh" />
+              <option name="myItemId" value="AmazonFarmersMarket" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -463,6 +427,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="Scratches" />
     </panes>
   </component>
@@ -477,189 +442,10 @@
     <property name="ignore_missing_gitignore" value="true" />
     <property name="nodejs.mocha.node_interpreter_path" value="/usr/local/bin/node" />
     <property name="nodejs.mocha.mocha_node_package_dir" value="$PROJECT_DIR$/AmazonFreshClient/node_modules/mocha" />
-  </component>
-  <component name="RestoreUpdateTree" date="Moments ago" ActionInfo="_Update">
-    <UpdatedFiles>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Updated from server" />
-        <option name="myStatusName" value="Changed on server" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="CHANGED_ON_SERVER" />
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Updated" />
-          <option name="myStatusName" value="Changed" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="UPDATED" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/MySQLConfig.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/app.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/fakeProductData.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/node_modules/redis/package.json</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/package.json</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/public/javascripts/angular/AdminMain.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/public/javascripts/angular/epoly.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/public/javascripts/angular/farmerMain.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/public/javascripts/angular/loginAndSignUp/loginController.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/public/stylesheets/customer/customerHomeStyles.css</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/product/ListProducts.ejs</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/public/view/customerViews/cartDetailsPage.ejs</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/public/view/customerViews/homeDashboard.ejs</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/public/view/customerViews/searchResults.ejs</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/public/view/farmerViews/farmerProducts.ejs</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/public/view/farmerViews/productInfo.ejs</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/routes/api.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/routes/customers.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/routes/index.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/views/customerViews/customerHome.ejs</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/views/farmerViews/farmer.ejs</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/views/loginAndSignUp/customerSignUp.ejs</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/views/loginAndSignUp/farmerSignUp.ejs</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/views/loginAndSignUp/login.ejs</PATH>
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Created" />
-          <option name="myStatusName" value="Created" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="CREATED" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/node_modules/passport-local/LICENSE</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/node_modules/passport-local/README.md</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/node_modules/passport-local/lib/index.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/node_modules/passport-local/lib/strategy.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/node_modules/passport-local/lib/utils.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/node_modules/passport-local/package.json</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/node_modules/passport-strategy/.jshintrc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/node_modules/passport-strategy/.travis.yml</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/node_modules/passport-strategy/LICENSE</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/node_modules/passport-strategy/README.md</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/node_modules/passport-strategy/lib/index.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/node_modules/passport-strategy/lib/strategy.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/node_modules/passport-strategy/package.json</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/node_modules/passport/LICENSE</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/node_modules/passport/lib/authenticator.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/node_modules/passport/lib/errors/authenticationerror.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/node_modules/passport/lib/framework/connect.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/node_modules/passport/lib/http/request.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/node_modules/passport/lib/index.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/node_modules/passport/lib/middleware/authenticate.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/node_modules/passport/lib/middleware/initialize.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/node_modules/passport/lib/strategies/session.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/node_modules/passport/package.json</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/node_modules/pause/.npmignore</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/node_modules/pause/History.md</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/node_modules/pause/Makefile</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/node_modules/pause/Readme.md</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/node_modules/pause/index.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/node_modules/pause/package.json</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/npm-debug.log</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/public/images/ProductImages/Apples/Honeycrisp_Apples.jpg</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/public/javascripts/angular/customers/customerController.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/public/stylesheets/simple-sidebar.css</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/public/view/customerViews/checkoutPage.ejs</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/public/view/customerViews/orderHistory.ejs</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/public/view/customerViews/productInfo.ejs</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/public/view/customerViews/reviewFarmer.ejs</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/public/view/farmerViews/deliveryHistory.ejs</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/public/view/farmerViews/farmerHomepage.ejs</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/routes/passport.js</PATH>
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Deleted" />
-          <option name="myStatusName" value="Deleted" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="true" />
-          <option name="myId" value="REMOVED_FROM_REPOSITORY" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/public/images/ProductImages/Apples/Honeycrisp_Aples.jpg</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/public/javascripts/angular/customers/customerHomeController.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/public/uploads/file-1462045432134.jpg</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/AmazonFreshClient/routes/login.js</PATH>
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Restored" />
-          <option name="myStatusName" value="Will be restored" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="RESTORED" />
-        </FILE-GROUP>
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Modified" />
-        <option name="myStatusName" value="Modified" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MODIFIED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Skipped" />
-        <option name="myStatusName" value="Skipped" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="SKIPPED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Merged with conflicts" />
-        <option name="myStatusName" value="Will be merged with conflicts" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MERGED_WITH_CONFLICTS" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Merged with tree conflicts" />
-        <option name="myStatusName" value="Merged with tree conflicts" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MERGED_WITH_TREE_CONFLICT" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Merged with property conflicts" />
-        <option name="myStatusName" value="Will be merged with property conflicts" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MERGED_WITH_PROPERTY_CONFLICT" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Merged" />
-        <option name="myStatusName" value="Will be merged" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MERGED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Not in repository" />
-        <option name="myStatusName" value="Not in repository" />
-        <option name="mySupportsDeletion" value="true" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="UNKNOWN" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Locally added" />
-        <option name="myStatusName" value="Locally added" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="LOCALLY_ADDED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Locally removed" />
-        <option name="myStatusName" value="Locally removed" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="LOCALLY_REMOVED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Switched" />
-        <option name="myStatusName" value="Switched" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="SWITCHED" />
-      </FILE-GROUP>
-    </UpdatedFiles>
+    <property name="SearchEverywhereHistoryKey" value="Connection is&#9;null&#9;null" />
   </component>
   <component name="RunManager" selected="Node.js.bin/www">
     <configuration default="false" name="app.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="project" path-to-js-file="app.js" working-dir="$PROJECT_DIR$/AmazonFreshClient">
-      <method />
-    </configuration>
-    <configuration default="false" name="server.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="/usr/local/bin/node" path-to-js-file="server.js" working-dir="$PROJECT_DIR$/AmazonFreshServer">
       <method />
     </configuration>
     <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
@@ -668,7 +454,9 @@
     <configuration default="true" type="DartTestRunConfigurationType" factoryName="Dart Test">
       <method />
     </configuration>
-    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" config-file="">
+    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma">
+      <config-file value="" />
+      <node-interpreter value="project" />
       <envs />
       <method />
     </configuration>
@@ -685,6 +473,7 @@
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
       <node-options />
       <gulpfile />
       <tasks />
@@ -695,10 +484,12 @@
     <configuration default="true" type="js.build_tools.npm" factoryName="npm">
       <command value="run-script" />
       <scripts />
+      <node-interpreter value="project" />
       <envs />
       <method />
     </configuration>
     <configuration default="true" type="mocha-javascript-test-runner" factoryName="Mocha">
+      <node-interpreter>/usr/local/bin/node</node-interpreter>
       <node-options />
       <working-directory>$PROJECT_DIR$</working-directory>
       <pass-parent-env>true</pass-parent-env>
@@ -711,6 +502,7 @@
       <method />
     </configuration>
     <configuration default="false" name="mocha" type="mocha-javascript-test-runner" factoryName="Mocha">
+      <node-interpreter>/usr/local/bin/node</node-interpreter>
       <node-options />
       <working-directory>$PROJECT_DIR$/AmazonFreshClient/testing</working-directory>
       <pass-parent-env>true</pass-parent-env>
@@ -725,20 +517,20 @@
     <configuration default="false" name="bin/www" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="/usr/local/bin/node" path-to-js-file="bin/www" working-dir="$PROJECT_DIR$/AmazonFreshClient">
       <method />
     </configuration>
-    <list size="4">
+    <list size="3">
       <item index="0" class="java.lang.String" itemvalue="Mocha.mocha" />
       <item index="1" class="java.lang.String" itemvalue="Node.js.bin/www" />
       <item index="2" class="java.lang.String" itemvalue="Node.js.app.js" />
-      <item index="3" class="java.lang.String" itemvalue="Node.js.server.js" />
     </list>
     <recent_temporary>
-      <list size="2">
-        <item index="0" class="java.lang.String" itemvalue="Node.js.server.js" />
-        <item index="1" class="java.lang.String" itemvalue="Node.js.app.js" />
+      <list size="1">
+        <item index="0" class="java.lang.String" itemvalue="Node.js.app.js" />
       </list>
     </recent_temporary>
   </component>
-  <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -747,12 +539,14 @@
       <changelist id="ed477f4c-c9b2-46a7-bfe6-d4b3df892309" name="Default" comment="" />
       <created>1461178049002</created>
       <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
       <updated>1461178049002</updated>
       <workItem from="1461376928790" duration="38144000" />
       <workItem from="1461549520711" duration="11473000" />
       <workItem from="1461622840538" duration="9005000" />
       <workItem from="1461655771549" duration="4527000" />
       <workItem from="1461737799480" duration="17672000" />
+      <workItem from="1462246941012" duration="45664000" />
     </task>
     <servers />
   </component>
@@ -769,64 +563,32 @@
     <history-entry file="mocha - 2016.04.30 at 18h 40m 09s.xml">
       <configuration name="mocha" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="mocha - 2016.05.01 at 22h 41m 35s.xml">
-      <configuration name="mocha" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
-    <history-entry file="mocha - 2016.05.01 at 22h 43m 58s.xml">
-      <configuration name="mocha" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
-    <history-entry file="mocha - 2016.05.01 at 23h 42m 52s.xml">
-      <configuration name="mocha" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
-    <history-entry file="mocha - 2016.05.02 at 20h 43m 30s.xml">
-      <configuration name="mocha" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="81887000" />
+    <option name="totallyTimeSpent" value="127551000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1280" height="773" extended-state="6" />
-    <editor active="true" />
+    <frame x="0" y="23" width="1440" height="830" extended-state="6" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2359015" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.328125" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28928047" sideWeight="0.5059571" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32599118" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28928047" sideWeight="0.4940429" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2248062" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32935154" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32913166" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3274596" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33893558" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28928047" sideWeight="0.49722" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35854343" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32892805" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39060205" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" x="92" y="92" width="1182" height="544" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
     </layout>
-    <layout-to-restore>
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.328125" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" x="92" y="92" width="1182" height="544" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3274596" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28928047" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34654918" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2359015" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32892805" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-    </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
@@ -841,348 +603,247 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="73" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/AmazonFreshClient/testing/mocha1.js</url>
+          <line>11</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="21" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/views/loginAndSignUp/login.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="76" column="7" selection-start-line="76" selection-start-column="7" selection-end-line="76" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/javascripts/angular/loginAndSignUp/loginController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="56" column="3" selection-start-line="56" selection-start-column="3" selection-end-line="56" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/routes/customers.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="31" column="13" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/customerViews/homeDashboard.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="11" column="27" selection-start-line="0" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/customerViews/searchResults.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="3" column="91" selection-start-line="3" selection-start-column="91" selection-end-line="3" selection-end-column="91" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/customerViews/cartDetailsPage.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="17" column="9" selection-start-line="17" selection-start-column="9" selection-end-line="17" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/stylesheets/customer/customerHomeStyles.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.52305245">
-          <caret line="34" column="12" selection-start-line="34" selection-start-column="12" selection-end-line="34" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/views/customerViews/customerHome.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.14149444">
-          <caret line="12" column="27" selection-start-line="12" selection-start-column="27" selection-end-line="12" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/customerViews/editCustomerProfile.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.023847377">
-          <caret line="4" column="48" selection-start-line="4" selection-start-column="47" selection-end-line="4" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/trip/map.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/trip/ListTruckTrips.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/javascripts/angular/farmerMain.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5811138">
-          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/javascripts/angular/epoly.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/routes/index.js">
+    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/trip/ListTrips.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-10.333333">
-          <caret line="19" column="2" selection-start-line="19" selection-start-column="2" selection-end-line="19" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/statistic/delivery.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="0">
+          <caret line="13" column="11" selection-start-line="13" selection-start-column="11" selection-end-line="13" selection-end-column="11" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/generatedata.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state relative-caret-position="0">
           <caret line="0" column="20" selection-start-line="0" selection-start-column="20" selection-end-line="0" selection-end-column="20" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/AmazonFreshClient/MongoConfig.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.032967035">
+        <state relative-caret-position="0">
           <caret line="1" column="30" selection-start-line="1" selection-start-column="30" selection-end-line="1" selection-end-column="30" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/product/ListProducts.ejs">
+    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/fakeProductData.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-14.583333">
-          <caret line="28" column="85" selection-start-line="28" selection-start-column="4" selection-end-line="28" selection-end-column="85" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/farmer/AddFarmerRequest.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-16.25">
-          <caret line="37" column="4" selection-start-line="37" selection-start-column="4" selection-end-line="37" selection-end-column="85" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/customer/AddCustomerRequest.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-15.0">
-          <caret line="38" column="83" selection-start-line="38" selection-start-column="83" selection-end-line="38" selection-end-column="83" />
+        <state relative-caret-position="0">
+          <caret line="1392" column="0" selection-start-line="1392" selection-start-column="0" selection-end-line="1392" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/AmazonFreshClient/testing/mocha1.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.06804734">
-          <caret line="7" column="32" selection-start-line="7" selection-start-column="32" selection-end-line="7" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/statistic/test.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/statistic/TotalDelivery.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/trip/ListTrips.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.37883437">
-          <caret line="18" column="37" selection-start-line="18" selection-start-column="37" selection-end-line="18" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/bill/ListBills.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.04601227">
-          <caret line="2" column="115" selection-start-line="2" selection-start-column="104" selection-end-line="2" selection-end-column="115" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/statistic/ridesPerDriver.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.023006136">
-          <caret line="5" column="41" selection-start-line="5" selection-start-column="41" selection-end-line="5" selection-end-column="41" />
+        <state relative-caret-position="0">
+          <caret line="12" column="28" selection-start-line="12" selection-start-column="25" selection-end-line="12" selection-end-column="28" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/AmazonFreshClient/views/adminViews/admin.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.8527608">
-          <caret line="124" column="9" selection-start-line="0" selection-start-column="0" selection-end-line="130" selection-end-column="7" />
+        <state relative-caret-position="0">
+          <caret line="105" column="28" selection-start-line="105" selection-start-column="28" selection-end-line="105" selection-end-column="28" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AmazonFreshServer/MySQLConfig.js">
+    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/bill/ListBills.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="15">
+          <caret line="1" column="25" selection-start-line="1" selection-start-column="25" selection-end-line="1" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AmazonFreshServer/MongoConfig.js">
+    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/bin/www">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.27118644">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="30">
+          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AmazonFreshServer/node_modules/amqp/lib/queue.js">
+    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/package.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="530" column="0" selection-start-line="530" selection-start-column="0" selection-end-line="530" selection-end-column="0" />
+        <state relative-caret-position="150">
+          <caret line="10" column="4" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="22" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AmazonFreshServer/node_modules/amqp/lib/parser.js">
+    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/javascripts/angular/loginAndSignUp/loginController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="364" column="0" selection-start-line="364" selection-start-column="0" selection-end-line="364" selection-end-column="0" />
+        <state relative-caret-position="795">
+          <caret line="53" column="6" selection-start-line="53" selection-start-column="6" selection-end-line="53" selection-end-column="6" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AmazonFreshServer/node_modules/amqp/lib/connection.js">
+    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/views/loginAndSignUp/login.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="504" column="6" selection-start-line="504" selection-start-column="6" selection-end-line="504" selection-end-column="6" />
+        <state relative-caret-position="-116">
+          <caret line="28" column="115" selection-start-line="28" selection-start-column="115" selection-end-line="28" selection-end-column="115" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/node_modules/express/lib/router/index.js">
+    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/routes/passport.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="46" column="2" selection-start-line="46" selection-start-column="2" selection-end-line="46" selection-end-column="2" />
+        <state relative-caret-position="255">
+          <caret line="17" column="41" selection-start-line="17" selection-start-column="41" selection-end-line="17" selection-end-column="41" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/node_modules/express/lib/router/route.js">
+    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/uploads/file-1462271590288.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/upload.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.371134">
-          <caret line="133" column="0" selection-start-line="133" selection-start-column="0" selection-end-line="133" selection-end-column="0" />
+        <state relative-caret-position="165">
+          <caret line="11" column="3" selection-start-line="11" selection-start-column="3" selection-end-line="11" selection-end-column="47" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/node_modules/express/lib/router/layer.js">
+    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/routes/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.66433567">
-          <caret line="98" column="0" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/rpc/client.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="7" column="4" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/rpc/amqprpc.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="21" column="2" selection-start-line="21" selection-start-column="2" selection-end-line="21" selection-end-column="2" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AmazonFreshServer/services/login.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="480">
+          <caret line="32" column="2" selection-start-line="32" selection-start-column="2" selection-end-line="32" selection-end-column="2" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/test.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/app.js">
+    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/node_modules/mongoose/static.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.36622807">
-          <caret line="43" column="2" selection-start-line="43" selection-start-column="2" selection-end-line="43" selection-end-column="2" />
+        <state relative-caret-position="75">
+          <caret line="5" column="20" selection-start-line="5" selection-start-column="20" selection-end-line="5" selection-end-column="20" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AmazonFreshServer/server.js">
+    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/javascripts/angular/customers/customerController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.375">
-          <caret line="91" column="28" selection-start-line="91" selection-start-column="15" selection-end-line="91" selection-end-column="28" />
+        <state relative-caret-position="75">
+          <caret line="5" column="15" selection-start-line="5" selection-start-column="15" selection-end-line="5" selection-end-column="15" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/driver/EditDriver.ejs">
+    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/customerViews/checkoutPage.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.034722224">
-          <caret line="1" column="6" selection-start-line="1" selection-start-column="6" selection-end-line="1" selection-end-column="6" />
+        <state relative-caret-position="0">
+          <caret line="0" column="32" selection-start-line="0" selection-start-column="32" selection-end-line="0" selection-end-column="32" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AmazonFreshServer/services/adminServices.js">
+    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/customerViews/cartDetailsPage.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-11.444445">
-          <caret line="103" column="29" selection-start-line="103" selection-start-column="29" selection-end-line="103" selection-end-column="29" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/customerViews/orderHistory.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/customerViews/reviewFarmer.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-148">
+          <caret line="8" column="44" selection-start-line="7" selection-start-column="14" selection-end-line="8" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/customerViews/searchResults.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="52" selection-start-line="21" selection-start-column="52" selection-end-line="21" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/customerViews/productInfo.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="27" selection-start-line="4" selection-start-column="27" selection-end-line="4" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/farmerViews/editProduct.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="25" column="11" selection-start-line="25" selection-start-column="11" selection-end-line="25" selection-end-column="11" />
           <folding>
-            <element signature="e#0#44#0" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/fakeProductData.js">
+    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/farmerViews/productInfo.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.65789473">
-          <caret line="20" column="29" selection-start-line="20" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+        <state relative-caret-position="75">
+          <caret line="5" column="140" selection-start-line="5" selection-start-column="140" selection-end-line="5" selection-end-column="140" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/statistic/RevenuePerDay.ejs">
+    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/product/ListProducts.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
@@ -1190,48 +851,174 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/AmazonFreshClient/MySQLConfig.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="7" column="18" selection-start-line="7" selection-start-column="18" selection-end-line="7" selection-end-column="18" />
+        <state relative-caret-position="135">
+          <caret line="9" column="25" selection-start-line="9" selection-start-column="14" selection-end-line="9" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/truck/AddTruck.ejs">
+    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.5">
-          <caret line="12" column="138" selection-start-line="12" selection-start-column="8" selection-end-line="12" selection-end-column="138" />
+        <state relative-caret-position="30">
+          <caret line="2" column="11" selection-start-line="2" selection-start-column="8" selection-end-line="2" selection-end-column="11" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/truck/EditTruck.ejs">
+    <entry file="file://$PROJECT_DIR$/AmazonFreshServer/server.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.0">
-          <caret line="8" column="57" selection-start-line="8" selection-start-column="57" selection-end-line="8" selection-end-column="85" />
+        <state relative-caret-position="-3186">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/adminViews/product/AddProductRequest.ejs">
+    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/farmerViews/farmerHomepage.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-14.625">
-          <caret line="30" column="4" selection-start-line="30" selection-start-column="4" selection-end-line="30" selection-end-column="85" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/customerViews/editCustomerProfile.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="630">
+          <caret line="42" column="76" selection-start-line="42" selection-start-column="76" selection-end-line="42" selection-end-column="76" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/stylesheets/customer/customerHomeStyles.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="34" column="12" selection-start-line="34" selection-start-column="12" selection-end-line="34" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/customerViews/homeDashboard.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="11" column="20" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="37" />
+          <folding>
+            <element signature="n#style#0;n#div#1;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#div#1;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/stylesheets/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/views/Homepage.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="26" column="4" selection-start-line="26" selection-start-column="4" selection-end-line="26" selection-end-column="4" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/views/customerViews/customerHome.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-27">
+          <caret line="15" column="29" selection-start-line="15" selection-start-column="29" selection-end-line="15" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/stylesheets/simple-sidebar.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/farmerViews/deliveryHistory.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/farmerViews/editProfile.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="332">
+          <caret line="64" column="0" selection-start-line="34" selection-start-column="8" selection-end-line="64" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/javascripts/angular/AdminMain.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="92" column="17" selection-start-line="92" selection-start-column="17" selection-end-line="92" selection-end-column="17" />
+        <state relative-caret-position="139">
+          <caret line="438" column="103" selection-start-line="438" selection-start-column="103" selection-end-line="438" selection-end-column="103" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/farmerViews/addNewProduct.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="39" column="74" selection-start-line="39" selection-start-column="64" selection-end-line="39" selection-end-column="74" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/AmazonFreshClient/routes/api.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-17.486841">
-          <caret line="251" column="7" selection-start-line="251" selection-start-column="7" selection-end-line="251" selection-end-column="7" />
+        <state relative-caret-position="371">
+          <caret line="1561" column="40" selection-start-line="1561" selection-start-column="29" selection-end-line="1561" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/views/farmerViews/farmer.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="1" selection-start-line="0" selection-start-column="1" selection-end-line="0" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/farmerViews/viewImages.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="57" selection-start-line="6" selection-start-column="57" selection-end-line="6" selection-end-column="57" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/farmerViews/farmerProducts.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="48" selection-start-line="17" selection-start-column="48" selection-end-line="17" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/view/farmerViews/viewProfile.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="197">
+          <caret line="107" column="26" selection-start-line="107" selection-start-column="26" selection-end-line="107" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AmazonFreshClient/public/javascripts/angular/farmerMain.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="402">
+          <caret line="296" column="6" selection-start-line="296" selection-start-column="6" selection-end-line="296" selection-end-column="6" />
           <folding />
         </state>
       </provider>

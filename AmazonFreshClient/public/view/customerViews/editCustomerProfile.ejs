@@ -2,7 +2,7 @@
 
     <form novalidate>
 
-        <h3 style="text-align:left" ;>Edit you profile.</h3>
+        <h3 style="text-align:left" ;>Edit you profile</h3>
 
         <div class="form-group"
              ng-class="{ 'has-error' : editProfileForm.firstname.$invalid && !editProfileForm.firstname.$pristine }">
@@ -40,7 +40,7 @@
         </div>
 
         <div class="form-group"
-             ng-class="{ 'has-error' : editProfileForm.customerid.$invalid &a& !editProfileForm.customerid.$pristine }">
+             ng-class="{ 'has-error' : editProfileForm.customerid.$invalid && !editProfileForm.customerid.$pristine }">
             <label for="customerid">User ID (Enter your SSN) :</label>
             <input type="text" maxlength="11" class="form-control input-sm"
                    ng-pattern="/^[0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9]$/"

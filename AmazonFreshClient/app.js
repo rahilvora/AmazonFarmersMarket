@@ -6,9 +6,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('client-sessions');
 
-//Added by Balaji
-//var passport = require('passport');
-//require('./routes/passport')(passport);
+var passport = require('passport');
+require('./routes/passport')(passport);
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -19,7 +18,6 @@ var mongo = require('./MongoConfig');
 var app = express();
 
 app.use(session({
-
     cookieName: 'session',
     secret: 'cmpe273_amazonfresh',
     duration: 30 * 60 * 1000,    //setting the time for active session
@@ -31,7 +29,6 @@ app.use(session({
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-// uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -39,9 +36,8 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-//Added by Balaji
-//app.use(passport.initialize());
-//app.use(passport.session());
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/', routes);
 app.use('/api', api);

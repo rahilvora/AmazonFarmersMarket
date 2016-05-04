@@ -9,7 +9,7 @@
         <div ng-repeat="product in farmerProducts.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage)) | filter:search">
             <div class="thumbnail custom" style="width:25%; float:left;">
                 <a ng-click="getProductInfo(product.productid)">
-                    <img src="../../../images/ProductImages/Apples/Fuji_Apple.jpg" alt="Fuji Apple"
+                    <img ng-src="{{product.productimage}}" alt="Product Image"
                          style="max-width: 100px; max-height: 100px; display: block; margin-left: auto; margin-right: auto; border-style: none">
                 </a>
                 <div class="caption">

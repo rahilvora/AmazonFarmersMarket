@@ -16,10 +16,10 @@ FarmerApp.controller("FarmerHomeController", ["$scope", "$http", "$location", fu
     });
 }]);
 
-FarmerApp.controller("FarmerProductController", ["$scope", "$http", "$location", function ($scope, $http, $location) {
+FarmerApp.controller("FarmerProductController", ["$scope", "$http", "$location", "Upload", function ($scope, $http, $location, Upload) {
     $scope.farmerProducts = [];
     $scope.farmers = [];
-
+    var filepath;
     //Get all the farmers products
 
     $http.get('api/getFarmerProducts').then(function (result) {
@@ -36,6 +36,21 @@ FarmerApp.controller("FarmerProductController", ["$scope", "$http", "$location",
     });
 
     //form to add a new product
+    $scope.upload = function () {
+        //debugger;
+        console.log("in upload : " + $scope.file);
+        Upload.upload({
+            url: 'api/upload',
+            data: {file: $scope.file}
+        }).then(function (result) {
+            console.log(result);
+            filepath = "/uploads/" + result.data.filepath;
+            $scope.form.filepath = filepath;
+            alert("stored at : " + filepath);
+            console.log("Success");
+        });
+        //console.log(file);
+    }
 
     $scope.addProduct = function () {
         //console.log($scope.form.price);
@@ -108,7 +123,8 @@ FarmerApp.controller("FarmerEditProductController", ["$scope", "$http", "$locati
 
 }]);
 
-FarmerApp.controller("FarmerProfileController", ["$scope", "$http", "$location", function ($scope, $http, $location) {
+//to get UPload to work add "Upload" in controller as shown below
+FarmerApp.controller("FarmerProfileController", ["$scope", "$http", "$location","Upload", function ($scope, $http, $location, Upload) {
 
     $scope.myRegex = /[a-zA-Z]{4}[0-9]{6,6}[a-zA-Z0-9]{3}/;
     $("#editProfile").hide();
@@ -138,6 +154,41 @@ FarmerApp.controller("FarmerProfileController", ["$scope", "$http", "$location",
         $scope.editProfileForm.editPassword = result.data[0].password;
     });
 
+    $scope.uploadImage = function () {
+        $("#editProfile").show();
+        $("#viewProfile").hide();
+
+        console.log("in upload : " + $scope.file);
+        Upload.upload({
+            url: 'api/uploadFarmerImage',
+            data: {file: $scope.file}
+        }).then(function (result) {
+            console.log(result);
+            filepath = "/uploads/" + result.data.filepath;
+            $scope.editProfileForm.imagefilepath = filepath;
+            alert("stored at : " + filepath);
+            console.log("Success");
+        });
+    };
+
+    $scope.uploadVideo = function () {
+        $("#editProfile").show();
+        $("#viewProfile").hide();
+
+        console.log("in upload : " + $scope.file);
+        Upload.upload({
+            url: 'api/uploadFarmerImage',
+            data: {file: $scope.file}
+        }).then(function (result) {
+            console.log(result);
+            filepath = "/uploads/" + result.data.filepath;
+            $scope.editProfileForm.videofilepath = filepath;
+            alert("stored at : " + filepath);
+            console.log("Success");
+        });
+    };
+
+
     $scope.updateProfile = function () {
         $("#editProfile").show();
         $("#viewProfile").hide();
@@ -149,9 +200,19 @@ FarmerApp.controller("FarmerProfileController", ["$scope", "$http", "$location",
         $("#viewProfile").show();
     }
 
+    $scope.viewImages = function () {
+
+        $location.path('/showFarmerImages');
+    };
+
     $scope.editFarmerProfile = function () {
         $http.put('api/editFarmerProfile', $scope.editProfileForm).then(function (result) {
-            alert("Successfully updated");
+            if(result.data == "Success"){
+                alert("Successfully updated");
+            }
+            else {
+                alert("Update Failed");
+            }
             // $("#editProfile").hide();
             //$("#viewProfile").show();
             location.reload();
@@ -223,11 +284,22 @@ FarmerApp.controller("FarmerViewProductController", ["$scope", "$http", "$locati
 }]);
 
 FarmerApp.controller("FarmerDeliveryController", ["$scope", "$http", "$location", function ($scope, $http, $location) {
-    alert("in delivery controller");
+    //alert("in delivery controller");
 
     $http.get('api/getDeliveryInfo').then(function (result) {
 
         $scope.orders = result;
+
+    });
+}]);
+
+FarmerApp.controller("FarmerUpdateController", ["$scope", "$http", "$location", function ($scope, $http, $location) {
+    //alert("in farmer image and video update controller");
+
+    $http.get('api/viewFarmerImages').then(function (result) {
+
+        $scope.image = result.data.farmerimage;
+        $scope.video = result.data.farmervideo;
 
     });
 }]);
@@ -247,9 +319,6 @@ FarmerApp.config(['$routeProvider',
         }).when('/editProduct', {
             templateUrl: '../view/farmerViews/editProduct.ejs',
             controller: 'FarmerEditProductController'
-        }).when('/editFarmerProfile', {
-            templateUrl: '../view/farmerViews/editProfile.ejs',
-            controller: 'FarmerProfileController'
         }).when('/getProductInfo/:prodid', {
             templateUrl: '../view/farmerViews/productInfo.ejs',
             controller: 'FarmerViewProductController'
@@ -262,5 +331,8 @@ FarmerApp.config(['$routeProvider',
         }).when('/', {
             templateUrl: '../view/farmerViews/farmerHomepage.ejs',
             controller: 'FarmerHomeController'
+        }).when('/showFarmerImages', {
+            templateUrl: '../view/farmerViews/viewImages.ejs',
+            controller: 'FarmerUpdateController'
         })
     }]);

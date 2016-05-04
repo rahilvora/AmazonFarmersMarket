@@ -49,7 +49,7 @@ customerApp.controller("searchController", ["$scope", "$http", "$location", func
 
     $scope.addToCart = function (product) {
         // console.log("Adding product : "+product+" to cart");
-        console.log(JSON.stringify(product));
+        //console.log(JSON.stringify(product));
         $http.post('api/addProductToCart',
             {
                 "product": product
@@ -64,7 +64,7 @@ customerApp.controller("FarmerReviewController", ["$scope", "$http", "$location"
 
     //alert("reviewing farmer" + fid);
     $http.get('api/getFarmerReviews', {params: {farmerid: fid}}).then(function (result) {
-        console.log(result.data);
+        //console.log(result.data);
         $scope.farmername = result.data.farmername;
         $scope.farmerReviews = result.data.reviews;
         //$location.path('/');
@@ -76,7 +76,7 @@ customerApp.controller("FarmerReviewController", ["$scope", "$http", "$location"
         rstars = rstars;
         rbody = rbody;
         rauthor = rauthor;
-        console.log(rstars + rbody + rauthor);
+        //console.log(rstars + rbody + rauthor);
         $http.post('api/addFarmerReview', {
             params: {
                 farmerid: fid,
@@ -111,7 +111,7 @@ customerApp.controller("ParentController", ["$scope", "$http", "$location", func
 
     //To fetch the categories and display on LHS
     $http.get('api/getHomeCategories').then(function (result) {
-        console.log(result.data);
+        //console.log(result.data);
         $scope.categories = result.data;
         //$location.path('/');
     });
@@ -119,12 +119,12 @@ customerApp.controller("ParentController", ["$scope", "$http", "$location", func
 
     $scope.searchByCategory = function (category) {
         console.log("inside searchByCategory " + category);
-        
+
         $http.post('api/getSearchResults',
-         {
-         "searchItem" : category
-         }).then(function (result) {
-         //$scope.searchResults = result.data;
+            {
+                "searchItem": category
+            }).then(function (result) {
+            //$scope.searchResults = result.data;
 
             var data = result.data;
             $scope.searchResults = data;
@@ -135,13 +135,13 @@ customerApp.controller("ParentController", ["$scope", "$http", "$location", func
             $scope.currentPage = 1;
             $scope.itemsPerPage = $scope.viewby;
 
-         $location.path('/searchResults');
-         });
+            $location.path('/searchResults');
+        });
     };
 
     $scope.search = function () {
         console.log("inside search " + $scope.searchItem);
-        $http.get('api/getSearchResults', {params:{data:$scope.searchItem}}).then(function (result) {
+        $http.get('api/getSearchResults', {params: {data: $scope.searchItem}}).then(function (result) {
             //$scope.searchResults = result.data;
 
             //For Pagination to Work
@@ -151,7 +151,7 @@ customerApp.controller("ParentController", ["$scope", "$http", "$location", func
             $scope.totalItems = data.length;
             $scope.currentPage = 1;
             $scope.itemsPerPage = $scope.viewby;
-            searchRes=data;
+            searchRes = data;
 
             $location.path('/searchResults');
         });
@@ -160,7 +160,7 @@ customerApp.controller("ParentController", ["$scope", "$http", "$location", func
 
     $scope.addToCart = function (product) {
         // console.log("Adding product : "+product+" to cart");
-        console.log(JSON.stringify(product));
+        //console.log(JSON.stringify(product));
         $http.post('api/addProductToCart',
             {
                 "product": product
@@ -182,7 +182,7 @@ customerApp.controller("CustomerProfileController", ["$scope", "$http", "$locati
 
 
     $scope.updateProfile = function () {
-        console.log("Firstname : " + $scope.customerDetails.city);
+        //console.log("Firstname : " + $scope.customerDetails.city);
         $http.put('api/updateUserProfile',
             {
                 "firstname": $scope.customerDetails.firstname,
@@ -208,16 +208,16 @@ customerApp.controller("CustomerHomeController", ["$scope", "$http", "$location"
     console.log("inside CustomerHomeController");
 
     $http.get('api/getHomeCategories').then(function (result) {
-        console.log(result.data);
+        //console.log(result.data);
         $scope.categories = result.data;
         //$location.path('/');
     });
 
     $scope.searchByCategory = function (category) {
         console.log("inside searchByCategory " + category);
-        $http.get('api/getSearchResults', {params:{data:category}}).then(function (result) {
+        $http.get('api/getSearchResults', {params: {data: category}}).then(function (result) {
             //$scope.searchResults = result.data;
-            console.log(JSON.stringify(result));
+            //console.log(JSON.stringify(result));
 
             var data = result.data;
             searchRes = data;
@@ -278,7 +278,7 @@ customerApp.controller("CustomerCartController", ["$scope", "$http", "$location"
         $scope.cartTotal = result.data.cartTotal;
         $scope.cartid = result.data.cartid;
         $scope.showCheckoutBtn = true;
-        
+
         //window.location.assign("/cartDetails");
 
     });
@@ -295,19 +295,18 @@ customerApp.controller("CustomerCartController", ["$scope", "$http", "$location"
         });
     };
 
-
-    $scope.checkout = function (){
+    $scope.checkout = function () {
         $scope.showCheckoutBtn = false;
         $scope.showOrderPlaced = true;
     };
 
-/** Datepicker for deliverydate starts**/
-    $scope.today = function() {
+    /** Datepicker for deliverydate starts**/
+    $scope.today = function () {
         $scope.dt = new Date();
     };
     $scope.today();
 
-    $scope.clear = function() {
+    $scope.clear = function () {
         $scope.dt = null;
     };
 
@@ -332,11 +331,11 @@ customerApp.controller("CustomerCartController", ["$scope", "$http", "$location"
     }
 
 
-    $scope.open2 = function() {
+    $scope.open2 = function () {
         $scope.popup2.opened = true;
     };
 
-    $scope.setDate = function(year, month, day) {
+    $scope.setDate = function (year, month, day) {
         $scope.dt = new Date(year, month, day);
     };
 
@@ -371,29 +370,29 @@ customerApp.controller("CustomerCartController", ["$scope", "$http", "$location"
         var date = data.date,
             mode = data.mode;
         if (mode === 'day') {
-            var dayToCheck = new Date(date).setHours(0,0,0,0);
+            var dayToCheck = new Date(date).setHours(0, 0, 0, 0);
 
             for (var i = 0; i < $scope.events.length; i++) {
-                var currentDay = new Date($scope.events[i].date).setHours(0,0,0,0);
+                var currentDay = new Date($scope.events[i].date).setHours(0, 0, 0, 0);
 
                 if (dayToCheck === currentDay) {
                     return $scope.events[i].status;
                 }
             }
         }
-
         return '';
     }
-/** Datepicker for deliverydate ends**/
 
-    $scope.generateBill = function (cartItems){
-        console.log("inside deliveryDate : "+$scope.dt);
+    /** Datepicker for deliverydate ends**/
+
+    $scope.generateBill = function (cartItems) {
+        console.log("inside deliveryDate : " + $scope.dt);
         $http.post('/api/checkout',
             {
-                "cartItems" : cartItems,
-                "deliveryDate" : $scope.dt,
-                "cartTotal" : $scope.cartTotal,
-                "cartid" : $scope.cartid
+                "cartItems": cartItems,
+                "deliveryDate": $scope.dt,
+                "cartTotal": $scope.cartTotal,
+                "cartid": $scope.cartid
             }).then(function (data) {
             $location.path('/checkoutPage');
         });
@@ -409,6 +408,7 @@ customerApp.controller("CustomerViewProductController", ["$scope", "$http", "$lo
         //alert("in here");
         if (result.data != "Failure") {
             //alert(result);
+            $scope.productimage = result.data.productimage;
             $scope.productname = result.data.productname;
             $scope.productprice = result.data.productprice;
             $scope.description = result.data.description;
@@ -445,6 +445,7 @@ customerApp.controller("CustomerViewProductController", ["$scope", "$http", "$lo
                     //console.log(JSON.stringify(result));
                     if (result.data != "Failure") {
                         //alert(result);
+                        $scope.productimage = result.data.productimage;
                         $scope.productname = result.data.productname;
                         $scope.productprice = result.data.productprice;
                         $scope.description = result.data.description;

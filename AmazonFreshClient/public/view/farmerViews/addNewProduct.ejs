@@ -22,14 +22,22 @@
             <input type="text" class="form-control" id="description" ng-model="form.description" required>
         </div>
         <div class="form-group">
-            <label>Image</label>
-            <input type="file" class="form-control" id="image" ng-model="form.image">
+            <label>Product Image</label>
+            <input
+                    type="file"
+                    ngf-select
+                    ng-model="file"
+                    ngf-pattern="image/*,audio/*,video/*"
+                    ngf-max-size="200MB"
+            />
+            <button class="btn btn-default" ng-click="upload()">Upload</button>
+        </div>
+        <div ng-hide="true" class="form-group">
+            <input type="text" class="form-control" id="filepath" ng-model="form.filepath"/>
+
         </div>
 
         <button type="submit" class="btn btn-success" ng-click="addProduct()">Submit</button>
     </form>
-
-
     <br><br>
-
 </div>

@@ -1,44 +1,45 @@
 <div style="margin: 0 auto;  width: 20%" class="table-responsive" id="viewProfile">
     <h2>Your Information</h2><br>
-    <table class="table" style ="border-style: none">
-    <tr>
-        <td><b>Farmer ID/SSN </b></td>
-        <td>{{farmerid}}</td>
-    </tr>
-    <tr>
-        <td><b>Firstname</b></td>
-        <td>{{firstname}}</td>
-    </tr>
-    <tr>
-        <td><b>Lastname </b></td>
-        <td>{{lastname}}</td>
-    </tr>
-    <tr>
-        <td><b>Address</b></td>
-        <td>{{address}}</td>
-    </tr>
-    <tr>
-        <td><b>City</b></td>
-        <td>{{city}}</td>
-    </tr>
-    <tr>
-        <td><b>State</b></td>
-        <td>{{state}}</td>
-    </tr>
-    <tr>
-        <td><b>Zipcode</b></td>
-        <td>{{zipcode}}</td>
-    </tr>
-    <tr>
-        <td><b>Phone Number</b></td>
-        <td>{{phonenumber}}</td>
-    </tr>
-    <tr>
-        <td><b>email</b></td>
-        <td>{{email}}</td>
-    </tr>
+    <table class="table" style="border-style: none">
+        <tr>
+            <td><b>Farmer ID/SSN </b></td>
+            <td>{{farmerid}}</td>
+        </tr>
+        <tr>
+            <td><b>Firstname</b></td>
+            <td>{{firstname}}</td>
+        </tr>
+        <tr>
+            <td><b>Lastname </b></td>
+            <td>{{lastname}}</td>
+        </tr>
+        <tr>
+            <td><b>Address</b></td>
+            <td>{{address}}</td>
+        </tr>
+        <tr>
+            <td><b>City</b></td>
+            <td>{{city}}</td>
+        </tr>
+        <tr>
+            <td><b>State</b></td>
+            <td>{{state}}</td>
+        </tr>
+        <tr>
+            <td><b>Zipcode</b></td>
+            <td>{{zipcode}}</td>
+        </tr>
+        <tr>
+            <td><b>Phone Number</b></td>
+            <td>{{phonenumber}}</td>
+        </tr>
+        <tr>
+            <td><b>email</b></td>
+            <td>{{email}}</td>
+        </tr>
     </table>
     <button type="submit" style="align-content: center" class="btn btn-info" ng-click="updateProfile()">Update Profile</button>
+    <button type="submit" style="align-content: center" class="btn btn-info" ng-click="viewImages()">View Photos & Videos</button>
 </div>
 
 <div style="margin: 0 auto;  width: 50%" id="editProfile">
@@ -49,12 +50,12 @@
         </div>
         <div class="form-group">
             <label>First Name</label>
-            <input type="text" class="form-control" id="editFirstname" ng-model="editProfileForm.editFirstname" ng-model-options="{ updateOn: 'blur' }" required>
-        <span style="color:red" ng-show="editProfileForm.editFirstname.$dirty && editProfileForm.editFirstname.$invalid">
-            <span ng-show="editProfileForm.editFirstname.$error.required">Username is required.</span>
-        </span>
-
-
+            <input type="text" class="form-control" id="editFirstname" ng-model="editProfileForm.editFirstname"
+                   ng-model-options="{ updateOn: 'blur' }" required>
+            <span style="color:red"
+                  ng-show="editProfileForm.editFirstname.$dirty && editProfileForm.editFirstname.$invalid">
+                <span ng-show="editProfileForm.editFirstname.$error.required">Username is required.</span>
+            </span>
         </div>
         <div class="form-group">
             <label>Last Name</label>
@@ -74,11 +75,13 @@
         </div>
         <div class="form-group">
             <label>Zipcode</label>
-            <input type="text" class="form-control" id="editZipcode" ng-model="editProfileForm.editZipcode" ng-pattern="/^(\d{5}-\d{4}|\d{5})$/" required>
+            <input type="text" class="form-control" id="editZipcode" ng-model="editProfileForm.editZipcode"
+                   ng-pattern="/^(\d{5}-\d{4}|\d{5})$/" required>
         </div>
         <div class="form-group">
             <label>Phone</label>
-            <input type="text" class="form-control" id="editPhonenumber" ng-model="editProfileForm.editPhonenumber" required>
+            <input type="text" class="form-control" id="editPhonenumber" ng-model="editProfileForm.editPhonenumber"
+                   required>
         </div>
         <div class="form-group">
             <label>Phone</label>
@@ -86,13 +89,44 @@
         </div>
         <div class="form-group">
             <label>Password</label>
-            <input type="password" class="form-control" id="editPassword" ng-model="editProfileForm.editPassword" required>
+            <input type="password" class="form-control" id="editPassword" ng-model="editProfileForm.editPassword"
+                   required>
+        </div>
+        <div class="form-group">
+            <label>Image</label>
+            <input
+                    type="file"
+                    ngf-select
+                    ng-model="file"
+                    ngf-pattern="image/*,audio/*,video/*"
+                    ngf-max-size="200MB"
+                    value=""
+            />
+            <button class="btn btn-default" ng-click="uploadImage()">Upload Image</button>
         </div>
 
+        <div ng-hide="true" class="form-group">
+            <input type="text" class="form-control" id="imagefilepath" ng-model="editProfileForm.imagefilepath"/>
+        </div>
+
+        <div class="form-group">
+            <label>Video</label>
+            <input
+                    type="file"
+                    ngf-select
+                    ng-model="file"
+                    ngf-pattern="image/*,audio/*,video/*"
+                    ngf-max-size="200MB"
+                    value=""
+            />
+            <button class="btn btn-default" ng-click="uploadVideo()">Upload Video</button>
+        </div>
+        <div ng-hide="true" class="form-group">
+            <input type="text" class="form-control" id="videofilepath" ng-model="editProfileForm.videofilepath"/>
+        </div>
 
         <button type="submit" class="btn btn-success" ng-click="editFarmerProfile()">Update</button>
         <button class="btn btn-danger" ng-click="cancel()">Cancel</button>
-
     </form>
 </div>
 
