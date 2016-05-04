@@ -669,10 +669,17 @@ router.get('/getTrucks', function (req, res) {
 
 router.post('/addTruck', function (req, res) {
     var query = "INSERT INTO `truckdetails` (`truckid`, `truckinfo`, `driverid`)" +
+<<<<<<< Updated upstream
         "VALUES ('" + req.body.truckid + "', '" + req.body.truckinfo + "', '" + req.body.driverid + "');";
     connection.query(query, function (err, result) {
         if (err) {
             throw err;
+=======
+        "VALUES ('"+req.body.truckid+"', '"+req.body.truckinfo+"', '"+req.body.driverid+"');";
+    connection.query(query,function(err,result){
+        if(err){
+            res.send({"primary":false});
+>>>>>>> Stashed changes
         }
         else {
             client.multi([["del", "getTrucks"]]).exec(function (err, result) {

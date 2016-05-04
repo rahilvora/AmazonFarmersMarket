@@ -98,7 +98,7 @@ adminApp.controller("ProductController",["$scope","$http","$location",function($
     }
 
 }]);
-
+var currentID;
 adminApp.controller("DriverController",["$scope","$http","$location",function($scope,$http,$location){
     $scope.drivers = [];
 
@@ -131,6 +131,7 @@ adminApp.controller("DriverController",["$scope","$http","$location",function($s
     };
 
     $scope.editDriver = function(p_driverid){
+        currentID = p_driverid;
         $http.get('api/editDriver',{params: {data:p_driverid}},{ cache: true}).then(function(result){
             drivers = result.data;
             $location.path('/driver/edit');
@@ -140,7 +141,9 @@ adminApp.controller("DriverController",["$scope","$http","$location",function($s
     //Put Request
 
     $scope.updateDriver = function(){
+        debugger;
         try{
+            $scope.form.driverid = currentID;
             $http.put('api/updateDriver',$scope.form).then(function(result){
                 $scope.refresh();
                 $location.path('/driver');
@@ -195,10 +198,15 @@ adminApp.controller("TruckController",["$scope","$http","$location",function($sc
     //Post Request
 
     $scope.addTruck = function(){
-        $scope.form.driverid = $scope.selectedValue;
+        //$scope.form.driverid = $scope.selectedValue;
         $http.post('api/addTruck',$scope.form).then(function(result){
-            $scope.refresh();
-            $location.path('/trucks');
+            if(result.data.primary === false){
+                $location.path('/truck/new');
+            }
+            else{
+                $scope.refresh();
+                $location.path('/trucks');
+            }
         });
     };
 

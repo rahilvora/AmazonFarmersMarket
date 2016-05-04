@@ -9,8 +9,8 @@
         <input class="form-control" type="text" required ng-model="form.truckinfo" name ="truckinfo" id="truckinfo" placeholder="Truck Info">
     </div>
     <div class="form-group">
-        <label for="Operation">Select Driver ID</label>
-        <input class="form-control" type="text" required ng-model="form.driverid" name ="driverid" id="driverid" placeholder="Truck Info">
+        <label>Select Driver ID</label>
+        <input class="form-control" type="text" required pattern="[0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9]" ng-model="form.driverid" name ="driverid" id="driverid" placeholder="Truck Info">
     </div>
     <div class="form-group">
         <button type="submit" ng-click="addTruck();" class="btn btn-success">Add Truck</button>
