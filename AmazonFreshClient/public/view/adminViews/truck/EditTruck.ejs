@@ -10,9 +10,10 @@
     </div>
     <div class="form-group">
         <label for="Operation">Select Driver ID</label>
-        <select id="operation" class="form-control" ng-model = "selectedValue" >
-            <option ng-repeat="driver in drivers">{{driver.driverid}} {{driver.firstname}} {{driver.lastname}}</option>
-        </select>
+        <input class="form-control" type="text" required ng-model="form.driverid" name ="driverid" id="driverid" placeholder="Truck Info">
+        <!--<select id="operation" class="form-control" ng-model = "selectedValue" >-->
+            <!--<option ng-repeat="driver in drivers">{{driver.driverid}} {{driver.firstname}} {{driver.lastname}}</option>-->
+        <!--</select>-->
     </div>
     <div class="form-group">
         <button type="submit" ng-click="updateTruck();" class="btn btn-success">Update Truck</button>

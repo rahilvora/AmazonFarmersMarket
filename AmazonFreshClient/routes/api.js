@@ -1,29 +1,30 @@
+/**
+ * Created by rahilvora on 21/04/16.
+ */
 var express = require('express');
 var router = express.Router();
 var multer = require('multer');
+var mq_client = require('../rpc/client');
 var connection = require('../MySQLConfig.js');
 var mongo = require('../MongoConfig.js');
-var logger = require('morgan');
-var passport = require('passport');
-require('./passport')(passport);
+var drivers = [];
 
 var mongoURL = "mongodb://localhost:27017/amazonfresh";
-var productsCollection, farmerreviews;
+var productsCollection;
 
 mongo.connect(mongoURL, function () {
     console.log('Connected to mongo at: ' + mongoURL);
     productsCollection = mongo.collection('productdetails');
-    farmerreviews = mongo.collection('farmerreviews');
 });
 
 var redis = require('redis');
 var jsonify = require('redis-jsonify');
 var client = jsonify(redis.createClient(6379, 'localhost', {no_ready_check: true}));
-client.on('connect', function () {
+client.on('connect', function() {
     console.log('Connected to Redis');
 });
-
 //Connecting to MySQL
+
 connection.connect(function (err) {
     if (err) {
         console.error('error connecting: ' + err.stack);
@@ -55,60 +56,80 @@ var productSchema = new Schema({
 productSchema.plugin(autoIncrement.plugin, {model: 'productdetail', field: 'productid'});
 //var Product = connection.model('Product', productSchema);
 
-
 //Farmer's Requests
-router.get('/getFarmers', function (req, res, next) {
-    client.get("getFarmer", function (err, result) {
-        if (result !== null) {
+
+//Without RabbitMQ and Redis
+//router.get('/getFarmers',function(req,res,next){
+//    var query = "SELECT * FROM `farmerdetails` WHERE flag <> 0";
+//        connection.query(query,function(err,result){
+//            if(err){
+//                throw err;
+//            }
+//            else{
+//                res.send(result);
+//            }
+//        });
+//});
+
+// With Rabbit MQ
+//router.get('/getFarmers',function(req,res,next){
+//    console.log("api");
+//    var msg_payload = {"value":0}
+//    mq_client.make_request("getFarmerQueue",msg_payload,function(err,result){
+//        console.log("here");
+//        if(err){
+//            throw err;
+//        }
+//        else{
+//            res.send(result);
+//        }
+//    });
+//});
+
+//With RabbitMQ and Redis
+
+router.get('/getFarmers',function(req,res,next){
+    client.get("getFarmer",function(err,result){
+        if(result !== null){
             console.log("Sending result from redis");
             res.send(result);
         }
-        else {
-            client.get("getFarmer", function (err, result) {
-                if (result !== null) {
-                    console.log("Sending result from redis");
-                    res.send(result);
+        else{
+            var msg_payload = {"value":0};
+            mq_client.make_request("getFarmerQueue",msg_payload,function(err,result){
+                if(err){
+                    throw err;
                 }
-                else {
-                    var query = "SELECT * FROM `farmerdetails` WHERE flag <> 0";
-                    connection.query(query, function (err, result) {
-                        if (err) {
-                            throw err;
-                        }
-                        else {
-                            console.log("Storing result in redis");
-                            //var todayEnd = new Date().setHours(00, 1, 59, 999);
-                            client.set("getFarmer", JSON.stringify(result), function (err, ans) {
-                                client.expire("getFarmer", 180, function (err, didSetExpire) {
-                                    console.log("Expired");
-                                });
-                                res.send(result);
-                            });
-                        }
-                    })
+                else{
+                    client.set("getFarmer",JSON.stringify(result),function(err,ans){
+                        client.expire("getFarmer", 180, function(err,didSetExpire){
+                            console.log("Expired");
+                        });
+                        res.send(result);
+                    });
                 }
             });
         }
-    })
+    });
 });
 
-router.get('/getAddFarmerRequests', function (req, res, next) {
-
-    client.get("getAddFarmerRequests", function (err, result) {
-        if (result !== null) {
-            console.log("Sending result from redis");
+router.get('/getAddFarmerRequests',function(req,res,next){
+    //res.sendStatus(200);
+    client.get("getAddFarmerRequests",function(err,result){
+        if(result !== null){
+            console.log("Sending result from redis")
             res.send(result);
         }
-        else {
+        else{
             var query = "SELECT * FROM `farmerdetails` WHERE flag = 0";
-            connection.query(query, function (err, result) {
-                if (err) {
+            connection.query(query,function(err,result){
+                if(err){
                     throw err;
                 }
-                else {
+                else{
                     console.log("Storing result in redis");
-                    client.set("getAddFarmerRequests", JSON.stringify(result), function (err, ans) {
-                        client.expire("getAddFarmerRequests", 180, function (err, didSetExpire) {
+                    client.set("getAddFarmerRequests",JSON.stringify(result),function(err,ans){
+                        client.expire("getAddFarmerRequests", 180, function(err,didSetExpire){
                             console.log("Expired");
                         });
                         res.send(result);
@@ -126,8 +147,8 @@ router.put('/addFarmer', function (req, res) {
         if (err) {
             throw err;
         }
-        else {
-            client.multi([["del", "getFarmer"], ["del", "getAddFarmerRequests"]]).exec(function (err, result) {
+        else{
+            client.multi([["del","getFarmer"],["del","getAddFarmerRequests"]]).exec(function(err,result){
                 console.log("Keys deleted forcefully");
                 res.send(200);
             });
@@ -142,8 +163,8 @@ router.delete('/deleteFarmer', function (req, res) {
         if (err) {
             throw err;
         }
-        else {
-            client.multi([["del", "getFarmer"], ["del", "getAddFarmerRequests"]]).exec(function (err, result) {
+        else{
+            client.multi([["del","getFarmer"],["del","getAddFarmerRequests"]]).exec(function(err,result){
                 console.log("Keys deleted forcefully");
                 res.send(200);
             });
@@ -153,9 +174,7 @@ router.delete('/deleteFarmer', function (req, res) {
 
 //Product Requests
 
-router.get('/getProducts', function (req, res, next) {
-    console.log("Show all products approved by the admin");
-
+router.get('/getProducts',function(req,res,next){
     client.get("getProducts", function (err, result) {
         if (result !== null) {
             console.log("Sending product result from redis");
@@ -163,17 +182,22 @@ router.get('/getProducts', function (req, res, next) {
         }
         else {
             productsCollection.find({active: "Y", approved: "Y"}).toArray(function (err, data) {
-                if (data) {
-                    //console.log(data);
-                    res.send(data);
+                if (!err) {
+                    console.log("Storing result in redis");
+                    client.set("getProducts", JSON.stringify(data), function (err, ans) {
+                        client.expire("getProducts", 180, function (err, didSetExpire) {
+                            console.log("Expired");
+                        });
+                        res.send(data);
+                    });
                 }
             });
         }
     });
 });
 
-router.get('/getAddProductRequests', function (req, res, next) {
-    console.log("Show all products to be approved by the admin");
+router.get('/getAddProductRequests',function(req,res,next) {
+
     client.get("getAddProductRequests", function (err, result) {
         if (result !== null) {
             console.log("Sending product result from redis");
@@ -181,84 +205,124 @@ router.get('/getAddProductRequests', function (req, res, next) {
         }
         else {
             productsCollection.find({active: "Y", approved: "N"}).toArray(function (err, data) {
-                if (data) {
-                    //console.log(data);
-                    res.send(data);
+                if (!err) {
+                    console.log("Storing result in redis");
+                    client.set("getAddProductRequests", JSON.stringify(data), function (err, ans) {
+                        client.expire("getAddProductRequests", 180, function (err, didSetExpire) {
+                            console.log("Expired");
+                        });
+                        res.send(data);
+                    });
+                }
+            });
+        }
+    })
+});
+
+router.put('/addProduct', function (req, res) {
+    //Update Query
+    productsCollection.update({"productid":req.body.productid},{$set:{"approved":"Y"}},function(err,result){
+        if(err){
+            throw err;
+        }
+        else{
+            console.log("Added Products");
+            client.multi([["del","getProducts"],["del","getAddProductRequests"]]).exec(function(err,result){
+                console.log("Keys deleted forcefully");
+                res.send(200);
+            });
+        }
+    });
+});
+
+router.delete('/deleteProduct', function (req, res) {
+    //Update Query
+    console.log("Product ID "+req.query.data);
+    productsCollection.update({"productid":Number(req.query.data)},{$set:{"active":"N"}},function(err,result){
+        if(err){
+            throw err;
+        }
+        else{
+            console.log("Added Products");
+            client.multi([["del","getProducts"],["del","getAddProductRequests"]]).exec(function(err,result){
+                console.log("Keys deleted forcefully");
+                res.send(200);
+            });
+        }
+    });
+});
+
+//Customer Requests
+// Without RabbitMQ and Redis
+//router.get('/getCustomers',function(req,res,next){
+//    var query = "SELECT * FROM `customerdetails` WHERE flag <> 0";
+//    connection.query(query,function(err,result){
+//        if(err){
+//            throw err;
+//        }
+//        else{
+//            res.send(result);
+//        }
+//    });
+//});
+
+//With RabbitMQ
+//router.get('/getCustomers',function(req,res,next){
+//    console.log("api");
+//    var msg_payload = {"value":0}
+//    mq_client.make_request("getCustomerQueue",msg_payload,function(err,result){
+//        console.log("here");
+//        if(err){
+//            throw err;
+//        }
+//        else{
+//            res.send(result);
+//        }
+//    });
+//});
+
+//With RabbitMQ and Redis
+router.get('/getCustomers',function(req,res,next){
+    client.get("getCustomers",function(err,result){
+        if(result !== null){
+            console.log("Sending customer result from redis");
+            res.send(result);
+        }
+        else{
+            var msg_payload = {"value":0};
+            mq_client.make_request("getCustomerQueue",msg_payload,function(err,result){
+                if(err){
+                    throw err;
+                }
+                else{
+                    client.set("getCustomers",JSON.stringify(result),function(err,ans){
+                        client.expire("getCustomers", 180, function(err,didSetExpire){
+                            console.log("Expired");
+                        });
+                        res.send(result);
+                    });
                 }
             });
         }
     });
 });
 
-router.put('/addProduct', function (req, res) {
-    console.log(req.body.productid);
-
-    productsCollection.update({productid: req.body.productid}, {$set: {approved: "Y"}},
-        function (err, upd) {
-            if (upd) {
-                console.log("product approved and active flag set to YES");
-                res.send("success");
-            }
-        });
-});
-
-router.delete('/deleteProduct', function (req, res) {
-
-    productsCollection.update({productid: req.body.productid}, {$set: {active: "N"}},
-        function (err, upd) {
-            if (upd) {
-                console.log("product deactivated and set active flag to NO");
-                res.send("success");
-            }
-        });
-});
-
-//Customer Requests
-
-router.get('/getCustomers', function (req, res, next) {
-
-    client.get("getCustomers", function (err, result) {
-        if (result !== null) {
+router.get('/getAddCustomerRequests',function(req,res,next){
+    client.get("getAddCustomerRequests",function(err,result){
+        if(result !== null){
             console.log("Sending customer result from redis");
             res.send(result);
         }
-        else {
-            var query = "SELECT * FROM `customerdetails` WHERE flag <> 0";
-            connection.query(query, function (err, result) {
-                if (err) {
-                    throw err;
-                }
-                else {
-                    console.log("Storing result in redis");
-                    client.set("getCustomers", JSON.stringify(result), function (err, ans) {
-                        client.expire("getCustomers", 180, function (err, didSetExpire) {
-                            console.log("Expired");
-                        });
-                        res.send(result);
-                    });
-                }
-            })
-        }
-    });
-});
-
-router.get('/getAddCustomerRequests', function (req, res, next) {
-
-    client.get("getAddCustomerRequests", function (err, result) {
-        if (result !== null) {
-            console.log("Sending customer result from redis");
-            res.send(result);
-        }
-        else {
+        else{
             var query = "SELECT * FROM `customerdetails` WHERE flag = 0";
-            connection.query(query, function (err, result) {
-                if (err) {
+            connection.query(query,function(err,result){
+                if(err){
                     throw err;
                 }
-                else {
+                else{
                     console.log("Storing result in redis");
-                    client.set("getAddCustomerRequests", JSON.stringify(result), function (err, ans) {
-                        client.expire("getAddCustomerRequests", 180, function (err, didSetExpire) {
+                    client.set("getAddCustomerRequests",JSON.stringify(result),function(err,ans){
+                        client.expire("getAddCustomerRequests", 180, function(err,didSetExpire){
                             console.log("Expired");
                         });
                         res.send(result);
@@ -276,8 +340,8 @@ router.put('/addCustomer', function (req, res) {
         if (err) {
             throw err;
         }
-        else {
-            client.multi([["del", "getCustomers"], ["del", "getAddCustomerRequests"]]).exec(function (err, result) {
+        else{
+            client.multi([["del","getCustomers"],["del","getAddCustomerRequests"]]).exec(function(err,result){
                 console.log("Keys deleted forcefully");
                 res.send(200);
             });
@@ -292,62 +356,91 @@ router.delete('/deleteCustomer', function (req, res) {
         if (err) {
             throw err;
         }
-        else {
-            client.multi([["del", "getCustomers"], ["del", "getAddCustomerRequests"]]).exec(function (err, result) {
+        else{
+            client.multi([["del","getCustomers"],["del","getAddCustomerRequests"]]).exec(function(err,result){
                 console.log("Keys deleted forcefully");
                 res.send(200);
             });
         }
     });
 });
-
 //Drivers Request
-router.get('/getDrivers', function (req, res, next) {
 
-    client.get("getDrivers", function (err, result) {
-        if (result !== null) {
+//WIthoutRabbitMQ and Redis
+//router.get('/getDrivers',function(req,res,next){
+//    var query = "SELECT * FROM `driverdetails`";
+//    connection.query(query,function(err,result){
+//        if(err){
+//            throw err;
+//        }
+//        else{
+//            res.send(result);
+//        }
+//    });
+//});
+
+// With Rabbit MQ
+//router.get('/getDrivers',function(req,res,next){
+//    console.log("api");
+//    var msg_payload = {};
+//    mq_client.make_request("getDriverQueue",msg_payload,function(err,result){
+//        console.log("here");
+//        if(err){
+//            throw err;
+//        }
+//        else{
+//            res.send(result);
+//        }
+//    });
+//});
+//WIth RabbitMQ and Redis
+var existingDrivers;
+router.get('/getDrivers',function(req,res,next){
+    client.get("getDrivers",function(err,result){
+        if(result !== null){
             console.log("Sending driver result from redis");
+            existingDrivers = result;
             res.send(result);
         }
-        else {
-            var query = "SELECT * FROM `driverdetails`";
-            connection.query(query, function (err, result) {
-                if (err) {
+        else{
+            var msg_payload = {};
+            mq_client.make_request("getDriverQueue",msg_payload,function(err,result){
+                if(err){
                     throw err;
                 }
-                else {
-                    console.log("Storing result in redis");
-                    client.set("getDrivers", JSON.stringify(result), function (err, ans) {
-                        client.expire("getDrivers", 180, function (err, didSetExpire) {
+                else{
+                    client.set("getDrivers",JSON.stringify(result),function(err,ans){
+                        client.expire("getDrivers", 180, function(err,didSetExpire){
                             console.log("Expired");
                         });
                         res.send(result);
                     });
                 }
-            })
+            });
         }
     });
 });
 
 router.post('/addDriver', function (req, res) {
     //Add Query
-    var query = "INSERT INTO `driverdetails` " +
-        "(`driverid`, `firstname`, `lastname`, `address`, `city`," +
-        " `state`, `zipcode`, `email`, `phonenumber`) VALUES " +
-        "('" + req.body.driverid + "', '" + req.body.firstname + "', '" + req.body.lastname + "', '" + req.body.address + "', " +
-        "'" + req.body.city + "', '" + req.body.state + "', '" + req.body.zipcode + "', '" + req.body.email + "', '" + req.body.phonenumber + "');";
-    connection.query(query, function (err, result) {
-        if (err) {
-            throw err;
-        }
-        else {
-            client.multi([["del", "getDrivers"]]).exec(function (err, result) {
-                console.log("Keys deleted forcefully");
-                res.send(200);
-            });
-        }
+        var query = "INSERT INTO `driverdetails` " +
+            "(`driverid`, `firstname`, `lastname`, `address`, `city`," +
+            " `state`, `zipcode`, `email`, `phonenumber`) VALUES " +
+            "('" + req.body.driverid + "', '" + req.body.firstname + "', '" + req.body.lastname + "', '" + req.body.address + "', " +
+            "'" + req.body.city + "', '" + req.body.state + "', '" + req.body.zipcode + "', '" + req.body.email + "', '" + req.body.phonenumber + "');";
+        connection.query(query, function (err, result) {
+            if (err) {
+                res.send({"primary":false});
+            }
+            else{
+                client.multi([["del","getDrivers"]]).exec(function(err,result){
+                    console.log("Keys deleted forcefully");
+                    res.send(200);
+                });
+            }
+        });
     });
-});
+
 
 router.get('/editDriver', function (req, res, next) {
     var query = "SELECT * FROM `driverdetails` where driverid = '" + req.query.data + "';";
@@ -355,8 +448,8 @@ router.get('/editDriver', function (req, res, next) {
         if (err) {
             throw err;
         }
-        else {
-            client.multi([["del", "getDrivers"]]).exec(function (err, result) {
+        else{
+            client.multi([["del","getDrivers"]]).exec(function(err,result){
                 console.log("Keys deleted forcefully");
                 res.send(200);
             });
@@ -364,17 +457,19 @@ router.get('/editDriver', function (req, res, next) {
     });
 });
 
-router.put('/updateDriver', function (req, res, next) {
-    var query = "UPDATE `driverdetails` SET `driverid` = '" + req.body.driverid + "', `firstname` = '" + req.body.firstname + "'," +
-        " `lastname` = '" + req.body.lastname + "', `address` = '" + req.body.address + "', `city` = '" + req.body.city + "', `state` = '" + req.body.state + "'," +
-        " `zipcode` = '" + req.body.zipcode + "', `email` = '" + req.body.email + "', `phonenumber` = '" + req.body.phonenumber + "'" +
-        " WHERE `driverdetails`.`driverid` = '" + req.body.CurrentDriverId + "';"
-    connection.query(query, function (err, result) {
-        if (err) {
+router.put('/updateDriver',function(req,res,next){
+    var query = "UPDATE `driverdetails` SET `firstname` = '"+req.body.firstname+"'," +
+        " `lastname` = '"+req.body.lastname+"', `address` = '"+req.body.address+"', `city` = '"+req.body.city+"', `state` = '"+req.body.state+"'," +
+        " `zipcode` = '"+req.body.zipcode+"', `email` = '"+req.body.email+"', `phonenumber` = '"+req.body.phonenumber+"'" +
+        " WHERE `driverdetails`.`driverid` = '"+req.body.driverid+"';";
+    connection.query(query,function(err,result){
+        if(err){
             throw err;
+            //res.send({"primary":false});
         }
-        else {
-            client.multi([["del", "getDrivers"]]).exec(function (err, result) {
+        else{
+            console.log("Updated SUccessgular");
+            client.multi([["del","getDrivers"]]).exec(function(err,result){
                 console.log("Keys deleted forcefully");
                 res.send(200);
             });
@@ -382,14 +477,14 @@ router.put('/updateDriver', function (req, res, next) {
     });
 });
 
-router.delete('/deleteDriver', function (req, res, next) {
-    var query = "DELETE FROM driverdetails where driverid = '" + req.query.data + "'";
-    connection.query(query, function (err, result) {
-        if (err) {
+router.delete('/deleteDriver',function(req,res,next){
+    var query = "DELETE FROM driverdetails where driverid = '" +req.query.data+ "'";
+    connection.query(query,function(err,result){
+        if(err){
             throw err;
         }
-        else {
-            client.multi([["del", "getDrivers"]]).exec(function (err, result) {
+        else{
+            client.multi([["del","getDrivers"]]).exec(function(err,result){
                 console.log("Keys deleted forcefully");
                 res.send(200);
             });
@@ -397,85 +492,185 @@ router.delete('/deleteDriver', function (req, res, next) {
     });
 });
 //Bill Requests
+//Without RabbitMQ and Redis
 
-router.get('/getBills', function (req, res) {
+//router.get('/getBills',function(req,res,next){
+//    var query = "SELECT * FROM `billdetails`";
+//        connection.query(query,function(err,result){
+//            if(err){
+//                throw err;
+//            }
+//            else{
+//                res.send(result);
+//            }
+//        });
+//});
 
-    client.get("getBills", function (err, result) {
-        if (result !== null) {
+// With Rabbit MQ
+//router.get('/getBills',function(req,res,next){
+//    console.log("api");
+//    var msg_payload = {};
+//    mq_client.make_request("getBillQueue",msg_payload,function(err,result){
+//        console.log("here");
+//        if(err){
+//            throw err;
+//        }
+//        else{
+//            res.send(result);
+//        }
+//    });
+//});
+//WithRabbitMQ and Redis
+
+router.get('/getBills',function(req,res){
+    client.get("getBills",function(err,result){
+        if(result !== null){
             console.log("Sending bills result from redis");
             res.send(result);
         }
-        else {
-            var query = "SELECT * FROM `billdetails`";
-            connection.query(query, function (err, result) {
-                if (err) {
+        else{
+            var msg_payload = {};
+            mq_client.make_request("getBillQueue",msg_payload,function(err,result){
+                if(err){
                     throw err;
                 }
-                else {
+                else{
                     console.log("Storing result in redis");
-                    client.set("getBills", JSON.stringify(result), function (err, ans) {
-                        client.expire("getBills", 180, function (err, didSetExpire) {
+                    client.set("getBills",JSON.stringify(result),function(err,ans){
+                        client.expire("getBills", 180, function(err,didSetExpire){
                             console.log("Expired");
                         });
                         res.send(result);
                     });
                 }
-            })
+            });
         }
     });
 });
 
 //Trip Requests
+//Without RabbitMQ and Redis
 
-router.get('/getTrips', function (req, res) {
-    var query = "SELECT * FROM tripdetails";
-    connection.query(query, function (err, result) {
-        if (err) {
-            throw err;
-        }
-        else {
+//router.get('/getTrips',function(req,res,next){
+//    var query = "SELECT * FROM tripdetails";
+//        connection.query(query,function(err,result){
+//            if(err){
+//                throw err;
+//            }
+//            else{
+//                res.send(result);
+//            }
+//        });
+//});
+
+// With Rabbit MQ
+//router.get('/getTrips',function(req,res,next){
+//    console.log("api");
+//    var msg_payload = {};
+//    mq_client.make_request("getTripQueue",msg_payload,function(err,result){
+//        console.log("here");
+//        if(err){
+//            throw err;
+//        }
+//        else{
+//            res.send(result);
+//        }
+//    });
+//});
+
+//With RabbitMQ and Redis
+router.get('/getTrips',function(req,res){
+    client.get("getTrips",function(err,result){
+        if(result !== null){
+            console.log("Sending trips result from redis");
             res.send(result);
         }
-    });
-});
-//Truck Requests
-
-router.get('/getTrucks', function (req, res) {
-
-    client.get("getTrucks", function (err, result) {
-        if (result !== null) {
-            console.log("Sending truck result from redis");
-            res.send(result);
-        }
-        else {
-            var query = "SELECT * FROM truckdetails";
-            connection.query(query, function (err, result) {
-                if (err) {
+        else{
+            var msg_payload = {};
+            mq_client.make_request("getTripQueue",msg_payload,function(err,result){
+                if(err){
                     throw err;
                 }
-                else {
+                else{
                     console.log("Storing result in redis");
-                    client.set("getTrucks", JSON.stringify(result), function (err, ans) {
-                        client.expire("getTrucks", 180, function (err, didSetExpire) {
+                    client.set("getTrips",JSON.stringify(result),function(err,ans){
+                        client.expire("getTrips", 180, function(err,didSetExpire){
                             console.log("Expired");
                         });
                         res.send(result);
                     });
                 }
-            })
-        }
-    });
+            });
+    }});
 });
 
-router.post('/addTruck', function (req, res) {
+
+//Truck Requests
+
+//Without RabbitMQ and Redis
+//router.get('/getTrucks',function(req,res,next){
+//    var query = "SELECT * FROM truckdetails";
+//        connection.query(query,function(err,result){
+//            if(err){
+//                throw err;
+//            }
+//            else{
+//                res.send(result);
+//            }
+//        });
+//});
+
+// With Rabbit MQ
+//router.get('/getTrucks',function(req,res,next){
+//    console.log("api");
+//    var msg_payload = {};
+//    mq_client.make_request("getTruckQueue",msg_payload,function(err,result){
+//        console.log("here");
+//        if(err){
+//            throw err;
+//        }
+//        else{
+//            res.send(result);
+//        }
+//    });
+//});
+
+////With RabbitMQ and Redis
+router.get('/getTrucks',function(req,res){
+    client.get("getTrucks",function(err,result){
+        if(result !== null){
+            console.log("Sending trucks result from redis");
+            res.send(result);
+        }
+        else{
+            var msg_payload = {};
+            mq_client.make_request("getTruckQueue",msg_payload,function(err,result){
+                if(err){
+                    throw err;
+                }
+                else{
+                    console.log("Storing result in redis");
+                    client.set("getTrucks",JSON.stringify(result),function(err,ans){
+                        client.expire("getTrucks", 180, function(err,didSetExpire){
+                            console.log("Expired");
+                        });
+                        res.send(result);
+                    });
+                }
+            });
+        }});
+});
+
+
+router.post('/addTruck',function(req,res){
     var query = "INSERT INTO `truckdetails` (`truckid`, `truckinfo`, `driverid`)" +
-        "VALUES ('" + req.body.truckid + "', '" + req.body.truckinfo + "', '" + req.body.driverid + "');";
-    connection.query(query, function (err, result) {
-        if (err) {
+        "VALUES ('"+req.body.truckid+"', '"+req.body.truckinfo+"', '"+req.body.driverid+"');";
+    connection.query(query,function(err,result){
+        if(err){
             throw err;
         }
-        else {
-            client.multi([["del", "getTrucks"]]).exec(function (err, result) {
+        else{
+            client.multi([["del","getTrucks"]]).exec(function(err,result){
                 console.log("Keys deleted forcefully");
                 res.send(200);
             });
@@ -484,28 +679,28 @@ router.post('/addTruck', function (req, res) {
     });
 });
 
-router.get('/editTruck', function (req, res) {
-    var query = "SELECT * from `truckdetails` where truckid = '" + req.query.data + "';";
-    connection.query(query, function (err, result) {
-        if (err) {
+router.get('/editTruck',function(req,res){
+    var query = "SELECT * from `truckdetails` where truckid = '"+req.query.data+"';" ;
+    connection.query(query,function(err,result){
+        if(err){
             throw err;
         }
-        else {
+        else{
             res.send(result);
         }
     });
 });
 
-router.put('/updateTruck', function (req, res) {
+router.put('/updateTruck',function(req,res){
 
-    var query = "UPDATE `truckdetails` SET `truckid` = '" + req.body.truckid + "', `truckinfo` = '" + req.body.truckinfo + "'," +
+    var query = "UPDATE `truckdetails` SET `truckid` = '" + req.body.truckid + "', `truckinfo` = '"+ req.body.truckinfo+"'," +
         " `driverid` = '" + req.body.driverid + "' WHERE `truckdetails`.`truckid` = " + req.body.CurrentTruckId + ";";
-    connection.query(query, function (err, result) {
-        if (err) {
+    connection.query(query,function(err,result){
+        if(err){
             throw err;
         }
-        else {
-            client.multi([["del", "getTrucks"]]).exec(function (err, result) {
+        else{
+            client.multi([["del","getTrucks"]]).exec(function(err,result){
                 console.log("Keys deleted forcefully");
                 res.send(200);
             });
@@ -519,8 +714,8 @@ router.delete('/deleteTruck', function (req, res) {
         if (err) {
             throw err;
         }
-        else {
-            client.multi([["del", "getTrucks"]]).exec(function (err, result) {
+        else{
+            client.multi([["del","getTrucks"]]).exec(function(err,result){
                 console.log("Keys deleted forcefully");
                 res.send(200);
             });
@@ -528,82 +723,97 @@ router.delete('/deleteTruck', function (req, res) {
     });
 });
 
-router.get('/getRevenue', function (req, res) {
+router.get('/getRevenue',function(req,res){
     var date = req.query.data.split("T")[0];
-    var query = "Select SUM(total) as total from billdetails where billdate LIKE '" + date + "%'";
-    connection.query(query, function (err, result) {
-        if (err) {
+    console.log("date is " + date);
+    var query = "Select SUM(total) as total from billdetails where billdate LIKE '" +date+ "%'";
+    connection.query(query,function(err,result){
+        if(err){
             throw err;
         }
-        else {
+        else{
             res.send(result);
         }
     });
 });
 
-router.get('/revenuePerDay', function (req, res) {
-    var query = "SELECT tripdetails.dropoffzip,AVG(billdetails.total) AS revenuePerDay FROM tripdetails " +
-        "INNER JOIN billdetails " +
-        "ON tripdetails.billid2=billdetails.billid " +
-        "GROUP BY dropoffzip";
-    connection.query(query, function (err, result) {
-        if (err) {
+//router.get('/getTrips',function(req,res){
+//    var data = req.query.data;
+//    console.log(typeof data);
+//    res.send(200);
+//    //var query = "Select SUM(total) as total from billdetails where billdate LIKE '" +date+ "%'";
+//    //connection.query(query,function(err,result){
+//    //    if(err){
+//    //        throw err;
+//    //    }
+//    //    else{
+//    //        res.send(result);
+//    //    }
+//    //});
+//});
+
+router.get('/revenuePerDay',function(req,res){
+    var query = "SELECT tripdetails.dropoffcity,AVG(billdetails.total) AS revenuePerDay FROM tripdetails "+
+        "INNER JOIN billdetails "+
+        "ON tripdetails.billid1=billdetails.billid "+
+        "GROUP BY dropoffcity";
+    connection.query(query,function(err,result){
+        if(err){
             throw err;
         }
-        else {
+        else{
             res.send(result);
         }
     });
 });
 
-router.get('/totalDelivery', function (req, res) {
-    var query = "SELECT dropoffzip,COUNT(tripid) AS total from tripdetails GROUP BY dropoffzip";
-    connection.query(query, function (err, result) {
-        if (err) {
+router.get('/totalDelivery',function(req,res){
+    var query = "SELECT dropoffcity,COUNT(tripid) AS total from tripdetails GROUP BY dropoffcity";
+    connection.query(query,function(err,result){
+        if(err){
             throw err;
         }
-        else {
-            //console.log(result);
-            //console.log(result[0].productname);
-            //console.log(JSON.stringify(result));
+        else{
+          //  console.log(result);
+           // console.log(result[0].productname);
+           // console.log(JSON.stringify(result));
             res.send(result);
         }
     });
 });
 
-router.get('/pick-dropLocation', function (req, res) {
-    var query = "SELECT pickuploc,dropoffloc FROM tripdetails";
-    connection.query(query, function (err, result) {
-        if (err) {
+router.get('/pick-dropLocation',function(req,res){
+    var query = "SELECT pickupcity,dropoffcity FROM tripdetails";
+    connection.query(query,function(err,result){
+        if(err){
             throw err;
         }
-        else {
+        else{
             res.send(result);
         }
     });
 });
 
-router.get('/ridesPerDriver', function (req, res) {
+router.get('/ridesPerDriver',function(req,res){
     //res.send(200);
-    var query = "SELECT driverid2, COUNT(*) as trips FROM `tripdetails` GROUP BY driverid2";
-    connection.query(query, function (err, result) {
-        if (err) {
+    var query = "SELECT driverid1, COUNT(*) as trips FROM `tripdetails` GROUP BY driverid1";
+    connection.query(query,function(err,result){
+        if(err){
             throw err;
         }
-        else {
+        else{
             res.send(result);
         }
     });
 });
-
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, './public/uploads/');
     },
     filename: function (req, file, cb) {
         var datetimestamp = Date.now();
-        console.log("FIle Object :" + file);
-        cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length - 1]);
+       // console.log("FIle Object :"+file);
+        cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1]);
     }
 });
 
@@ -611,34 +821,42 @@ var upload = multer({
     storage: storage
 }).single('file');
 
-router.post('/upload', function (req, res) {
-    upload(req, res, function (err) {
+router.post('/upload',function(req,res){
+
+
+    upload(req,res,function(err){
         console.log("here");
-        if (err) {
-            res.json({error_code: 1, err_desc: err});
+        if(err){
+            res.json({error_code:1,err_desc:err});
         }
-        console.log(storage.getFilename);
-        res.json({error_code: 0, err_desc: null});
+      //  console.log(storage.getFilename);
+        res.json({error_code:0,err_desc:null});
     });
+
+    //console.log(req);
+    //res.send(200);
 });
 
 
-router.get('/getFarmerProducts', function (req, res, next) {
+router.get('/getFarmerProducts',function(req,res,next){
     console.log("fetching farmers products");
-    productsCollection.find({farmerid: req.session.farmerid, active: "Y"}).toArray(function (err, data) {
+    productsCollection.find({farmerid: "111-11-1111", active: "Y"}).toArray(function (err, data) {
         if (data) {
             //console.log(data);
             res.send(data);
         }
     });
+
 });
 
-router.post('/createProduct', function (req, res, next) {
+
+
+router.post('/createProduct',function(req,res,next){
 
     console.log("in create prod");
     var document = {
-        farmerid: req.session.farmerid, //fethed from session
-        farmername: req.session.farmername, //fetched from session
+        farmerid: "111-11-1111",
+        //productid: "",
         productname: req.body.productname,
         productprice: req.body.price,
         description: req.body.description,
@@ -649,9 +867,9 @@ router.post('/createProduct', function (req, res, next) {
         productreviews: [],
         productrating: ""
     };
-
     var productdetail = mongoseconnection.model('productdetail', productSchema);
     productdetail.nextCount(function (err, count) {
+
 
         var product = new productdetail(document);
         product.save(function (doc) {
@@ -667,16 +885,17 @@ router.post('/createProduct', function (req, res, next) {
             });
         });
     });
+
 });
 
-router.get('/getFarmerProfile', function (req, res, next) {
+router.get('/getFarmerProfile',function(req,res,next){
     console.log("fetching farmers profile info");
-    var query = "select * from farmerdetails where farmerid=" + req.session.farmerid + ";";
-    connection.query(query, function (err, result) {
-        if (err) {
+    var query = "select * from farmerdetails where farmerid='111-11-1111';";
+    connection.query(query,function(err,result){
+        if(err){
             throw err;
         }
-        else {
+        else{
             res.send(result);
         }
     })
@@ -711,7 +930,7 @@ router.put('/deactivateProduct', function (req, res, next) {
         });
 });
 
-router.post('/updateProduct', function (req, res, next) {
+router.post('/updateProduct',function(req,res,next){
     console.log("edit product");
     //  console.log(req.body.productname + req.body.productprice + req.body.productdescription + req.body.productid);
     productsCollection.update({productid: req.body.productid}, {
@@ -729,10 +948,10 @@ router.post('/updateProduct', function (req, res, next) {
         });
 });
 
-router.put('/editFarmerProfile', function (req, res, next) {
+router.put('/editFarmerProfile',function(req,res,next){
     console.log("edit farmer profile");
 
-    // console.log(req.body.editCity);
+    //console.log(req.body.editFirstname);
 
     var query = "UPDATE farmerdetails SET firstname='" + req.body.editFirstname + "', lastname='" + req.body.editLastname + "', email='" + req.body.editEmail + "',address='" + req.body.editAddress + "',city='" + req.body.editCity + "', state='" + req.body.editState + "', zipcode='" + req.body.editZipcode + "',password='" + req.body.editPassword + "', phonenumber='" + req.body.editPhonenumber + "' where farmerid='" + req.body.editFarmerID + "'";
     connection.query(query, function (err, result) {
@@ -747,121 +966,94 @@ router.put('/editFarmerProfile', function (req, res, next) {
 });
 
 router.post('/checkCustomerLogin', function (req, res, next) {
-    console.log("in checkCustomerLogin api");
-    console.log(req.body);
-    var user = req.body;
-    passport.authenticate('checkCustomerLogin', function (err, user, info) {
-        console.log("user " + user.firstname);
-        console.log("info " + info);
+    console.log("In checkCustomerLogin function");
+    var password, email;
+    password = req.body.password;
+    //password = crypto.createHash("sha1").update(password).digest("HEX");
+    email = req.body.email;
+
+    var json_responses;
+
+    var getUser = "select * from customerdetails where email='" + email + "' and password='" + password + "' and flag=1";
+    console.log("Query for Login is:" + getUser);
+
+
+    connection.query(getUser, function (err, results) {
         if (err) {
-            return next(err);
+            throw err;
         }
-
-        if (!user) {
-            console.log("In else part of customer login");
-            json_responses = {"statusCode": "invalidLogin"};
-            res.send(json_responses);
-        }
-
-        req.logIn(user, {session: false}, function (err) {
-            if (err) {
-                return next(err);
-            }
-
-            req.session.username = user.username;
-            req.session.customerid = user.customerid;
-
-            var rows = user;
-            var jsonString = JSON.stringify(user);
+        else if (results.length > 0) {
+            var rows = results;
+            var jsonString = JSON.stringify(results);
             var jsonParse = JSON.parse(jsonString);
-
-            req.session.username = rows.customerid;
-            cartid = req.session.username;
-            console.log("Session initialized for '" + req.session.username + "' user");
-            json_responses = {"statusCode": "validLogin"};
+            console.log("Results: "+(rows[0].firstname));
+            console.log("Results: "+(rows[0].customerid));
+            req.session.username = rows[0].customerid;
+             cartid = req.session.username;
+            console.log("Session initialized for '"+req.session.username+"' user");
+            json_responses = {"statusCode" : "validLogin"};
             res.send(json_responses);
+        } else {
+            console.log("In else part of customer login");
+            json_responses = {"statusCode" : "invalidLogin"};
+            res.send(json_responses);
+        }
+    });
 
-            var cartid = req.session.username;
-            mongo.connect(mongoURL, function () {
-                var coll = mongo.collection('carts');
+    mongo.connect(mongoURL, function () {
+        var coll = mongo.collection('carts');
 
-                coll.findOne({cartid: req.session.customerid}, function (err, result) {
-                    coll.findOne({"cartid": cartid}, function (err, result) {
-                        if (result) {
-                            console.log(" collection id present");
+        coll.findOne({cartid: "111-11-1111"}, function(err, result){
+            if (result) {
+                console.log(" collection id present");
 
-                        } else {
-                            coll.insert({cartid: cartid, products: []}, function (err, result) {
-                                if (result) {
-                                    console.log(result);
-                                }
-                                else {
-                                    console.log("returned false");
-                                }
-                            })
-                        }
-                    });
-                });
-            });
+            } else {
+                coll.insert({cartid: cartid, products: []}, function (err, result) {
+                    if (result) {
+                        console.log(result);
+                    }
+                    else {
+                        console.log("returned false");
+                    }
+                })
+            }
+        });
+    });
 
-        })
-    })(req, res, next);
+
 });
-
-router.get('/checkCustomerLogin', isAuthenticated, function (req, res) {
-    console.log("Success login");
-    //res.render('successLogin', {user:{username: req.session.user}});
-});
-
-function isAuthenticated(req, res, next) {
-    if (req.session.user) {
-        return next();
-    }
-}
 
 router.post('/checkFarmerLogin', function (req, res, next) {
-    console.log("in checkFarmerLogin api");
-    console.log(req.body);
-    var user = req.body;
-    passport.authenticate('checkFarmerLogin', function (err, user, info) {
-        console.log("user " + user.firstname);
-        console.log("info " + info);
-        if (err) {
-            return next(err);
-        }
+    var password, email;
+    password = req.body.password;
+    //password = crypto.createHash("sha1").update(password).digest("HEX");
+    email = req.body.email;
 
-        if (!user) {
-            console.log("In else part of farmer login");
+    var json_responses;
+
+    var getUser = "select * from farmerdetails where email='" + email + "' and password='" + password + "' and flag=1";
+    console.log("Query for Login is:" + getUser);
+
+
+    connection.query(getUser, function (err, results) {
+        if (err) {
+            throw err;
+        }
+        else if (results.length > 0) {
+            var rows = results;
+            var jsonString = JSON.stringify(results);
+            var jsonParse = JSON.parse(jsonString);
+            //console.log("Results: " + (rows[0].firstname));
+            //  req.session.username = rows[0].firstname;
+            //console.log("Session initialized for '"+req.session.username+"' user");
+            json_responses = {"statusCode": "validLogin"};
+            res.send(json_responses);
+        } else {
             json_responses = {"statusCode": "invalidLogin"};
             res.send(json_responses);
         }
-
-        req.logIn(user, {session: false}, function (err) {
-            if (err) {
-                return next(err);
-            }
-
-            req.session.farmername = user.firstname + " " + user.lastname;
-            req.session.farmerid = user.farmerid;
-            console.log(req.session.farmername + " " + req.session.farmerid);
-
-            var rows = user;
-            var jsonString = JSON.stringify(user);
-            var jsonParse = JSON.parse(jsonString);
-
-            //req.session.username = rows.customerid;
-            console.log("Session initialized for '" + req.session.username + "' user");
-            json_responses = {"statusCode": "validLogin"};
-            res.send(json_responses);
-        })
-    })(req, res, next);
+    });
 });
-
-router.get('/checkFarmerLogin', isAuthenticated, function (req, res) {
-    console.log("Success login");
-    //res.render('successLogin', {user:{username: req.session.user}});
-});
-
 
 router.get('/getProductInfo', function (req, res, next) {
     console.log("In getProductInfo -> api.js");
@@ -871,19 +1063,6 @@ router.get('/getProductInfo', function (req, res, next) {
     productsCollection.findOne({productid: Number(productId)}, function (err, data) {
         if (data) {
             //console.log(data);
-            res.send(data);
-        }
-    });
-});
-
-router.get('/getFarmerReviews', function (req, res, next) {
-    console.log("In getFarmerReviews -> api.js");
-    var fid = req.query.farmerid;
-    // console.log(req);
-
-    farmerreviews.findOne({farmerid: fid}, function (err, data) {
-        if (data) {
-            console.log(data);
             res.send(data);
         }
     });
@@ -900,6 +1079,8 @@ router.post('/addProductReview', function (req, res, next) {
     //console.log(productId);
     //console.log(reviewDocument);
 
+
+    //tweetsCollection.update({username:req.session.username},{$push:{tweets:{$each:[tDocument],$position:0}}},function(err,tdoc)
     productsCollection.update({productid: productId}, {
         $push: {
             productreviews: {
@@ -915,7 +1096,9 @@ router.post('/addProductReview', function (req, res, next) {
                         var sum = 0, totalRating;
                         var reviews = result.productreviews;
                         for (i = 0; i < reviews.length; i++) {
+
                             sum = sum + Number(reviews[i].stars); // OR Number(reviews[i].starts)
+
                         }
                         totalrating = sum / reviews.length;
                         totalrating = (totalrating * 20) + "%";
@@ -939,52 +1122,6 @@ router.post('/addProductReview', function (req, res, next) {
     });
 });
 
-router.post('/addFarmerReview', function (req, res, next) {
-    console.log("In addFarmerReview -> api.js");
-
-    var farmerId = req.body.params.farmerid;
-    var rstars = req.body.params.rstars;
-    var rbody = req.body.params.rbody;
-    var rname = req.body.params.rname;
-    var reviewDocument = {stars: rstars, body: rbody, name: rname};
-    //console.log(productId);
-    //console.log(reviewDocument);
-
-    farmerreviews.update({farmerid: farmerId}, {
-        $push: {
-            reviews: {
-                $each: [reviewDocument],
-                $position: 0
-            }
-        }
-    }, function (err, data) {
-        if (data) {
-            farmerreviews.findOne({farmerid: farmerId},
-                function (err, result) {
-                    if (result) {
-                        var sum = 0, totalRating;
-                        var reviews = result.reviews;
-                        for (i = 0; i < reviews.length; i++) {
-                            sum = sum + Number(reviews[i].stars); // OR Number(reviews[i].starts)
-                        }
-                        totalrating = sum / reviews.length;
-                        totalrating = (totalrating * 20) + "%";
-                        console.log("totalrating: " + totalrating);
-
-                        farmerreviews.update({farmerid: farmerId}, {$set: {totalrating: totalrating}},
-                            function (err, upd) {
-                                if (upd) {
-                                    res.send("success");
-                                }
-                                else {
-                                    res.send("Failure");
-                                }
-                            });
-                    }
-                });
-        }
-    });
-});
 
 router.post('/createCustomer', function (req, res, next) {
     console.log("Inside createCustomer -> api.js");
@@ -1002,7 +1139,7 @@ router.post('/createCustomer', function (req, res, next) {
     phonenumber = req.body.phonenumber;
     ccnumber = req.body.ccnumber;
     var json_responses;
-    var getUser = "select * from customerdetails where customerid='" + customerid + "' or email='" + email + "'";
+    var getUser = "select * from customerdetails where customerid='" + customerid + "' or email='" + email +"'";
     console.log("getUser-customer query is:" + getUser);
 
     connection.query(getUser, function (err, results) {
@@ -1049,7 +1186,7 @@ router.post('/createFarmer', function (req, res, next) {
     phonenumber = req.body.phonenumber;
     var json_responses;
     //console.log(req);
-    var getUser = "select * from farmerdetails where farmerid='" + farmerid + "' or email='" + email + "'";
+    var getUser = "select * from farmerdetails where farmerid='" + farmerid + "' or email='" + email +"'";
     console.log("getUser-farmer query is:" + getUser);
 
     connection.query(getUser, function (err, results) {
@@ -1079,19 +1216,19 @@ router.post('/createFarmer', function (req, res, next) {
         }
     })
 });
-
 var fakeData = require('../fakeProductData.js');
-router.get('/generateData', function (req, res) {
+router.get('/generateData',function(req,res){
     //var fakedata = data;
-    for (var object in fakeData) {
-        productsCollection.insert(fakeData[object], function (err, result) {
-            if (object == fakeData.length) {
-                res.send(200);
-            }
+    for(var object in fakeData){
+        productsCollection.insert(fakeData[object],function(err,result){
+           if(object == fakeData.length){
+               res.send(200);
+           }
         });
     }
     //res.send(200);
 });
+
 
 router.post('/assigntrip', function (request, response) {
     console.log("assigntrip called");
@@ -1114,12 +1251,12 @@ router.post('/assigntrip', function (request, response) {
                 {address: "2605 The Alameda, Santa Clara, CA 95050", city: "Santa Clara"},
                 {address: "46848 Mission Blvd, Fremont, CA 94539", city: "Fremont"},
                 {address: "2020 Market St, San Francisco, CA 94114", city: "San Francisco"}];
-
             var randomnumber = Math.floor(Math.random() * 6);
             var randomaddress = addresspool[randomnumber];
 
             var addtrip = "INSERT INTO tripdetails (pickuploc, dropoffloc, pickupcity, dropoffcity, tripendflag, driverid1, truckid1, billid1,tripstatus) VALUES ('" + randomaddress.address + "','" + custrows[0].address + "','" + randomaddress.city + "','" + custrows[0].city + "','0','" + resulttruck[truckCtr].driverid + "','" + resulttruck[truckCtr].truckid + "','" + resultbill[billCtr].billid + "', 'In Progress')";
             connection.query(addtrip, function (err, rows) {
+
                 if (err) {
                     throw err;
                 }
@@ -1127,6 +1264,7 @@ router.post('/assigntrip', function (request, response) {
                     console.log("in else loop");
                     var updatebill = "UPDATE billdetails SET tripassigned = 1 WHERE (billid = '" + resultbill[billCtr].billid + "')";
                     connection.query(updatebill, function (err, rows) {
+
                         if (err) throw err;
                         var updatetruck = "UPDATE truckdetails SET truckavailable = 0 WHERE (truckid = '" + resulttruck[truckCtr].truckid + "')";
                         connection.query(updatetruck, function (err, rows) {
@@ -1134,16 +1272,21 @@ router.post('/assigntrip', function (request, response) {
                         });
                     });
                 }
+
             });
         });
     }
 
     var queryunassignedbills = "select * from billdetails where tripassigned = 0";
     connection.query(queryunassignedbills, function (err, resultbill) {
+
         var unassignedtrukquery = "select * from truckdetails where truckavailable = 1";
         connection.query(unassignedtrukquery, function (err, resulttruck) {
+
             for (var billCtr = 0, truckCtr = 0; billCtr < resultbill.length && truckCtr < resulttruck.length; billCtr++, truckCtr++) {
+
                 updateTripDetails(billCtr, truckCtr, resultbill, resulttruck);
+
             }
         });
         response.json({resultbill: resultbill});
@@ -1151,352 +1294,40 @@ router.post('/assigntrip', function (request, response) {
 
 });
 
-router.get('/showmap', function (req, res) {
+router.get('/showmap', function(req,res) {
 
     var tripid = req.query.tripid;
+    console.log('trip id got from url is 111111' + tripid);
 
     var query = "SELECT * From tripdetails where tripid = " + tripid;
-    connection.query(query, function (err, result) {
-        if (err) {
+    connection.query(query,function(err,result){
+        if(err){
             throw err;
         }
-        else {
+        else{
             var pickuploc = result[0].pickuploc;
             var dropoffloc = result[0].dropoffloc;
+            console.log('trip 000000 ' +JSON.stringify(result));
             res.render('adminViews/trip/map', {pickuploc: pickuploc, dropoffloc: dropoffloc});
             var query1 = "UPDATE tripdetails SET tripendflag = '1', tripstatus = 'Completed' WHERE (tripid = '" + tripid + "')";
-            connection.query(query1, function (err, resultnew) {
-                if (err) {
+            connection.query(query1,function(err,resultnew){
+                if(err){
                     throw err;
                 }
-                else {
+                else{
                     var query2 = "UPDATE truckdetails SET truckavailable = '1' WHERE (truckid = '" + result[0].truckid1 + "')";
-                    connection.query(query2, function (err, resultnewnew) {
-                        if (err) {
+                    connection.query(query2,function(err,resultnewnew){
+                        if(err){
                             throw err;
                         }
                     });
                 }
+                console.log('after status....:' + JSON.stringify(result));
             });
         }
     });
+    console.log('trip id got from url is 123456' + query);
 
-});
-
-router.get('/getCustomerDetails', function (req, res, next) {
-    var customerid = req.session.username;
-    var getUser = "select * from customerdetails where customerid='" + customerid + "'";
-
-    connection.query(getUser, function (err, results) {
-        if (err) {
-            throw err;
-        }
-        else {
-            if (results.length > 0) {
-
-                var rows = results;
-                var jsonString = JSON.stringify(results);
-                var jsonParse = JSON.parse(jsonString);
-                var customerid = rows[0].customerid;
-                var firstname = rows[0].firstname;
-                var lastname = rows[0].lastname;
-                var city = rows[0].city;
-                var state = rows[0].state;
-                var zipcode = rows[0].zipcode;
-                var phonenumber = rows[0].phonenumber;
-                var email = rows[0].email;
-                var ccnumber = rows[0].ccnumber;
-                var password = rows[0].password;
-                var address = rows[0].address;
-
-                var json_responses = {
-                    "customerid": customerid,
-                    "firstname": firstname,
-                    "lastname": lastname,
-                    "city": city,
-                    "state": state,
-                    "zipcode": zipcode,
-                    "phonenumber": phonenumber,
-                    "email": email,
-                    "ccnumber": ccnumber,
-                    "password": password,
-                    "address": address
-                };
-                // console.log("get customer profile for " + data.firstname);
-                res.send(json_responses);
-            }
-        }
-    });
-});
-
-/**Function to update user's profile starts**/
-router.put('/updateUserProfile', function (req, res, next) {
-    var json_responses;
-    var updateProfileQuery = "UPDATE customerdetails SET firstname='" + req.body.firstname + "', lastname='" + req.body.lastname + "', email='" + req.body.email + "',address='" + req.body.address + "',city='" + req.body.city + "', state='" + req.body.state + "', zipcode='" + req.body.zipcode + "',password='" + req.body.password + "', phonenumber='" + req.body.phonenumber + "', ccnumber='" + req.body.ccnumber + "' where customerid='" + req.body.customerid + "'";
-    console.log("get updateProfile query is:" + updateProfileQuery);
-
-    connection.query(updateProfileQuery, function (err, results) {
-        if (err) {
-            throw err;
-        }
-        else {
-            console.log("user profile updated");
-            json_responses = {"statusCode": "profileUpdated"};
-            res.send(json_responses);
-        }
-    });
-});
-
-/**Function to get products on the HomePage starts**/
-router.get('/getHomeDashboard', function (req, res, next) {
-    console.log("inside dashboard node");
-    productsCollection.find({approved: "Y"}).toArray(function (err, data) {
-        if (data) {
-            // console.log(data);
-            res.send(data);
-        }
-    });
-});
-
-/**Function to add a product to the cart starts**/
-router.post('/addProductToCart', function (req, res, next) {
-
-    var product = req.body.product;
-    console.log("product added : " + JSON.stringify(product));
-
-    mongo.connect(mongoURL, function () {
-        var coll = mongo.collection('carts');
-
-        coll.update(
-            {cartid: req.session.username},
-            {$push: {products: product}}, function (err, result) {
-                if (result) {
-                    console.log(result);
-                    res.send(200);
-                }
-                else {
-                    console.log("returned false");
-                }
-            });
-    });
-});
-
-/**Function to get the current user's cart starts**/
-router.get('/getCart', function (req, res, next) {
-    var cartid = req.session.username;
-    mongo.connect(mongoURL, function () {
-        var coll = mongo.collection('carts');
-
-        coll.find({"cartid": cartid}).toArray(function (err, data) {
-            if (data) {
-                console.log(data);
-                var total = 0;
-                for (var a in data[0].products) {
-                    total += Number(data[0].products[a].productprice);
-                }
-                total = Number(total.toFixed(2));
-                var json_responses = {
-                    "cartItems": data[0].products,
-                    "cartTotal": total,
-                    "cartid": data[0].cartid
-                };
-                console.log("Cart total is " + total);
-                res.send(json_responses);
-            }
-        });
-    });
-});
-
-/**Function to delete a product from the cart starts**/
-router.post('/deleteProductFromCart', function (req, res, next) {
-    var productid = req.body.productid;
-    console.log("productid is :" + productid);
-    mongo.connect(mongoURL, function () {
-        var coll = mongo.collection('carts');
-
-        coll.update(
-            {cartid: req.session.username},
-            {$pull: {products: {productid: productid}}}, function (err, result) {
-                if (result) {
-                    console.log(result);
-                    res.send(200);
-                }
-                else {
-                    console.log("returned false");
-                }
-            });
-    });
-});
-
-/**Function to get Homepage Left categories starts**/
-router.get('/getHomeCategories', function (req, res, next) {
-    console.log("inside getHomeCategories node");
-    productsCollection.distinct('category', function (err, data) {
-        if (data) {
-            console.log(data);
-            res.send(data);
-        }
-
-    });
-});
-
-
-/**Function to search results starts**/
-router.get('/getSearchResults', function (req, res, next) {
-    var searchItem = req.query.data;
-    console.log("searchItem is :" + searchItem);
-
-
-    //client.get("getSearchResults", function (err, result) {
-    /*if (result !== null) {
-     console.log("Sending SearchResults from redis");
-     res.send(result);
-     }*/
-    //  else {
-    mongo.connect(mongoURL, function () {
-        var coll = mongo.collection('productdetails');
-
-        coll.createIndex({"productname": "text", "category": "text"}, function (err, results) {
-                coll.find({$text: {$search: searchItem}}).toArray(function (err, items) {
-
-                    if (items) {
-                        console.log(items);
-                        res.send(items);
-                        console.log("Storing searchresults in redis");
-                        /*client.set("getSearchResults", JSON.stringify(items), function (err, ans) {
-                         client.expire("getSearchResults", 1, function (err, didSetExpire) {
-                         console.log("getSearchResults key Expired");
-                         });
-                         });*/
-
-                    }
-                    else {
-                        console.log("returned false");
-                    }
-                })
-            }
-        );
-    });
-    //}
-});
-//});
-/**Function to search results ends**/
-
-/**Checkout Functionality starts**/
-router.post('/checkout', function (req, res, next) {
-    var cartItems = req.body.cartItems;
-    var deliveryDate = req.body.deliveryDate;
-    deliveryDate = deliveryDate.substring(0, 10);
-    var cartid = req.body.cartid;
-    var cartTotal = req.body.cartTotal;
-
-    var min = 10000;
-    var max = 999999;
-    var orderid = Math.floor(Math.random() * (max - min + 1)) + min;
-    console.log("OrderID is  : " + orderid);
-
-    mongo.connect(mongoURL, function () {
-        var coll = mongo.collection('carts');
-        coll.remove({"cartid": cartid}, function (err, result) {
-            if (result) {
-                console.log("Cart " + cartid + "has been removed");
-            }
-            else {
-                console.log("returned false");
-            }
-        })
-
-    });
-
-    mongo.connect(mongoURL, function () {
-        var orderColl = mongo.collection('orderdetails');
-        orderColl.insert({
-            "orderid": orderid,
-            "cartid": cartid,
-            "products": cartItems,
-            "ordertotal": cartTotal,
-            "deliveryDate": deliveryDate
-        }, function (err, result) {
-            if (result) {
-                //console.log("result orderid "+JSON.stringify(result));
-                console.log("Cart " + cartid + "has been inserted into orderdetails");
-
-                orderColl.find({orderid: orderid}).toArray(function (err, data) {
-                    if (data) {
-                        console.log("here " + data);
-                        generateBill(data);
-                        res.send(200);
-                    }
-                });
-            } else {
-                console.log("returned false");
-            }
-        })
-    });
-});
-/**Checkout Functionality ends**/
-
-/**Generate bill after checkout starts**/
-function generateBill(orderData) {
-    var billid = orderData[0].orderid;
-    var deliverydate = orderData[0].deliveryDate;
-    var total = orderData[0].ordertotal;
-    var customerid = orderData[0].cartid;
-
-    var query = "INSERT INTO billdetails(billid , billdate , deliverydate , total , customerid) VALUES ('" + billid + "' , NOW(),'" + deliverydate + "' , '" + total + "' , '" + customerid + "')";
-
-    connection.query(query, function (err, result) {
-        if (err) {
-            throw err;
-        } else {
-            console.log("bill generated");
-        }
-    });
-}
-
-/**Generate bill after checkout starts**/
-
-router.get('/getOrderHistory', function (req, res, next) {
-    var userid = req.session.username;
-
-    mongo.connect(mongoURL, function () {
-        var orderColl = mongo.collection('orderdetails');
-
-        orderColl.find({cartid: userid}).toArray(function (err, data) {
-            if (data) {
-                console.log("getOrderHistory : " + data);
-                res.send(data);
-            }
-        });
-    });
-});
-
-router.get('/getDeliveryInfo', function (req, res, next) {
-    console.log("in getDeliveryInfo");
-
-    // console.log(req.body.editCity);
-
-    var query = "select o.billid, productid, productname, productquantity, deliverydate from orderdetails o, billdetails b" +
-        "where o.farmerid = '111-11-1111' and o.billid = b.billid" +
-        "order by deliverydate";
-    connection.query(query, function (err, result) {
-        if (err) {
-            throw err;
-        }
-        else {
-            //  console.log("update:"+JSON.stringify(result));
-            res.send(result);
-        }
-    })
-});
-
-router.get('/getFarmerReviewsHome', function (req, res, next) {
-    farmerreviews.findOne({farmerid: req.session.farmerid}, function (err, data) {
-        if (data) {
-            console.log(data);
-            res.send(data);
-        }
-    });
 });
 
 module.exports = router;

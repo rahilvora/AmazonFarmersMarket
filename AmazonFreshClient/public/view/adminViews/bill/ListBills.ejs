@@ -1,6 +1,6 @@
 <div>
     <h1 style="float:left">List of Bills</h1>
-    <h4 style="float:right">Assign trips to unassigned bills: <button class="btn btn-success">AssignTrips</button></h4>
+    <h4 style="float:right">Assign trips to unassigned bills: <button class="btn btn-success" ng-click="assigntrips()">AssignTrips</button></h4>
     <form>
         <div class="form-group">
             <input ng-model="search.$" type="text" class="form-control" placeholder="Search">
@@ -10,17 +10,19 @@
     <table class="table table-bordered table-striped">
         <tr>
             <th>Bill ID</th>
-            <th>Customer ID</th>
-            <th>Bill Data</th>
+            <th>Bill Date</th>
             <th>Delivery Date</th>
             <th>Total</th>
+            <th>Customer ID</th>
+            <th>Trips Assigned Status</th>
         </tr>
         <tr ng-repeat="bill in bills.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage)) | filter:search">
             <td> {{bill.billid}} </td>
-            <td> {{bill.customerid}} </td>
             <td> {{bill.billdate | date:'dd-MM-yyyy'}} </td>
             <td> {{bill.deliverydate | date:'dd-MM-yyyy'}} </td>
             <td> {{bill.total}} </td>
+            <td> {{bill.customerid}} </td>
+            <td> {{bill.tripassigned}} </td>
         </tr>
     </table>
     <uib-pagination total-items="totalItems" ng-model="currentPage"></uib-pagination>

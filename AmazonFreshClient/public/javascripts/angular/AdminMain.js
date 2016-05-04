@@ -12,11 +12,10 @@ adminApp.controller("FarmerController", ["$scope", "$http", "$location", functio
     $scope.farmers = [];
 
     //Get Requests
-
     $http.get('api/getFarmers').then(function(result){
         var data = result.data;
         $scope.farmersAvailable = data;
-        $scope.viewby = 100;
+        $scope.viewby = 10;
         $scope.totalItems = data.length;
         $scope.currentPage = 1;
         $scope.itemsPerPage = $scope.viewby;
@@ -24,8 +23,12 @@ adminApp.controller("FarmerController", ["$scope", "$http", "$location", functio
     });
 
     $http.get('api/getAddFarmerRequests').then(function(result){
-        console.log(result.data);
-        $scope.farmers = result.data;
+        var data = result.data;
+        $scope.farmers = data;
+        $scope.viewby = 10;
+        $scope.totalItems = data.length;
+        $scope.currentPage = 1;
+        $scope.itemsPerPage = $scope.viewby;
         //$location.path('/farmers/new');
     });
 
@@ -53,27 +56,33 @@ adminApp.controller("ProductController",["$scope","$http","$location",function($
 
     //Get Requests
 
-    $http.get('api/getProducts').then(function(result){
+    $scope.refresh = function() {
+        $http.get('api/getProducts').then(function (result) {
+            var data = result.data;
+            $scope.productsAvailable = result.data;
+            $scope.viewby = 10;
+            $scope.totalItems = data.length;
+            $scope.currentPage = 1;
+            $scope.itemsPerPage = $scope.viewby;
+            //$location.path('/products');
+        });
+    }
+    $scope.refresh();
+
+    //Put Request
+    $http.get('api/getAddProductRequests').then(function(result){
         var data = result.data;
-        $scope.productsAvailable = result.data;
-        $scope.viewby = 100;
+        $scope.products = data;
+        $scope.viewby = 10;
         $scope.totalItems = data.length;
         $scope.currentPage = 1;
         $scope.itemsPerPage = $scope.viewby;
-        //$location.path('/products');
+        //$location.path('/products/new');
     });
-
-    $http.get('api/getAddProductRequests').then(function(result){
-        console.log(result.data);
-        $scope.products = result.data;
-       // $location.path('/products/new');
-    });
-
-    //Put Request
-
     $scope.addProduct = function(p_productid){
+        debugger;
         $http.put('api/addProduct',{productid:p_productid}).then(function(result){
-            location.reload();
+            $scope.refresh();
             $location.path('/products');
         });
     }
@@ -81,10 +90,13 @@ adminApp.controller("ProductController",["$scope","$http","$location",function($
     //Delete Request
 
     $scope.deleteProduct = function(p_productid){
+        debugger;
         $http.delete('api/deleteProduct',{params: {data:p_productid}}).then(function(result){
+            $scope.refresh();
             $location.path('/products');
         });
     }
+
 }]);
 
 adminApp.controller("DriverController",["$scope","$http","$location",function($scope,$http,$location){
@@ -95,7 +107,7 @@ adminApp.controller("DriverController",["$scope","$http","$location",function($s
         $http.get('api/getDrivers').then(function (result) {
             var data = result.data;
             $scope.drivers = data;
-            $scope.viewby = 100;
+            $scope.viewby = 10;
             $scope.totalItems = data.length;
             $scope.currentPage = 1;
             $scope.itemsPerPage = $scope.viewby;
@@ -107,8 +119,14 @@ adminApp.controller("DriverController",["$scope","$http","$location",function($s
 
     $scope.addDriver = function(){
         $http.post('api/addDriver',$scope.form).then(function(result){
-            $scope.refresh();
-            $location.path('/driver');
+            debugger;
+            if(result.data.primary === false){
+                $location.path('/driver/new');
+            }
+            else{
+                $scope.refresh();
+                $location.path('/driver');
+            }
         });
     };
 
@@ -122,9 +140,7 @@ adminApp.controller("DriverController",["$scope","$http","$location",function($s
     //Put Request
 
     $scope.updateDriver = function(){
-        debugger;
         try{
-            $scope.form.CurrentDriverId = drivers[0].driverid;
             $http.put('api/updateDriver',$scope.form).then(function(result){
                 $scope.refresh();
                 $location.path('/driver');
@@ -168,7 +184,7 @@ adminApp.controller("TruckController",["$scope","$http","$location",function($sc
         $http.get('api/getTrucks').then(function(result){
             var data = result.data;
             $scope.trucks = data;
-            $scope.viewby = 100;
+            $scope.viewby = 10;
             $scope.totalItems = data.length;
             $scope.currentPage = 1;
             $scope.itemsPerPage = $scope.viewby;
@@ -225,23 +241,11 @@ adminApp.controller("CustomerController", ["$scope", "$http", "$location", funct
         console.log("Total Customers: " + data.length);
         $scope.customersAvailable = data;
 
-        $scope.viewby = 100;
+        $scope.viewby = 10;
         $scope.totalItems = data.length;
         $scope.currentPage = 1;
         $scope.itemsPerPage = $scope.viewby;
 
-        //$scope.setPage = function (pageNo) {
-        //    $scope.currentPage = pageNo;
-        //};
-        //
-        //$scope.pageChanged = function() {
-        //    console.log('Page changed to: ' + $scope.currentPage);
-        //};
-        //
-        //$scope.setItemsPerPage = function(num) {
-        //    $scope.itemsPerPage = num;
-        //    $scope.currentPage = 1; //reset to first paghe
-        //}
     });
 
     $http.get('api/getAddCustomerRequests').then(function(result){
@@ -249,10 +253,10 @@ adminApp.controller("CustomerController", ["$scope", "$http", "$location", funct
         console.log("Total Customer Requests are: " + result.data.length);
         $scope.customers = data;
 
-        $scope.view = 100;
-        $scope.ti = data.length;
-        $scope.currPage = 1;
-        $scope.itemsPP = $scope.view;
+        $scope.viewby = 10;
+        $scope.totalItems = data.length;
+        $scope.currentPage = 1;
+        $scope.itemsPerPage = $scope.viewby;
         //$location.path('/customers/new');
     });
 
@@ -295,14 +299,18 @@ adminApp.controller("testController",["$scope",function($scope){
 
 adminApp.controller("BillController", ["$scope", "$http", "$location", function($scope,$http,$location){
     $scope.bills = [];
-
+    $scope.assigntrips = function(){
+      $http.post('api/assigntrip').then(function(result){
+          console.log("success");
+      })
+    };
     //Get Requests
 
     $http.get('api/getBills',{ cache: true}).then(function(result){
         var data = result.data;
         console.log(result.data);
         $scope.bills = data;
-        $scope.viewby = 100;
+        $scope.viewby = 10;
         $scope.totalItems = data.length;
         $scope.currentPage = 1;
         $scope.itemsPerPage = $scope.viewby;
@@ -318,7 +326,7 @@ adminApp.controller("TripController", ["$scope", "$http", "$location", "$window"
             var data = result.data;
             console.log("data is ::" + data);
             $scope.trips = data;
-            $scope.viewby = 100;
+            $scope.viewby = 10;
             $scope.totalItems = data.length;
             $scope.currentPage = 1;
             $scope.itemsPerPage = $scope.viewby;
@@ -335,6 +343,8 @@ adminApp.controller("TripController", ["$scope", "$http", "$location", "$window"
             $location.path('/trips/showmap');
         });
         **/
+        //alert('asdasd');
+        //window.location.href('http://localhost:3000/api/showmap' + p_tripid);
             $window.location.href = 'http://localhost:3000/api/showmap?tripid=' + p_tripid;
         
     };
@@ -370,7 +380,7 @@ adminApp.controller("StatisticRevenueController", ["$scope", "$http", "$location
         var mainArray = [];
         for(var a in data){
             var temp = [];
-            temp.push(data[a].dropoffzip);
+            temp.push(data[a].dropoffcity);
             temp.push(data[a].revenuePerDay);
             mainArray.push(temp);
         }
@@ -388,6 +398,7 @@ adminApp.controller("StatisticController", ["$scope", "$http", "$location", func
     });
 
     $scope.addData = function(){
+        debugger;
         $http.get('api/getRevenue',{params:{data:$scope.date}},{ cache: true}).then(function(result){
 
             $scope.data = result.data;
@@ -395,7 +406,7 @@ adminApp.controller("StatisticController", ["$scope", "$http", "$location", func
             callCharts(x);
             //$location.path('/trips');
         });
-    }
+    };
 
     $scope.getTrips = function(){
         console.log($scope.location);
@@ -418,7 +429,6 @@ adminApp.controller("StatisticChordController", ["$scope", "$http", "$location",
         //$location.path('/trips');
     });
 }]);
-
 
 adminApp.controller("StatisticRidesPerDriverController", ["$scope", "$http", "$location", function($scope,$http,$location){
     $scope.rides = [];

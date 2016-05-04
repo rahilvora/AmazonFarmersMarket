@@ -7,8 +7,8 @@ var bodyParser = require('body-parser');
 var session = require('client-sessions');
 
 //Added by Balaji
-var passport = require('passport');
-require('./routes/passport')(passport);
+//var passport = require('passport');
+//require('./routes/passport')(passport);
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -40,8 +40,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 //Added by Balaji
-app.use(passport.initialize());
-app.use(passport.session());
+//app.use(passport.initialize());
+//app.use(passport.session());
 
 app.use('/', routes);
 app.use('/api', api);

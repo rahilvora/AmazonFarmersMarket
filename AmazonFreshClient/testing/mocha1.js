@@ -6,7 +6,6 @@ var request = require('request')
 
 
 describe('http test',function(){
-
     it('it should make get request to get trips list',function(done){
         http.get('http://localhost:3000/admin#/trips',function(res){
             console.log(res.length);

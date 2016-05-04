@@ -1,14 +1,12 @@
-{{trips}}
-
 <script>
     function createJSON(data){
         var mainArray = [];
         var mainObject = [];
         debugger;
         for(var a in data){
-            if(mainArray.indexOf(data[a].pickuploc) == -1){
-                mainArray.push(data[a].pickuploc);
-                mainObject.push({"name":data[a].pickuploc,imports:[]});
+            if(mainArray.indexOf(data[a].pickupcity) == -1){
+                mainArray.push(data[a].pickupcity);
+                mainObject.push({"name":data[a].pickupcity,imports:[]});
             }
         }
         var sanjose = [],
@@ -20,34 +18,34 @@
             santaclara = [];
 
         for(var b in data){
-            switch (data[b].pickuploc.toLowerCase()){
+            switch (data[b].pickupcity.toLowerCase()){
                 case "san jose":{
-                    sanjose.push({"name":data[b].dropoffloc});
+                    sanjose.push({"name":data[b].dropoffcity});
                     break;
                 }
                 case "san francisco":{
-                    sanfrancisco.push({"name":data[b].dropoffloc});
+                    sanfrancisco.push({"name":data[b].dropoffcity});
                     break;
                 }
                 case "palo alto":{
-                    paloalto.push({"name":data[b].dropoffloc});
+                    paloalto.push({"name":data[b].dropoffcity});
                     break;
                 }
                 case "sunnyvale":{
-                    sunnyvale.push({"name":data[b].dropoffloc});
+                    sunnyvale.push({"name":data[b].dropoffcity});
                     break;
                 }
                 case "santa clara":{
-                    santaclara.push({"name":data[b].dropoffloc});
+                    santaclara.push({"name":data[b].dropoffcity});
                     console.log('sc');
                     break;
                 }
                 case "fremont":{
-                    fremont.push({"name":data[b].dropoffloc});
+                    fremont.push({"name":data[b].dropoffcity});
                     break;
                 }
                 case "mountain view":{
-                    mountainview.push({"name":data[b].dropoffloc});
+                    mountainview.push({"name":data[b].dropoffcity});
                     break;
                 }
             }

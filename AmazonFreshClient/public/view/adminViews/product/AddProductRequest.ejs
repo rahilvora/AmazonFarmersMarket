@@ -18,7 +18,7 @@
             <th> Accept </th>
             <th> Decline </th>
         </tr>
-        <tr ng-repeat="product in products | filter:search">
+        <tr ng-repeat="product in products.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage)) | filter:search">
             <td> {{product.productid}} </td>
             <td> {{product.productname}} </td>
             <td> {{product.description}} </td>
@@ -28,4 +28,5 @@
             <td><button ng-click="deleteProduct(product.productid)" class="btn btn-danger"> Reject</button></td>
         </tr>
     </table>
+    <uib-pagination total-items="totalItems" ng-model="currentPage"></uib-pagination>
 </div>
